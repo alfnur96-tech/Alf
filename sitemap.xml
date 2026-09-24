@@ -1,9 +1,22 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://alvenal.vercel.app/</loc></url>
-  <url><loc>https://alvenal.vercel.app/shop.html</loc></url>
-  <url><loc>https://alvenal.vercel.app/products.html</loc></url>
-  <url><loc>https://alvenal.vercel.app/about.html</loc></url>
-  <url><loc>https://alvenal.vercel.app/shipping.html</loc></url>
-  <url><loc>https://alvenal.vercel.app/contact.html</loc></url>
+  <url>
+    <loc>https://alvenstore.vercel.app/</loc>
+  </url>
+  <url>
+    <loc>https://alvenstore.vercel.app/shop.html</loc>
+  </url>
+  <url>
+    <loc>https://alvenstore.vercel.app/products.html</loc>
+  </url>
+  <url>
+    <loc>https://alvenstore.vercel.app/about.html</loc>
+  </url>
+  <url>
+    <loc>https://alvenstore.vercel.app/shipping.html</loc>
+  </url>
+  <url>
+    <loc>https://alvenstore.vercel.app/contact.html</loc>
+  </url>
 </urlset>
