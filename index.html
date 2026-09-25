@@ -1,2397 +1,858 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>ALVÉN | Premium Fashion & Sneakers in UAE</title>
-
-<meta name="description" content="Shop ALVÉN fashion, sneakers and streetwear. Browse products, prices in AED, available sizes and order across the UAE.">
-
-<link rel="canonical" href="https://alvenstore.vercel.app/">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="ALVÉN | Premium Fashion & Sneakers">
-<meta property="og:description" content="Shop ALVÉN fashion, sneakers and streetwear in AED.">
-<meta property="og:url" content="https://alvenstore.vercel.app/">
-<meta property="og:image" content="https://alvenstore.vercel.app/alven-logo.jpg">
-
-<meta name="twitter:card" content="summary_large_image">
-
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebSite",
-  "name":"ALVÉN",
-  "alternateName":"ALVÉN Store",
-  "url":"https://alvenstore.vercel.app/"
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "name":"ALVÉN",
-  "url":"https://alvenstore.vercel.app/",
-  "logo":"https://alvenstore.vercel.app/alven-logo.jpg",
-  "sameAs":["https://instagram.com/alven_sto"]
-}
-</script>
-
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALVÉN Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{
-  --bg:#f5f3ee;
-  --ink:#111;
-  --muted:#777;
-  --line:#ddd8cf;
-  --dark:#111
-}
-
-*{
-  box-sizing:border-box
-}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:Arial,Helvetica,sans-serif
-}
-
-a{
-  text-decoration:none;
-  color:inherit
-}
-
-.delivery-banner{
-  width:100%;
-  background:#111;
-  color:#fff;
-  text-align:center;
-  padding:10px 12px;
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:.12em;
-  text-transform:uppercase
-}
-
-.nav{
-  height:72px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 5%;
-  position:sticky;
-  top:0;
-  background:rgba(245,243,238,.95);
-  backdrop-filter:blur(12px);
-  z-index:20
-}
-
-.logo{
-  font-weight:900;
-  letter-spacing:.18em;
-  font-size:22px;
-  display:flex;
-  align-items:center;
-  gap:10px
-}
-
-.logo img{
-  width:42px;
-  height:42px;
-  object-fit:contain
-}
-
-.links{
-  display:flex;
-  gap:28px;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  font-size:11px
-}
-
-.actions{
-  display:flex;
-  gap:18px;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.1em
-}
-
-.actions button{
-  border:0;
-  background:none;
-  padding:0;
-  font:inherit;
-  letter-spacing:inherit;
-  text-transform:inherit;
-  cursor:pointer;
-  color:inherit
-}
-
-.hero{
-  min-height:76vh;
-  background:#111;
-  color:#fff;
-  display:flex;
-  align-items:flex-end;
-  padding:7%;
-  position:relative;
-  overflow:hidden
-}
-
-.hero:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 80% 25%,#444,transparent 32%),
-    linear-gradient(120deg,#101010,#252525)
-}
-
-.hero>*{
-  position:relative;
-  z-index:1
-}
-
-.eyebrow{
-  font-size:10px;
-  letter-spacing:.22em;
-  margin-bottom:22px
-}
-
-.hero h1{
-  font-size:clamp(68px,13vw,170px);
-  line-height:.78;
-  letter-spacing:-.08em;
-  margin:0 0 28px
-}
-
-.hero p{
-  max-width:520px;
-  color:#bbb;
-  line-height:1.6
-}
-
-.btn{
-  display:inline-block;
-  margin-top:18px;
-  background:#fff;
-  color:#111;
-  padding:15px 23px;
-  font-size:10px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  border:0;
-  cursor:pointer
-}
-
-.section{
-  padding:70px 5%
-}
-
-.head{
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  margin-bottom:30px
-}
-
-.head h2{
-  font-size:40px;
-  letter-spacing:-.05em;
-  margin:4px 0
-}
-
-.kicker{
-  font-size:10px;
-  color:#777;
-  letter-spacing:.2em
-}
-
-.textcats{
-  display:flex;
-  gap:30px;
-  border-bottom:1px solid var(--line);
-  overflow:auto;
-  white-space:nowrap
-}
-
-.textcats button{
-  border:0;
-  background:none;
-  padding:12px 0;
-  font-size:12px;
-  letter-spacing:.14em;
-  font-weight:700;
-  cursor:pointer;
-  color:#777
-}
-
-.textcats button:hover{
-  color:#111
-}
-
-.shoeBrands{
-  display:none;
-  gap:8px;
-  flex-wrap:wrap;
-  padding:16px 0;
-  border-bottom:1px solid var(--line)
-}
-
-.filters{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap
-}
-
-.filter{
-  padding:10px 15px;
-  border:1px solid #bbb;
-  background:none;
-  font-size:10px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  cursor:pointer
-}
-
-.filter.active{
-  background:#111;
-  color:#fff
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px
-}
-
-.card{
-  background:#fff;
-  position:relative
-}
-
-.pic{
-  aspect-ratio:4/5;
-  background:#e8e5df;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#999;
-  font-size:10px;
-  overflow:hidden
-}
-
-.pic img{
-  width:100%;
-  height:100%;
-  object-fit:cover
-}
-
-.info{
-  padding:14px
-}
-
-.info h3{
-  margin:0 0 7px;
-  font-size:14px
-}
-
-.meta{
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  gap:10px
-}
-
-.cattext{
-  font-size:9px;
-  color:#777;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  margin-top:7px
-}
-
-.buy{
-  width:100%;
-  border:0;
-  background:#111;
-  color:#fff;
-  padding:11px;
-  font-size:10px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  cursor:pointer
-}
-
-.empty{
-  grid-column:1/-1;
-  text-align:center;
-  padding:60px;
-  color:#777
-}
-
-.banner{
-  padding:90px 5%;
-  background:#ddd9d0
-}
-
-.banner h2{
-  font-size:clamp(40px,7vw,90px);
-  letter-spacing:-.06em;
-  margin:0
-}
-
-.footer{
-  background:#111;
-  color:#fff;
-  padding:55px 5%;
-  display:flex;
-  justify-content:space-between;
-  gap:30px
-}
-
-.footer p{
-  color:#999;
-  line-height:1.7
-}
-
-.drawer{
-  position:fixed;
-  right:0;
-  top:0;
-  width:min(430px,100%);
-  height:100%;
-  background:#fff;
-  z-index:50;
-  transform:translateX(100%);
-  transition:.25s;
-  box-shadow:-15px 0 40px #0002;
-  padding:25px;
-  display:flex;
-  flex-direction:column
-}
-
-.drawer.open{
-  transform:translateX(0)
-}
-
-.drawerhead{
-  display:flex;
-  justify-content:space-between
-}
-
-.cartitems{
-  flex:1;
-  overflow:auto;
-  margin:20px 0
-}
-
-.cartrow{
-  border-bottom:1px solid #eee;
-  padding:14px 0;
-  display:flex;
-  justify-content:space-between;
-  gap:12px
-}
-
-.close{
-  border:0;
-  background:none;
-  font-size:22px;
-  cursor:pointer
-}
-
-.checkout{
-  width:100%;
-  background:#25d366;
-  color:#fff;
-  border:0;
-  padding:15px;
-  font-weight:700;
-  cursor:pointer
-}
-
-.total{
-  font-size:16px;
-  font-weight:700;
-  margin-bottom:14px
-}
-
-.searchbox{
-  margin:0 0 20px
-}
-
-.searchbox input{
-  width:100%;
-  box-sizing:border-box;
-  padding:14px;
-  border:1px solid #ccc;
-  background:#fff;
-  color:#111;
-  outline:none;
-  letter-spacing:.08em
-}
-
-.searchbox input:focus{
-  border-color:#111
-}
-
-.gallery{
-  position:relative;
-  overflow:hidden
-}
-
-.gallery img{
-  width:100%;
-  height:100%;
-  object-fit:cover
-}
-
-.gallery-nav{
-  position:absolute;
-  inset:0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  pointer-events:none
-}
-
-.gallery-nav button{
-  pointer-events:auto;
-  border:0;
-  background:#111b;
-  color:#fff;
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  cursor:pointer
-}
-
-.gallery-dots{
-  position:absolute;
-  bottom:8px;
-  left:0;
-  right:0;
-  text-align:center
-}
-
-.gallery-dot{
-  display:inline-block;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#fff8;
-  margin:0 3px
-}
-
-.gallery-dot.active{
-  background:#fff
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#000b;
-  z-index:100;
-  align-items:center;
-  justify-content:center;
-  padding:16px
-}
-
-.modal.open{
-  display:flex
-}
-
-.modalbox{
-  background:#fff;
-  color:#111;
-  width:min(950px,100%);
-  max-height:92vh;
-  overflow:auto;
-  display:grid;
-  grid-template-columns:1.2fr .8fr
-}
-
-.modalgallery{
-  position:relative;
-  background:#eee;
-  min-height:420px
-}
-
-.modalgallery img{
-  width:100%;
-  height:100%;
-  max-height:80vh;
-  object-fit:contain;
-  display:block
-}
-
-.modalnav{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 12px;
-  pointer-events:none
-}
-
-.modalnav button{
-  pointer-events:auto;
-  border:0;
-  background:#111c;
-  color:#fff;
-  border-radius:50%;
-  width:42px;
-  height:42px;
-  font-size:24px;
-  cursor:pointer
-}
-
-.modalinfo{
-  padding:28px
-}
-
-.sizebtn{
-  min-width:44px;
-  padding:10px 12px;
-  border:1px solid #bbb;
-  background:#fff;
-  color:#111;
-  cursor:pointer;
-  font-size:11px
-}
-
-.sizebtn.active{
-  background:#111;
-  color:#fff;
-  border-color:#111
-}
-
-.modalclose{
-  position:absolute;
-  right:16px;
-  top:12px;
-  border:0;
-  background:#fff;
-  color:#111;
-  border-radius:50%;
-  width:38px;
-  height:38px;
-  font-size:24px;
-  z-index:3;
-  cursor:pointer
-}
-
-.thumbs{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  padding:10px
-}
-
-.thumbs img{
-  width:58px;
-  height:70px;
-  object-fit:cover;
-  cursor:pointer;
-  border:2px solid transparent
-}
-
-.thumbs img.active{
-  border-color:#111
-}
-
-.qty{
-  display:flex;
-  align-items:center;
-  gap:10px
-}
-
-.qty button{
-  width:28px;
-  height:28px;
-  border:1px solid #ccc;
-  background:#fff;
-  cursor:pointer
-}
-
-.remove{
-  border:0;
-  background:none;
-  color:#777;
-  cursor:pointer;
-  font-size:11px
-}
-
-@media(max-width:800px){
-
-  .links{
-    display:none
-  }
-
-  .grid{
-    grid-template-columns:repeat(2,1fr)
-  }
-
-  .head{
-    display:block
-  }
-
-  .filters{
-    margin-top:18px
-  }
-
-  .footer{
-    display:block
-  }
-
-  .hero h1{
-    font-size:72px
-  }
-
-  .modalbox{
-    grid-template-columns:1fr
-  }
-
-  .modalgallery{
-    min-height:55vh
-  }
-
-}
+*{box-sizing:border-box}body{margin:0;background:#111;color:#f7f5ef;font-family:Arial,Helvetica,sans-serif}.wrap{max-width:1150px;margin:auto;padding:28px 18px}.brand{text-align:center;margin-bottom:22px}.brand img{width:100px;height:100px;object-fit:contain}.brand h1{margin:5px 0;letter-spacing:.18em}.panel{background:#191919;border:1px solid #333;border-radius:14px;padding:20px;margin-bottom:18px}input,select,textarea{width:100%;padding:13px;background:#0f0f0f;border:1px solid #444;color:#fff;border-radius:8px;margin:7px 0 12px;font:inherit}textarea{min-height:80px}button{padding:13px 16px;border:0;border-radius:8px;cursor:pointer;font-weight:700}.primary{background:#fff;color:#111}.danger{background:#b33;color:#fff}.muted{color:#aaa;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.products{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#111;border:1px solid #333;border-radius:12px;overflow:hidden}.card img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#222}.card .body{padding:12px}.actions{display:flex;gap:8px;margin-top:10px}.actions button{flex:1}.hidden{display:none}.size-options{display:flex;flex-wrap:wrap;gap:8px;margin:7px 0 12px}.size-options label{display:flex;align-items:center;gap:5px;background:#0f0f0f;border:1px solid #444;padding:9px 11px;border-radius:8px;cursor:pointer}.size-options input{width:auto;margin:0}.preview{max-width:180px;max-height:180px;display:none;margin:8px 0;border-radius:8px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.error{color:#ff8585}.ok{color:#8cff9b}.order{background:#111;border:1px solid #333;border-radius:12px;padding:16px;margin-bottom:12px}.orderhead{display:flex;justify-content:space-between;gap:12px;align-items:center}.orderitems{margin:12px 0;padding:10px;background:#181818;border-radius:8px}.item{padding:8px 0;border-bottom:1px solid #333}.item:last-child{border-bottom:0}.badge{display:inline-block;padding:6px 9px;border-radius:20px;background:#333;font-size:11px}.ordergrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}.statusrow{display:flex;gap:8px;align-items:center;margin-top:12px}.statusrow select{max-width:180px;margin:0}.refresh{margin-left:8px}@media(max-width:750px){.grid,.products,.ordergrid{grid-template-columns:1fr}.top{display:block}.top button{margin-top:10px}.orderhead{display:block}}
 </style>
 </head>
-
 <body>
+<div class="wrap">
 
-<div class="delivery-banner">
-  🚚 FREE DELIVERY ACROSS UAE 🇦🇪
+<div class="brand">
+<img src="alven-logo.jpg" alt="ALVÉN">
+<h1>ALVÉN</h1>
+<div class="muted">ADMIN PANEL</div>
 </div>
 
-<nav class="nav">
+<section id="login" class="panel">
+<h2>Admin Sign In</h2>
+<div class="muted">Sign in with your Supabase admin account.</div>
+<input id="email" type="email" placeholder="Admin email" autocomplete="username">
+<input id="password" type="password" placeholder="Password" autocomplete="current-password">
+<button id="loginBtn" class="primary">SIGN IN</button>
+<p id="loginMsg" class="error"></p>
+</section>
 
-<a class="logo" href="/" aria-label="ALVÉN home">
-  <img src="alven-logo.jpg" alt="ALVÉN logo">
-  <span>ALVÉN</span>
-</a>
+<section id="app" class="hidden">
 
-<div class="links">
-  <a href="/shop.html">Shop</a>
-  <a href="/products.html">Products</a>
-  <a href="/about.html">About</a>
-  <a href="/shipping.html">Shipping</a>
-  <a href="/contact.html">Contact</a>
+<div class="panel top">
+<div>
+<b>ALVÉN Admin</b>
+<div class="muted">Products + customer orders</div>
+</div>
+<div>
+<button class="primary" onclick="openStore()">OPEN SHOP</button>
+<button id="logoutBtn">LOG OUT</button>
+</div>
 </div>
 
-<div class="actions">
-  <button type="button" onclick="focusSearch()">Search</button>
-  <button type="button" onclick="openCart()">Bag (<b id="count">0</b>)</button>
+<section class="panel">
+<div class="top">
+<div>
+<h2 style="margin:0">Orders</h2>
+<div class="muted">Customer orders placed through the website.</div>
+</div>
+<button class="primary refresh" onclick="loadOrders()">REFRESH ORDERS</button>
 </div>
 
-</nav>
-
-<header class="hero" id="new">
-  <div>
-
-    <div class="eyebrow">
-      NEW DROP • PREMIUM STREETWEAR • AED PRICES
-    </div>
-
-    <h1>ALVÉN</h1>
-
-    <p>
-      Modern essentials designed for your everyday.
-      Clean silhouettes, premium attitude and effortless streetwear.
-    </p>
-
-    <a class="btn" href="/shop.html">
-      Shop Collection
-    </a>
-
-  </div>
-</header>
-
-<section class="section">
-
-  <div class="searchbox" style="display:flex;gap:8px">
-
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="SEARCH PRODUCTS..."
-      autocomplete="off"
-      oninput="setSearch(this.value)"
-      onkeydown="if(event.key==='Enter'){event.preventDefault();runSearch()}"
-      style="flex:1"
-    >
-
-    <button class="filter" type="button" onclick="runSearch()">
-      SEARCH
-    </button>
-
-    <button class="filter" type="button" onclick="clearSearch()">
-      CLEAR
-    </button>
-
-  </div>
-
-  <div class="head">
-
-    <div>
-      <div class="kicker">EXPLORE</div>
-      <h2>SHOP</h2>
-    </div>
-
-  </div>
-
-  <div class="textcats">
-    <button onclick="pick('SHOES')">SHOES</button>
-    <button onclick="pick('HOODIE')">HOODIE</button>
-    <button onclick="pick('PANTS')">PANTS</button>
-    <button onclick="pick('T-SHIRT')">T-SHIRT</button>
-  </div>
-
-  <div id="shoeBrands" class="shoeBrands"></div>
-
+<p id="ordersMsg"></p>
+<div id="orders">
+<div class="muted">Loading orders...</div>
+</div>
 </section>
 
-<section class="section" id="shop">
+<section class="panel">
+<h2>Add Product</h2>
 
-  <div class="head">
+<div class="grid">
 
-    <div>
-      <div class="kicker">THE COLLECTION</div>
-      <h2>Latest Pieces</h2>
-    </div>
+<div>
+<label>Product name</label>
+<input id="name" placeholder="e.g. ALVÉN Hoodie">
+</div>
 
-    <div class="filters" id="filters"></div>
+<div>
+<label>Price (AED)</label>
+<input id="price" type="number" min="0" step="1" placeholder="150">
+</div>
 
-  </div>
+<div>
+<label>Category</label>
+<select id="category">
+<option>SHOES</option>
+<option>HOODIE</option>
+<option>PANTS</option>
+<option>T-SHIRT</option>
+</select>
+</div>
 
-  <div class="grid" id="products">
-    <div class="empty">
-      Loading collection...
-    </div>
-  </div>
+<div id="brandWrap">
+<label>Shoe brand</label>
+<select id="brand">
+<option>ADIDAS</option>
+<option>NIKE</option>
+<option>PUMA</option>
+<option>JORDAN</option>
+<option>NEW BALANCE</option>
+<option>LOUIS VUITTON</option>
+<option>GUCCI</option>
+<option>BALENCIAGA</option>
+<option>DIOR</option>
+<option>PRADA</option>
+<option>OTHER BRANDS</option>
+</select>
 
+<label>Shoe number</label>
+<div id="shoeSizes" class="size-options"></div>
+<div class="muted">Select all available shoe numbers.</div>
+</div>
+
+<div>
+<label>Product colors</label>
+<input id="colors" placeholder="Black, White, Red">
+<div class="muted">Separate multiple colors with commas.</div>
+</div>
+
+<div>
+<label>Product image — choose from phone gallery</label>
+<input id="image" type="file" accept="image/*" multiple>
+<img id="preview" class="preview" alt="Preview">
+</div>
+
+</div>
+
+<button id="addBtn" class="primary">UPLOAD IMAGE + ADD PRODUCT</button>
+<p id="msg"></p>
 </section>
 
-<section class="banner">
-
-  <h2>
-    BUILT FOR<br>
-    YOUR EVERYDAY.
-  </h2>
-
+<section class="panel">
+<h2>Products</h2>
+<div id="products" class="products">
+<div class="muted">Loading...</div>
+</div>
 </section>
 
-<footer class="footer" id="contact">
-
-  <div>
-
-    <div class="logo">
-      <img src="alven-logo.jpg" alt="ALVÉN logo">
-      <span>ALVÉN</span>
-    </div>
-
-    <p>
-      Modern fashion. Simple identity.
-    </p>
-
-  </div>
-
-  <div>
-
-    <b>SHOP</b>
-
-    <p>
-      <a href="/shop.html">Shop</a><br>
-      <a href="/products.html">Products</a><br>
-      <a href="/shipping.html">Shipping</a>
-    </p>
-
-  </div>
-
-  <div>
-
-    <b>ABOUT</b>
-
-    <p>
-      <a href="/about.html">About ALVÉN</a><br>
-      <a href="/contact.html">Contact</a>
-    </p>
-
-  </div>
-
-</footer>
-
-<!-- CART -->
-
-<aside class="drawer" id="drawer">
-
-  <div class="drawerhead">
-
-    <h2>Your Bag</h2>
-
-    <button class="close" onclick="closeCart()">
-      ×
-    </button>
-
-  </div>
-
-  <div class="cartitems" id="cartitems"></div>
-
-  <div class="total">
-    Total: <span id="total">AED 0</span>
-  </div>
-
-  <button class="checkout" onclick="chooseOrder()">
-    CHOOSE ORDER METHOD
-  </button>
-
-  <div
-    id="orderChoice"
-    style="display:none;margin-top:10px;gap:8px"
-  >
-
-    <button
-      class="filter"
-      style="flex:1"
-      onclick="checkoutWhatsApp()"
-    >
-      WHATSAPP
-    </button>
-
-    <button
-      class="filter"
-      style="flex:1"
-      onclick="checkoutInstagram()"
-    >
-      INSTAGRAM
-    </button>
-
-  </div>
-
-</aside>
-
-<!-- PRODUCT MODAL -->
-
-<div
-  class="modal"
-  id="productModal"
-  onclick="if(event.target===this)closeProduct()"
->
-
-  <div class="modalbox">
-
-    <button class="modalclose" onclick="closeProduct()">
-      ×
-    </button>
-
-    <div class="modalgallery" id="modalGallery"></div>
-
-    <div class="modalinfo">
-
-      <div class="kicker">
-        PRODUCT
-      </div>
-
-      <h2 id="modalTitle"></h2>
-
-      <h3 id="modalPrice"></h3>
-
-      <p id="modalCategory" class="cattext"></p>
-
-      <!-- COLOR PICKER -->
-
-      <div
-        id="colorPicker"
-        style="display:none;margin-top:22px"
-      >
-
-        <b style="font-size:11px;letter-spacing:.12em">
-          SELECT COLOR
-        </b>
-
-        <div
-          id="productColors"
-          style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px"
-        ></div>
-
-        <small
-          id="colorMsg"
-          style="display:block;color:#b00020;margin-top:8px"
-        ></small>
-
-      </div>
-
-      <!-- SHOE SIZE PICKER -->
-
-      <div
-        id="sizePicker"
-        style="display:none;margin-top:22px"
-      >
-
-        <b style="font-size:11px;letter-spacing:.12em">
-          SELECT SHOE SIZE
-        </b>
-
-        <div
-          id="shoeSizes"
-          style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px"
-        ></div>
-
-        <small
-          id="sizeMsg"
-          style="display:block;color:#b00020;margin-top:8px"
-        ></small>
-
-      </div>
-
-      <button
-        class="buy"
-        style="margin-top:25px"
-        onclick="addModalToBag()"
-      >
-        ADD TO BAG
-      </button>
-
-    </div>
-
-  </div>
-
+</section>
 </div>
 
 <script>
+const SUPABASE_URL='https://oqvyrehcqxsmzpunxeys.supabase.co',
+SUPABASE_KEY='sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a',
+BUCKET='product-images';
 
-const SUPABASE_URL =
-'https://oqvyrehcqxsmzpunxeys.supabase.co';
-
-const SUPABASE_KEY =
-'sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a';
-
-const WA =
-'971556324924';
-
-const IG =
-'https://www.instagram.com/alven_sto';
-
-const SHOE_BRANDS=[
-  'ADIDAS',
-  'NIKE',
-  'PUMA',
-  'JORDAN',
-  'NEW BALANCE',
-  'LOUIS VUITTON',
-  'GUCCI',
-  'BALENCIAGA',
-  'DIOR',
-  'PRADA',
-  'OTHER BRANDS'
-];
-
-let all=[];
-let cart=[];
-let selected='SHOES';
-let selectedBrand='';
-
-window.selectedShoeSize='';
-window.selectedColor='';
-
-try{
-
-  cart=JSON.parse(
-    localStorage.getItem('alven_cart')||'[]'
-  );
-
-}catch(e){
-
-  cart=[];
-
-}
+let db=null;
+let brandAvailable=true;
+let sizeAvailable=true;
+let colorsAvailable=true;
 
 const $=id=>document.getElementById(id);
 
-const esc=s=>String(s??'').replace(
-  /[&<>"']/g,
-  m=>({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    '"':'&quot;',
-    "'":'&#39;'
-  }[m])
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[m]));
+
+function init(){
+if(typeof supabase==='undefined')return false;
+
+db=supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY,
+{
+auth:{
+persistSession:true,
+autoRefreshToken:true,
+detectSessionInUrl:true,
+flowType:'pkce'
+}
+}
 );
 
-async function load(){
+return true;
+}
 
-  const box=$('products');
+function msg(t,ok=false){
+$('msg').textContent=t;
+$('msg').className=ok?'ok':'error';
+}
 
-  box.innerHTML=
-    '<div class="empty">Loading collection...</div>';
+function sizes(){
+return [...document.querySelectorAll('#shoeSizes input:checked')].map(x=>x.value);
+}
 
-  renderFilters();
+function makeSizeBoxes(){
+let a=[];
+for(let n=36;n<=47;n++){
+a.push(`<label><input type="checkbox" value="${n}"> ${n}</label>`);
+}
+$('shoeSizes').innerHTML=a.join('');
+}
 
-  try{
+function parseColors(v){
+if(Array.isArray(v))
+return v.map(String).map(x=>x.trim()).filter(Boolean);
 
-    const controller=new AbortController();
+if(!v)return[];
 
-    const timer=setTimeout(
-      ()=>controller.abort(),
-      7000
-    );
+return String(v)
+.split(',')
+.map(x=>x.trim())
+.filter(Boolean);
+}
 
-    let r=await fetch(
-      SUPABASE_URL+
-      '/rest/v1/products?select=id,name,price,category,brand,image_url,image_urls,shoe_sizes,colors&order=id.desc',
-      {
-        headers:{
-          apikey:SUPABASE_KEY,
-          Authorization:'Bearer '+SUPABASE_KEY
-        },
-        signal:controller.signal
-      }
-    );
+function colorsText(a){
+return parseColors(a).join(', ');
+}
 
-    clearTimeout(timer);
+function updateCategoryUI(){
+$('brandWrap').classList.toggle(
+'hidden',
+$('category').value!=='SHOES'
+);
+}
 
-    if(!r.ok){
+$('category').onchange=updateCategoryUI;
 
-      const c2=new AbortController();
+makeSizeBoxes();
+updateCategoryUI();
 
-      const t2=setTimeout(
-        ()=>c2.abort(),
-        7000
-      );
+$('image').onchange=e=>{
+const f=[...(e.target.files||[])];
 
-      r=await fetch(
-        SUPABASE_URL+
-        '/rest/v1/products?select=id,name,price,category,image_url,shoe_sizes,colors&order=id.desc',
-        {
-          headers:{
-            apikey:SUPABASE_KEY,
-            Authorization:'Bearer '+SUPABASE_KEY
-          },
-          signal:c2.signal
-        }
-      );
+if(!f.length){
+$('preview').style.display='none';
+return;
+}
 
-      clearTimeout(t2);
+$('preview').src=URL.createObjectURL(f[0]);
+$('preview').style.display='block';
+$('msg').textContent=f.length+' photo(s) selected.';
+};
 
-    }
+async function loadProducts(){
 
-    if(!r.ok)
-      throw new Error('HTTP '+r.status);
+let r=await db
+.from('products')
+.select('id,name,price,category,brand,colors,shoe_sizes,image_url,image_urls')
+.order('id',{ascending:false});
 
-    const d=await r.json();
+if(r.error)
+r=await db
+.from('products')
+.select('id,name,price,category,brand,shoe_sizes,image_url,image_urls')
+.order('id',{ascending:false});
 
-    all=Array.isArray(d)?d:[];
+if(r.error&&/brand/i.test(r.error.message||'')){
+brandAvailable=false;
 
-    render();
+r=await db
+.from('products')
+.select('id,name,price,category,shoe_sizes,image_url')
+.order('id',{ascending:false});
+}
 
-  }catch(e){
+if(r.error){
+$('products').innerHTML=
+'<div class="error">'+esc(r.error.message)+'</div>';
+return;
+}
 
-    all=[];
+$('products').innerHTML=(r.data||[]).map(p=>`
 
-    box.innerHTML=
-      '<div class="empty">'+
-      'Collection could not be loaded.'+
-      '<br><small>'+
-      esc(
-        e.name==='AbortError'
-        ?'Connection timed out.'
-        :'Please check your Supabase products table.'
-      )+
-      '</small><br>'+
-      '<button class="filter" style="margin-top:12px" onclick="load()">RETRY</button>'+
-      '</div>';
+<article class="card">
 
-  }
+<img src="${esc(p.image_url||'')}" alt="${esc(p.name)}">
+
+<div class="body">
+
+<b>${esc(p.name||'')}</b>
+
+<div class="muted">
+AED ${Number(p.price||0).toFixed(0)}
+· ${esc(p.category||'')}
+${p.brand?' · '+esc(p.brand):''}
+${p.shoe_sizes?.length?' · Sizes: '+esc(p.shoe_sizes.join(', ')):''}
+${p.colors?' · Colors: '+esc(colorsText(p.colors)):''}
+${p.image_urls?.length>1?' · '+p.image_urls.length+' photos':''}
+</div>
+
+<div class="actions">
+
+<button onclick='editProduct(${JSON.stringify(p).replace(/</g,'\\u003c')})'>
+EDIT
+</button>
+
+<button
+class="danger"
+onclick="deleteProduct('${String(p.id).replace(/'/g,"\\'")}')">
+DELETE
+</button>
+
+</div>
+
+</div>
+
+</article>
+
+`).join('')||'<div class="muted">No products yet.</div>';
+}
+
+async function add(){
+
+const name=$('name').value.trim();
+const price=Number($('price').value);
+const category=$('category').value;
+const brand=category==='SHOES'?$(
+'brand'
+).value:null;
+
+const shoe_sizes=category==='SHOES'?sizes():[];
+
+const colors=parseColors($('colors').value);
+
+const files=[...($('image').files||[])];
+
+if(!name||!Number.isFinite(price)||!files.length){
+msg('Enter name, price and choose one or more photos.');
+return;
+}
+
+if(category==='SHOES'&&!shoe_sizes.length){
+msg('Select at least one shoe number.');
+return;
+}
+
+$('addBtn').disabled=true;
+$('addBtn').textContent='UPLOADING PHOTOS...';
+msg('');
+
+try{
+
+const urls=[];
+
+for(const file of files){
+
+const ext=(file.name.split('.').pop()||'jpg')
+.toLowerCase()
+.replace(/[^a-z0-9]/g,'')||'jpg';
+
+const path=`${Date.now()}-${crypto.randomUUID()}.${ext}`;
+
+const up=await db
+.storage
+.from(BUCKET)
+.upload(
+path,
+file,
+{
+contentType:file.type||'image/jpeg',
+upsert:false
+}
+);
+
+if(up.error)throw up.error;
+
+urls.push(
+db.storage
+.from(BUCKET)
+.getPublicUrl(path)
+.data.publicUrl
+);
 
 }
 
-function renderFilters(){
+let payload={
+name,
+price,
+category,
+image_url:urls[0],
+image_urls:urls
+};
 
-  const cs=[
-    'SHOES',
-    'HOODIE',
-    'PANTS',
-    'T-SHIRT'
-  ];
+if(category==='SHOES'&&sizeAvailable)
+payload.shoe_sizes=shoe_sizes;
 
-  $('filters').innerHTML=
-    cs.map(c=>
-      `<button class="filter ${c===selected?'active':''}"
-      onclick="pick('${c}')">${c}</button>`
-    ).join('');
+if(brandAvailable)
+payload.brand=brand;
 
-  const b=$('shoeBrands');
+if(colorsAvailable)
+payload.colors=colorsText(colors);
 
-  if(selected==='SHOES'){
+let ins=await db
+.from('products')
+.insert(payload)
+.select()
+.single();
 
-    b.style.display='flex';
+if(ins.error&&/colors/i.test(ins.error.message||'')){
+delete payload.colors;
+colorsAvailable=false;
 
-    b.innerHTML=
-      SHOE_BRANDS.map(x=>
-        `<button
-        class="filter ${x===selectedBrand?'active':''}"
-        onclick="pickBrand('${x}')">
-        ${x}
-        </button>`
-      ).join('');
+ins=await db
+.from('products')
+.insert(payload)
+.select()
+.single();
+}
 
-  }else{
+if(ins.error&&/shoe_sizes/i.test(ins.error.message||'')){
+delete payload.shoe_sizes;
+sizeAvailable=false;
 
-    b.style.display='none';
-    b.innerHTML='';
+ins=await db
+.from('products')
+.insert(payload)
+.select()
+.single();
+}
 
-  }
+if(ins.error&&/image_urls/i.test(ins.error.message||'')){
+delete payload.image_urls;
+
+ins=await db
+.from('products')
+.insert(payload)
+.select()
+.single();
+}
+
+if(ins.error&&/brand/i.test(ins.error.message||'')){
+delete payload.brand;
+brandAvailable=false;
+
+ins=await db
+.from('products')
+.insert(payload)
+.select()
+.single();
+}
+
+if(ins.error)throw ins.error;
+
+$('name').value='';
+$('price').value='';
+$('colors').value='';
+$('image').value='';
+$('preview').style.display='none';
+
+document
+.querySelectorAll('#shoeSizes input')
+.forEach(x=>x.checked=false);
+
+msg('Product added successfully.',true);
+
+await loadProducts();
+
+}catch(e){
+
+msg(e.message||'Upload failed.');
+
+}finally{
+
+$('addBtn').disabled=false;
+$('addBtn').textContent='UPLOAD IMAGE + ADD PRODUCT';
+
+}
+}
+
+async function deleteProduct(id){
+
+if(!confirm('Delete this product?'))return;
+
+const r=await db
+.from('products')
+.delete()
+.eq('id',id);
+
+if(r.error)
+alert(r.error.message);
+else
+loadProducts();
+}
+
+async function editProduct(p){
+
+const name=prompt(
+'Product name:',
+p.name||''
+);
+
+if(name===null)return;
+
+const price=prompt(
+'Price (AED):',
+p.price??''
+);
+
+if(price===null)return;
+
+const category=prompt(
+'Category:',
+p.category||''
+);
+
+if(category===null)return;
+
+const u={
+name:name.trim(),
+price:Number(price),
+category:category.trim()
+};
+
+const c=category.trim().toUpperCase();
+
+if(c==='SHOES'&&sizeAvailable){
+
+const raw=prompt(
+'Shoe numbers (comma separated):',
+p.shoe_sizes?.join(', ')||'38, 39, 40'
+);
+
+if(raw===null)return;
+
+u.shoe_sizes=raw
+.split(',')
+.map(x=>x.trim())
+.filter(Boolean);
+}
+
+if(brandAvailable&&c==='SHOES'){
+
+const b=prompt(
+'Shoe brand:',
+p.brand||'NIKE'
+);
+
+if(b!==null)
+u.brand=b.trim().toUpperCase();
 
 }
 
-function pick(c){
+if(colorsAvailable){
 
-  selected=c;
-  selectedBrand='';
+const raw=prompt(
+'Product colors (comma separated):',
+colorsText(p.colors)
+);
 
-  renderFilters();
-  render();
+if(raw===null)return;
 
-  document
-    .getElementById('shop')
-    .scrollIntoView({
-      behavior:'smooth'
-    });
+u.colors=colorsText(raw);
+}
+
+const r=await db
+.from('products')
+.update(u)
+.eq('id',p.id);
+
+if(r.error)
+alert(r.error.message);
+else
+loadProducts();
+}
+
+function itemHtml(x){
+
+return `
+<div class="item">
+
+<b>${esc(x.name||'Product')}</b>
+× ${Number(x.qty||1)}
+
+${x.color?' · Color: '+esc(x.color):''}
+
+${x.size?' · Size: '+esc(x.size):''}
+
+<br>
+
+<span class="muted">
+AED ${Number(x.price||0).toFixed(0)} each
+</span>
+
+</div>
+`;
+}
+
+function statusOptions(status){
+
+return [
+'NEW',
+'CONFIRMED',
+'SHIPPED',
+'DELIVERED',
+'CANCELLED'
+]
+.map(s=>`
+<option ${s===status?'selected':''}>
+${s}
+</option>
+`)
+.join('');
+}
+
+async function loadOrders(){
+
+$('orders').innerHTML=
+'<div class="muted">Loading orders...</div>';
+
+const r=await db
+.from('orders')
+.select(
+'id,created_at,customer_name,phone,address,city,notes,payment_method,items,total,status'
+)
+.order(
+'created_at',
+{ascending:false}
+);
+
+if(r.error){
+
+$('orders').innerHTML=
+'<div class="error">'+
+esc(r.error.message)+
+'<br><small>Make sure the orders table and RLS policies are created.</small>'+
+'</div>';
+
+return;
+}
+
+$('orders').innerHTML=(r.data||[])
+.map(o=>{
+
+let items=Array.isArray(o.items)
+?o.items
+:[];
+
+let date=new Date(o.created_at)
+.toLocaleString();
+
+return `
+
+<article class="order">
+
+<div class="orderhead">
+
+<div>
+
+<b>Order #${esc(o.id)}</b>
+
+<div class="muted">
+${esc(date)}
+</div>
+
+</div>
+
+<span class="badge">
+${esc(o.status||'NEW')}
+</span>
+
+</div>
+
+<div
+class="ordergrid"
+style="margin-top:12px"
+>
+
+<div>
+<b>Customer</b><br>
+${esc(o.customer_name)}
+</div>
+
+<div>
+<b>Phone</b><br>
+${esc(o.phone)}
+</div>
+
+<div>
+<b>Address</b><br>
+${esc(o.address)}
+</div>
+
+<div>
+<b>City</b><br>
+${esc(o.city||'')}
+</div>
+
+<div>
+<b>Payment</b><br>
+${esc(o.payment_method||'')}
+</div>
+
+<div>
+<b>Total</b><br>
+AED ${Number(o.total||0).toFixed(0)}
+</div>
+
+</div>
+
+<div class="orderitems">
+
+<b>Products</b>
+
+${items.map(itemHtml).join('')}
+
+</div>
+
+${o.notes?
+`<div class="muted">
+<b>Notes:</b> ${esc(o.notes)}
+</div>`
+:''}
+
+<div class="statusrow">
+
+<b>Status:</b>
+
+<select
+onchange="updateOrderStatus('${String(o.id).replace(/'/g,"\\'")}',this.value)"
+>
+
+${statusOptions(o.status||'NEW')}
+
+</select>
+
+</div>
+
+</article>
+`;
+
+})
+.join('')||'<div class="muted">No orders yet.</div>';
+}
+
+async function updateOrderStatus(id,status){
+
+const r=await db
+.from('orders')
+.update({status})
+.eq('id',id);
+
+if(r.error){
+
+alert(r.error.message);
+await loadOrders();
+
+}else{
+
+await loadOrders();
+
+}
+}
+
+function openStore(){
+
+window.open(
+location.protocol==='file:'
+?'index.html#shop'
+:location.origin+'/#shop',
+'_blank'
+);
 
 }
 
-function pickBrand(b){
+$('addBtn').onclick=add;
 
-  selected='SHOES';
-  selectedBrand=b;
+$('logoutBtn').onclick=async()=>{
+await db.auth.signOut();
+location.reload();
+};
 
-  renderFilters();
-  render();
+$('loginBtn').onclick=async()=>{
 
-  document
-    .getElementById('shop')
-    .scrollIntoView({
-      behavior:'smooth'
-    });
+const email=$('email').value.trim();
+const password=$('password').value;
+
+if(!db){
+$('loginMsg').textContent=
+'Admin connection is not ready.';
+return;
+}
+
+if(!email||!password){
+$('loginMsg').textContent=
+'Enter your email and password.';
+return;
+}
+
+$('loginBtn').disabled=true;
+$('loginBtn').textContent='SIGNING IN...';
+
+try{
+
+const r=await db.auth.signInWithPassword({
+email,
+password
+});
+
+if(r.error)
+throw r.error;
+
+if(!r.data.session)
+throw new Error(
+'No login session was created.'
+);
+
+$('login').classList.add('hidden');
+$('app').classList.remove('hidden');
+
+await loadProducts();
+await loadOrders();
+
+}catch(e){
+
+$('loginMsg').textContent=
+e.message||'Sign in failed.';
+
+}finally{
+
+$('loginBtn').disabled=false;
+$('loginBtn').textContent='SIGN IN';
+
+}
+};
+
+if(init()){
+
+db.auth.onAuthStateChange(
+(event,session)=>{
+
+if(session){
+
+$('login').classList.add('hidden');
+$('app').classList.remove('hidden');
+
+loadProducts();
+loadOrders();
+
+}else if(event==='SIGNED_OUT'){
+
+$('login').classList.remove('hidden');
+$('app').classList.add('hidden');
 
 }
 
-function productImages(p){
+});
 
-  if(
-    Array.isArray(p.image_urls) &&
-    p.image_urls.length
-  )
-    return p.image_urls;
+db.auth.getSession()
+.then(async({data,error})=>{
 
-  if(typeof p.image_urls==="string"){
+if(error){
 
-    try{
-
-      let a=JSON.parse(p.image_urls);
-
-      if(Array.isArray(a)&&a.length)
-        return a;
-
-    }catch(e){}
-
-  }
-
-  return p.image_url
-    ? [p.image_url]
-    : [];
+$('loginMsg').textContent=error.message;
+return;
 
 }
 
-function normalizeSearch(v){
+if(data.session){
 
-  return String(v??"")
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g," ");
+$('login').classList.add('hidden');
+$('app').classList.remove('hidden');
 
-}
-
-function setSearch(v){
-
-  window.alvenSearch=
-    normalizeSearch(v);
-
-  render();
+await loadProducts();
+await loadOrders();
 
 }
 
-function runSearch(){
-
-  const el=
-    document.getElementById('searchInput');
-
-  window.alvenSearch=
-    normalizeSearch(
-      el?el.value:""
-    );
-
-  render();
-
-  document
-    .getElementById('shop')
-    .scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
+});
 
 }
-
-function clearSearch(){
-
-  window.alvenSearch="";
-
-  const el=
-    document.getElementById('searchInput');
-
-  if(el)
-    el.value="";
-
-  render();
-
-}
-
-function changePhoto(id,dir){
-
-  const p=
-    all.find(
-      x=>String(x.id)===String(id)
-    );
-
-  if(!p)
-    return;
-
-  const imgs=
-    productImages(p);
-
-  if(imgs.length<2)
-    return;
-
-  const box=
-    document.getElementById(
-      'gallery-'+id
-    );
-
-  let i=
-    Number(box.dataset.i||0)+dir;
-
-  if(i<0)
-    i=imgs.length-1;
-
-  if(i>=imgs.length)
-    i=0;
-
-  box.dataset.i=i;
-
-  box.querySelector('img').src=
-    imgs[i];
-
-  box
-    .querySelectorAll('.gallery-dot')
-    .forEach(
-      (d,n)=>
-      d.classList.toggle(
-        'active',
-        n===i
-      )
-    );
-
-}
-
-function shoeSizes(p){
-
-  if(
-    !p ||
-    String(p.category||'')
-      .toUpperCase()!=='SHOES'
-  )
-    return[];
-
-  let a=p.shoe_sizes;
-
-  if(typeof a==='string'){
-
-    try{
-
-      a=JSON.parse(a);
-
-    }catch(e){
-
-      a=a.split(',');
-
-    }
-
-  }
-
-  return Array.isArray(a)
-    ?a
-      .map(x=>String(x).trim())
-      .filter(Boolean)
-      .sort(
-        (a,b)=>Number(a)-Number(b)
-      )
-    :[];
-
-}
-
-/* PRODUCT COLORS */
-
-function productColors(p){
-
-  if(!p)
-    return[];
-
-  let a=p.colors;
-
-  if(typeof a==='string'){
-
-    try{
-
-      const parsed=JSON.parse(a);
-
-      if(Array.isArray(parsed)){
-
-        a=parsed;
-
-      }else{
-
-        a=a.split(',');
-
-      }
-
-    }catch(e){
-
-      a=a.split(',');
-
-    }
-
-  }
-
-  if(Array.isArray(a)){
-
-    return a
-      .map(x=>String(x).trim())
-      .filter(Boolean);
-
-  }
-
-  return[];
-
-}
-
-function selectProductColor(color){
-
-  window.selectedColor=
-    String(color);
-
-  $('colorMsg').textContent='';
-
-  document
-    .querySelectorAll(
-      '#productColors .sizebtn'
-    )
-    .forEach(
-      b=>
-      b.classList.toggle(
-        'active',
-        b.textContent===
-        String(color)
-      )
-    );
-
-}
-
-function openProduct(id){
-
-  window.modalProductId=id;
-  window.selectedShoeSize='';
-  window.selectedColor='';
-
-  const p=
-    all.find(
-      x=>String(x.id)===String(id)
-    );
-
-  if(!p)
-    return;
-
-  const imgs=
-    productImages(p);
-
-  const g=$('modalGallery');
-
-  g.dataset.i=0;
-
-  g.innerHTML=
-    '<img id="modalMain" src="'+
-    esc(imgs[0]||'')+
-    '" alt="'+
-    esc(p.name||'')+
-    '">'+
-
-    '<div class="modalnav">'+
-    '<button onclick="modalPhoto(-1)">‹</button>'+
-    '<button onclick="modalPhoto(1)">›</button>'+
-    '</div>'+
-
-    '<div class="thumbs">'+
-    imgs.map(
-      (u,i)=>
-      '<img class="'+
-      (i===0?'active':'')+
-      '" src="'+esc(u)+
-      '" onclick="modalSet('+i+')">'
-    ).join('')+
-    '</div>';
-
-  $('modalTitle').textContent=
-    p.name||'ALVÉN';
-
-  $('modalPrice').textContent=
-    'AED '+
-    Number(p.price||0).toFixed(0);
-
-  $('modalCategory').textContent=
-    (p.category||'')+
-    (p.brand?' · '+p.brand:'');
-
-  /* COLOR */
-
-  const colors=
-    productColors(p);
-
-  const colorPicker=
-    $('colorPicker');
-
-  const colorWrap=
-    $('productColors');
-
-  const colorMsg=
-    $('colorMsg');
-
-  if(colors.length){
-
-    colorPicker.style.display='block';
-
-    colorMsg.textContent='';
-
-    colorWrap.innerHTML=
-      colors.map(
-        color=>
-        '<button type="button" '+
-        'class="sizebtn" '+
-        'onclick="selectProductColor(\''+
-        esc(color).replace(/'/g,'&#39;')+
-        '\')">'+
-        esc(color)+
-        '</button>'
-      ).join('');
-
-  }else{
-
-    colorPicker.style.display='none';
-    colorWrap.innerHTML='';
-    colorMsg.textContent='';
-
-  }
-
-  /* SHOE SIZE */
-
-  const sizes=
-    shoeSizes(p);
-
-  const picker=
-    $('sizePicker');
-
-  const wrap=
-    $('shoeSizes');
-
-  const msg=
-    $('sizeMsg');
-
-  if(
-    String(p.category||'')
-      .toUpperCase()==='SHOES'
-  ){
-
-    picker.style.display='block';
-    msg.textContent='';
-
-    if(sizes.length){
-
-      wrap.innerHTML=
-        sizes.map(
-          sz=>
-          '<button type="button" '+
-          'class="sizebtn" '+
-          'onclick="selectShoeSize(\''+
-          esc(sz).replace(/'/g,'&#39;')+
-          '\')">'+
-          esc(sz)+
-          '</button>'
-        ).join('');
-
-    }else{
-
-      wrap.innerHTML=
-        '<span style="color:#777;font-size:12px">'+
-        'No sizes listed'+
-        '</span>';
-
-    }
-
-  }else{
-
-    picker.style.display='none';
-    wrap.innerHTML='';
-    msg.textContent='';
-
-  }
-
-  $('productModal')
-    .classList.add('open');
-
-  document.body.style.overflow='hidden';
-
-  setupModalSwipe();
-
-}
-
-function selectShoeSize(size){
-
-  window.selectedShoeSize=
-    String(size);
-
-  $('sizeMsg').textContent='';
-
-  document
-    .querySelectorAll(
-      '#shoeSizes .sizebtn'
-    )
-    .forEach(
-      b=>
-      b.classList.toggle(
-        'active',
-        b.textContent===
-        String(size)
-      )
-    );
-
-}
-
-function modalSet(i){
-
-  const id=
-    window.modalProductId;
-
-  const p=
-    all.find(
-      x=>String(x.id)===String(id)
-    );
-
-  if(!p)
-    return;
-
-  const imgs=
-    productImages(p);
-
-  if(!imgs.length)
-    return;
-
-  i=Math.max(
-    0,
-    Math.min(
-      i,
-      imgs.length-1
-    )
-  );
-
-  $('modalGallery')
-    .dataset.i=i;
-
-  $('modalMain').src=
-    imgs[i];
-
-  document
-    .querySelectorAll('.thumbs img')
-    .forEach(
-      (x,n)=>
-      x.classList.toggle(
-        'active',
-        n===i
-      )
-    );
-
-}
-
-function modalPhoto(dir){
-
-  const id=
-    window.modalProductId;
-
-  const p=
-    all.find(
-      x=>String(x.id)===String(id)
-    );
-
-  if(!p)
-    return;
-
-  const imgs=
-    productImages(p);
-
-  if(!imgs.length)
-    return;
-
-  let i=
-    Number(
-      $('modalGallery')
-        .dataset.i||0
-    )+dir;
-
-  if(i<0)
-    i=imgs.length-1;
-
-  if(i>=imgs.length)
-    i=0;
-
-  modalSet(i);
-
-}
-
-function setupModalSwipe(){
-
-  const g=
-    document.getElementById(
-      'modalGallery'
-    );
-
-  if(
-    !g ||
-    g.dataset.swipeReady
-  )
-    return;
-
-  g.dataset.swipeReady='1';
-
-  let sx=0;
-
-  g.addEventListener(
-    'touchstart',
-    e=>{
-      sx=
-        e.changedTouches[0]
-          .clientX
-    },
-    {passive:true}
-  );
-
-  g.addEventListener(
-    'touchend',
-    e=>{
-      const dx=
-        e.changedTouches[0]
-          .clientX-sx;
-
-      if(Math.abs(dx)>45)
-        modalPhoto(
-          dx<0?1:-1
-        );
-
-    },
-    {passive:true}
-  );
-
-}
-
-function closeProduct(){
-
-  $('productModal')
-    .classList.remove('open');
-
-  document.body.style.overflow='';
-
-  window.modalProductId=null;
-
-}
-
-function setupSlides(){
-
-  document
-    .querySelectorAll('.gallery')
-    .forEach(box=>{
-
-      let startX=0;
-
-      box.addEventListener(
-        'touchstart',
-        e=>{
-          startX=
-            e.changedTouches[0]
-              .clientX
-        },
-        {passive:true}
-      );
-
-      box.addEventListener(
-        'touchend',
-        e=>{
-
-          const dx=
-            e.changedTouches[0]
-              .clientX-startX;
-
-          if(Math.abs(dx)>45)
-            changePhoto(
-              box.id.replace(
-                'gallery-',
-                ''
-              ),
-              dx<0?1:-1
-            );
-
-        },
-        {passive:true}
-      );
-
-    });
-
-}
-
-function render(){
-
-  const q=
-    normalizeSearch(
-      window.alvenSearch||""
-    );
-
-  let list=
-    all.filter(p=>{
-
-      if(q){
-
-        return[
-          p.name,
-          p.category,
-          p.brand
-        ].some(
-          v=>
-          normalizeSearch(v)
-            .includes(q)
-        );
-
-      }
-
-      const c=
-        String(
-          p.category||''
-        ).toUpperCase();
-
-      if(selected==='HOODIE')
-        return c==='HOODIE'||
-          c==='HOODIES';
-
-      if(selected==='T-SHIRT')
-        return c==='T-SHIRT'||
-          c==='T-SHIRTS';
-
-      if(selected==='PANTS')
-        return c==='PANTS'||
-          c==='PANT';
-
-      return c==='SHOES';
-
-    });
-
-  if(
-    !q &&
-    selected==='SHOES' &&
-    selectedBrand
-  ){
-
-    list=
-      list.filter(
-        p=>
-        String(p.brand||'')
-          .toUpperCase()===
-        selectedBrand
-      );
-
-  }
-
-  $('products').innerHTML=
-    list.length
-
-    ?list.map(p=>{
-
-      const imgs=
-        productImages(p);
-
-      const id=
-        String(p.id);
-
-      const first=
-        imgs[0]||'';
-
-      return`
-      <article class="card">
-
-        <a
-          href="/product.html?id=${encodeURIComponent(id)}"
-          aria-label="View ${esc(p.name||'ALVÉN')}"
-        >
-
-          <div
-            class="gallery"
-            id="gallery-${esc(id)}"
-            style="aspect-ratio:4/5;background:#eee;cursor:pointer"
-            onclick="event.preventDefault();openProduct('${esc(id)}')"
-          >
-
-            <img
-              src="${esc(first)}"
-              alt="${esc(p.name||'ALVÉN')} | ALVÉN"
-              loading="lazy"
-            >
-
-            ${
-              imgs.length>1
-              ?
-              `<div class="gallery-nav">
-
-                <button
-                  onclick="event.preventDefault();event.stopPropagation();changePhoto('${esc(id)}',-1)"
-                >‹</button>
-
-                <button
-                  onclick="event.preventDefault();event.stopPropagation();changePhoto('${esc(id)}',1)"
-                >›</button>
-
-              </div>
-
-              <div class="gallery-dots">
-
-                ${
-                  imgs.map(
-                    (_,i)=>
-                    `<span class="gallery-dot ${i===0?'active':''}"></span>`
-                  ).join('')
-                }
-
-              </div>`
-              :''
-            }
-
-          </div>
-
-        </a>
-
-        <div class="info">
-
-          <a href="/product.html?id=${encodeURIComponent(id)}">
-
-            <h3>
-              ${esc(p.name||'ALVÉN')}
-            </h3>
-
-          </a>
-
-          <div class="meta">
-
-            <span>
-              AED ${Number(p.price||0).toFixed(0)}
-            </span>
-
-            <span>
-              ${esc(p.category||'')}
-              ${p.brand?' · '+esc(p.brand):''}
-            </span>
-
-          </div>
-
-        </div>
-
-        <button
-          class="buy"
-          data-add-id="${esc(id)}"
-        >
-          ADD TO BAG
-        </button>
-
-      </article>`;
-
-    }).join('')
-
-    :
-
-    '<div class="empty">No products found.</div>';
-
-  document
-    .querySelectorAll('[data-add-id]')
-    .forEach(
-      btn=>
-      btn.onclick=e=>{
-
-        e.stopPropagation();
-
-        const p=
-          all.find(
-            x=>
-            String(x.id)===
-            String(btn.dataset.addId)
-          );
-
-        if(p){
-
-          if(
-            String(p.category||'')
-              .toUpperCase()==='SHOES'
-          ){
-
-            openProduct(p.id);
-
-          }else{
-
-            /*
-              Products with colors also open
-              the product selector.
-            */
-
-            if(productColors(p).length){
-
-              openProduct(p.id);
-
-            }else{
-
-              addToCart(p);
-
-            }
-
-          }
-
-        }
-
-      }
-    );
-
-  setupSlides();
-
-}
-
-function focusSearch(){
-
-  const el=
-    document.getElementById(
-      'searchInput'
-    );
-
-  if(el){
-
-    el.focus();
-
-    el.scrollIntoView({
-      behavior:'smooth',
-      block:'center'
-    });
-
-  }
-
-}
-
-function addModalToBag(){
-
-  const p=
-    all.find(
-      x=>
-      String(x.id)===
-      String(window.modalProductId)
-    );
-
-  if(!p)
-    return;
-
-  const colors=
-    productColors(p);
-
-  const sizes=
-    shoeSizes(p);
-
-  /* COLOR REQUIRED */
-
-  if(
-    colors.length &&
-    !window.selectedColor
-  ){
-
-    $('colorMsg').textContent=
-      'Please choose a color.';
-
-    return;
-
-  }
-
-  /* SHOE SIZE REQUIRED */
-
-  if(
-    String(p.category||'')
-      .toUpperCase()==='SHOES'
-  ){
-
-    if(!sizes.length){
-
-      $('sizeMsg').textContent=
-        'No shoe sizes are available for this product.';
-
-      return;
-
-    }
-
-    if(!window.selectedShoeSize){
-
-      $('sizeMsg').textContent=
-        'Please choose a shoe size.';
-
-      return;
-
-    }
-
-  }
-
-  addToCart(
-    p,
-    window.selectedShoeSize||'',
-    window.selectedColor||''
-  );
-
-  closeProduct();
-
-}
-
-function addToCart(
-  p,
-  size='',
-  color=''
-){
-
-  const found=
-    cart.find(
-      x=>
-      String(x.id)===
-      String(p.id)&&
-      String(x.size||'')===
-      String(size||'')&&
-      String(x.color||'')===
-      String(color||'')
-    );
-
-  if(found){
-
-    found.qty++;
-
-  }else{
-
-    cart.push({
-      ...p,
-      size:size||'',
-      color:color||'',
-      qty:1
-    });
-
-  }
-
-  updateCart();
-  openCart();
-
-}
-
-function cartKey(x){
-
-  return String(x.id)+
-    '|'+
-    String(x.size||'')+
-    '|'+
-    String(x.color||'');
-
-}
-
-function updateCart(){
-
-  localStorage.setItem(
-    'alven_cart',
-    JSON.stringify(cart)
-  );
-
-  $('count').textContent=
-    cart.reduce(
-      (sum,x)=>
-      sum+Number(x.qty||0),
-      0
-    );
-
-  const box=
-    $('cartitems');
-
-  if(!cart.length){
-
-    box.innerHTML=
-      '<div class="empty">Your bag is empty.</div>';
-
-    $('total').textContent=
-      'AED 0';
-
-    return;
-
-  }
-
-  let total=0;
-
-  box.innerHTML=
-    cart.map(
-      (x,i)=>{
-
-        const price=
-          Number(x.price||0);
-
-        const qty=
-          Number(x.qty||1);
-
-        total+=
-          price*qty;
-
-        return`
-        <div class="cartrow">
-
-          <div style="flex:1">
-
-            <b>${esc(x.name||'ALVÉN')}</b>
-
-            ${
-              x.color
-              ?`<div style="font-size:11px;color:#777;margin-top:4px">
-                Color: ${esc(x.color)}
-              </div>`
-              :''
-            }
-
-            ${
-              x.size
-              ?`<div style="font-size:11px;color:#777;margin-top:4px">
-                Size: ${esc(x.size)}
-              </div>`
-              :''
-            }
-
-            <div style="font-size:12px;margin-top:5px">
-              AED ${price.toFixed(0)}
-            </div>
-
-            <div class="qty" style="margin-top:9px">
-
-              <button onclick="changeQty(${i},-1)">
-                −
-              </button>
-
-              <span>${qty}</span>
-
-              <button onclick="changeQty(${i},1)">
-                +
-              </button>
-
-              <button
-                class="remove"
-                onclick="removeCart(${i})"
-              >
-                REMOVE
-              </button>
-
-            </div>
-
-          </div>
-
-          <b>
-            AED ${(price*qty).toFixed(0)}
-          </b>
-
-        </div>`;
-
-      }
-    ).join('');
-
-  $('total').textContent=
-    'AED '+total.toFixed(0);
-
-}
-
-function changeQty(i,amount){
-
-  if(!cart[i])
-    return;
-
-  cart[i].qty=
-    Number(cart[i].qty||1)+amount;
-
-  if(cart[i].qty<=0)
-    cart.splice(i,1);
-
-  updateCart();
-
-}
-
-function removeCart(i){
-
-  cart.splice(i,1);
-
-  updateCart();
-
-}
-
-function openCart(){
-
-  $('drawer')
-    .classList.add('open');
-
-  updateCart();
-
-}
-
-function closeCart(){
-
-  $('drawer')
-    .classList.remove('open');
-
-}
-
-function chooseOrder(){
-
-  const choice=
-    $('orderChoice');
-
-  if(choice.style.display==='none'){
-
-    choice.style.display='flex';
-
-  }else{
-
-    choice.style.display='none';
-
-  }
-
-}
-
-function orderText(){
-
-  if(!cart.length)
-    return 'Hello ALVÉN, I would like to order.';
-
-  let total=0;
-
-  let text=
-    'Hello ALVÉN 👋%0A%0A'+
-    'I would like to order:%0A%0A';
-
-  cart.forEach((x,i)=>{
-
-    const price=
-      Number(x.price||0);
-
-    const qty=
-      Number(x.qty||1);
-
-    total+=
-      price*qty;
-
-    text+=
-      `${i+1}. ${encodeURIComponent(x.name||'Product')}`+
-      ` × ${qty}`;
-
-    if(x.color)
-      text+=
-        ` | Color: ${encodeURIComponent(x.color)}`;
-
-    if(x.size)
-      text+=
-        ` | Size: ${encodeURIComponent(x.size)}`;
-
-    text+=
-      ` | AED ${price.toFixed(0)}%0A`;
-
-  });
-
-  text+=
-    '%0A' +
-    'Total: AED '+
-    total.toFixed(0)+
-    '%0A%0A'+
-    '🚚 FREE DELIVERY ACROSS UAE 🇦🇪';
-
-  return text;
-
-}
-
-function checkoutWhatsApp(){
-
-  if(!cart.length){
-
-    alert('Your bag is empty.');
-
-    return;
-
-  }
-
-  const url=
-    'https://wa.me/'+
-    WA+
-    '?text='+
-    orderText();
-
-  window.open(
-    url,
-    '_blank'
-  );
-
-}
-
-function checkoutInstagram(){
-
-  if(!cart.length){
-
-    alert('Your bag is empty.');
-
-    return;
-
-  }
-
-  const url=
-    IG+
-    '?text='+orderText();
-
-  window.open(
-    url,
-    '_blank'
-  );
-
-}
-
-updateCart();
-load();
 
 </script>
-
 </body>
-</html>
+  </html>
