@@ -64,7 +64,6 @@ a{
   color:inherit
 }
 
-/* FREE DELIVERY */
 .delivery-banner{
   width:100%;
   background:#111;
@@ -632,6 +631,7 @@ a{
 }
 
 @media(max-width:800px){
+
   .links{
     display:none
   }
@@ -663,13 +663,13 @@ a{
   .modalgallery{
     min-height:55vh
   }
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- FREE DELIVERY BANNER -->
 <div class="delivery-banner">
   🚚 FREE DELIVERY ACROSS UAE 🇦🇪
 </div>
@@ -698,6 +698,7 @@ a{
 
 <header class="hero" id="new">
   <div>
+
     <div class="eyebrow">
       NEW DROP • PREMIUM STREETWEAR • AED PRICES
     </div>
@@ -712,6 +713,7 @@ a{
     <a class="btn" href="/shop.html">
       Shop Collection
     </a>
+
   </div>
 </header>
 
@@ -740,10 +742,12 @@ a{
   </div>
 
   <div class="head">
+
     <div>
       <div class="kicker">EXPLORE</div>
       <h2>SHOP</h2>
     </div>
+
   </div>
 
   <div class="textcats">
@@ -779,10 +783,12 @@ a{
 </section>
 
 <section class="banner">
+
   <h2>
     BUILT FOR<br>
     YOUR EVERYDAY.
   </h2>
+
 </section>
 
 <footer class="footer" id="contact">
@@ -830,8 +836,13 @@ a{
 <aside class="drawer" id="drawer">
 
   <div class="drawerhead">
+
     <h2>Your Bag</h2>
-    <button class="close" onclick="closeCart()">×</button>
+
+    <button class="close" onclick="closeCart()">
+      ×
+    </button>
+
   </div>
 
   <div class="cartitems" id="cartitems"></div>
@@ -844,19 +855,24 @@ a{
     CHOOSE ORDER METHOD
   </button>
 
-  <div id="orderChoice" style="display:none;margin-top:10px;gap:8px">
+  <div
+    id="orderChoice"
+    style="display:none;margin-top:10px;gap:8px"
+  >
 
     <button
       class="filter"
       style="flex:1"
-      onclick="checkoutWhatsApp()">
+      onclick="checkoutWhatsApp()"
+    >
       WHATSAPP
     </button>
 
     <button
       class="filter"
       style="flex:1"
-      onclick="checkoutInstagram()">
+      onclick="checkoutInstagram()"
+    >
       INSTAGRAM
     </button>
 
@@ -891,6 +907,31 @@ a{
       <h3 id="modalPrice"></h3>
 
       <p id="modalCategory" class="cattext"></p>
+
+      <!-- COLOR PICKER -->
+
+      <div
+        id="colorPicker"
+        style="display:none;margin-top:22px"
+      >
+
+        <b style="font-size:11px;letter-spacing:.12em">
+          SELECT COLOR
+        </b>
+
+        <div
+          id="productColors"
+          style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px"
+        ></div>
+
+        <small
+          id="colorMsg"
+          style="display:block;color:#b00020;margin-top:8px"
+        ></small>
+
+      </div>
+
+      <!-- SHOE SIZE PICKER -->
 
       <div
         id="sizePicker"
@@ -960,12 +1001,19 @@ let cart=[];
 let selected='SHOES';
 let selectedBrand='';
 
+window.selectedShoeSize='';
+window.selectedColor='';
+
 try{
+
   cart=JSON.parse(
     localStorage.getItem('alven_cart')||'[]'
   );
+
 }catch(e){
+
   cart=[];
+
 }
 
 const $=id=>document.getElementById(id);
@@ -1001,7 +1049,7 @@ async function load(){
 
     let r=await fetch(
       SUPABASE_URL+
-      '/rest/v1/products?select=id,name,price,category,brand,image_url,image_urls,shoe_sizes&order=id.desc',
+      '/rest/v1/products?select=id,name,price,category,brand,image_url,image_urls,shoe_sizes,colors&order=id.desc',
       {
         headers:{
           apikey:SUPABASE_KEY,
@@ -1024,7 +1072,7 @@ async function load(){
 
       r=await fetch(
         SUPABASE_URL+
-        '/rest/v1/products?select=id,name,price,category,image_url,shoe_sizes&order=id.desc',
+        '/rest/v1/products?select=id,name,price,category,image_url,shoe_sizes,colors&order=id.desc',
         {
           headers:{
             apikey:SUPABASE_KEY,
@@ -1117,7 +1165,9 @@ function pick(c){
 
   document
     .getElementById('shop')
-    .scrollIntoView({behavior:'smooth'});
+    .scrollIntoView({
+      behavior:'smooth'
+    });
 
 }
 
@@ -1131,7 +1181,9 @@ function pickBrand(b){
 
   document
     .getElementById('shop')
-    .scrollIntoView({behavior:'smooth'});
+    .scrollIntoView({
+      behavior:'smooth'
+    });
 
 }
 
@@ -1276,9 +1328,13 @@ function shoeSizes(p){
   if(typeof a==='string'){
 
     try{
+
       a=JSON.parse(a);
+
     }catch(e){
+
       a=a.split(',');
+
     }
 
   }
@@ -1294,10 +1350,78 @@ function shoeSizes(p){
 
 }
 
+/* PRODUCT COLORS */
+
+function productColors(p){
+
+  if(!p)
+    return[];
+
+  let a=p.colors;
+
+  if(typeof a==='string'){
+
+    try{
+
+      const parsed=JSON.parse(a);
+
+      if(Array.isArray(parsed)){
+
+        a=parsed;
+
+      }else{
+
+        a=a.split(',');
+
+      }
+
+    }catch(e){
+
+      a=a.split(',');
+
+    }
+
+  }
+
+  if(Array.isArray(a)){
+
+    return a
+      .map(x=>String(x).trim())
+      .filter(Boolean);
+
+  }
+
+  return[];
+
+}
+
+function selectProductColor(color){
+
+  window.selectedColor=
+    String(color);
+
+  $('colorMsg').textContent='';
+
+  document
+    .querySelectorAll(
+      '#productColors .sizebtn'
+    )
+    .forEach(
+      b=>
+      b.classList.toggle(
+        'active',
+        b.textContent===
+        String(color)
+      )
+    );
+
+}
+
 function openProduct(id){
 
   window.modalProductId=id;
   window.selectedShoeSize='';
+  window.selectedColor='';
 
   const p=
     all.find(
@@ -1346,6 +1470,48 @@ function openProduct(id){
   $('modalCategory').textContent=
     (p.category||'')+
     (p.brand?' · '+p.brand:'');
+
+  /* COLOR */
+
+  const colors=
+    productColors(p);
+
+  const colorPicker=
+    $('colorPicker');
+
+  const colorWrap=
+    $('productColors');
+
+  const colorMsg=
+    $('colorMsg');
+
+  if(colors.length){
+
+    colorPicker.style.display='block';
+
+    colorMsg.textContent='';
+
+    colorWrap.innerHTML=
+      colors.map(
+        color=>
+        '<button type="button" '+
+        'class="sizebtn" '+
+        'onclick="selectProductColor(\''+
+        esc(color).replace(/'/g,'&#39;')+
+        '\')">'+
+        esc(color)+
+        '</button>'
+      ).join('');
+
+  }else{
+
+    colorPicker.style.display='none';
+    colorWrap.innerHTML='';
+    colorMsg.textContent='';
+
+  }
+
+  /* SHOE SIZE */
 
   const sizes=
     shoeSizes(p);
@@ -1547,6 +1713,7 @@ function setupModalSwipe(){
         modalPhoto(
           dx<0?1:-1
         );
+
     },
     {passive:true}
   );
@@ -1795,10 +1962,28 @@ function render(){
           if(
             String(p.category||'')
               .toUpperCase()==='SHOES'
-          )
+          ){
+
             openProduct(p.id);
-          else
-            addToCart(p);
+
+          }else{
+
+            /*
+              Products with colors also open
+              the product selector.
+            */
+
+            if(productColors(p).length){
+
+              openProduct(p.id);
+
+            }else{
+
+              addToCart(p);
+
+            }
+
+          }
 
         }
 
@@ -1841,8 +2026,27 @@ function addModalToBag(){
   if(!p)
     return;
 
+  const colors=
+    productColors(p);
+
   const sizes=
     shoeSizes(p);
+
+  /* COLOR REQUIRED */
+
+  if(
+    colors.length &&
+    !window.selectedColor
+  ){
+
+    $('colorMsg').textContent=
+      'Please choose a color.';
+
+    return;
+
+  }
+
+  /* SHOE SIZE REQUIRED */
 
   if(
     String(p.category||'')
@@ -1871,14 +2075,19 @@ function addModalToBag(){
 
   addToCart(
     p,
-    window.selectedShoeSize||''
+    window.selectedShoeSize||'',
+    window.selectedColor||''
   );
 
   closeProduct();
 
 }
 
-function addToCart(p,size=''){
+function addToCart(
+  p,
+  size='',
+  color=''
+){
 
   const found=
     cart.find(
@@ -1886,17 +2095,25 @@ function addToCart(p,size=''){
       String(x.id)===
       String(p.id)&&
       String(x.size||'')===
-      String(size||'')
+      String(size||'')&&
+      String(x.color||'')===
+      String(color||'')
     );
 
-  if(found)
+  if(found){
+
     found.qty++;
-  else
+
+  }else{
+
     cart.push({
       ...p,
       size:size||'',
+      color:color||'',
       qty:1
     });
+
+  }
 
   updateCart();
   openCart();
@@ -1907,7 +2124,9 @@ function cartKey(x){
 
   return String(x.id)+
     '|'+
-    String(x.size||'');
+    String(x.size||'')+
+    '|'+
+    String(x.color||'');
 
 }
 
@@ -1961,6 +2180,14 @@ function updateCart(){
           <div style="flex:1">
 
             <b>${esc(x.name||'ALVÉN')}</b>
+
+            ${
+              x.color
+              ?`<div style="font-size:11px;color:#777;margin-top:4px">
+                Color: ${esc(x.color)}
+              </div>`
+              :''
+            }
 
             ${
               x.size
@@ -2086,11 +2313,16 @@ function orderText(){
     const qty=
       Number(x.qty||1);
 
-    total+=price*qty;
+    total+=
+      price*qty;
 
     text+=
       `${i+1}. ${encodeURIComponent(x.name||'Product')}`+
       ` × ${qty}`;
+
+    if(x.color)
+      text+=
+        ` | Color: ${encodeURIComponent(x.color)}`;
 
     if(x.size)
       text+=
@@ -2162,4 +2394,4 @@ load();
 </script>
 
 </body>
-    </html>
+</html>
