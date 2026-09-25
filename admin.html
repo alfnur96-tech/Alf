@@ -1,145 +1,1769 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ALVÉN Admin</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#111;color:#f7f5ef;font-family:Arial,Helvetica,sans-serif}.wrap{max-width:1100px;margin:auto;padding:28px 18px}.brand{text-align:center;margin-bottom:22px}.brand img{width:100px;height:100px;object-fit:contain}.brand h1{margin:5px 0;letter-spacing:.18em}.panel{background:#191919;border:1px solid #333;border-radius:14px;padding:20px;margin-bottom:18px}input,select{width:100%;padding:13px;background:#0f0f0f;border:1px solid #444;color:#fff;border-radius:8px;margin:7px 0 12px}button{padding:13px 16px;border:0;border-radius:8px;cursor:pointer;font-weight:700}.primary{background:#fff;color:#111}.danger{background:#b33;color:#fff}.muted{color:#aaa;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.products{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#111;border:1px solid #333;border-radius:12px;overflow:hidden}.card img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#222}.card .body{padding:12px}.actions{display:flex;gap:8px;margin-top:10px}.actions button{flex:1}.hidden{display:none}.size-options{display:flex;flex-wrap:wrap;gap:8px;margin:7px 0 12px}.size-options label{display:flex;align-items:center;gap:5px;background:#0f0f0f;border:1px solid #444;padding:9px 11px;border-radius:8px;cursor:pointer}.size-options input{width:auto;margin:0}.preview{max-width:180px;max-height:180px;display:none;margin:8px 0;border-radius:8px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.top a{color:#fff}.error{color:#ff8585}.ok{color:#8cff9b}@media(max-width:750px){.grid,.products{grid-template-columns:1fr}.top{display:block}.top button{margin-top:10px}}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#111;
+  color:#f7f5ef;
+  font-family:Arial,Helvetica,sans-serif
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:28px 18px
+}
+
+.brand{
+  text-align:center;
+  margin-bottom:22px
+}
+
+.brand img{
+  width:100px;
+  height:100px;
+  object-fit:contain
+}
+
+.brand h1{
+  margin:5px 0;
+  letter-spacing:.18em
+}
+
+.panel{
+  background:#191919;
+  border:1px solid #333;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:18px
+}
+
+input,select{
+  width:100%;
+  padding:13px;
+  background:#0f0f0f;
+  border:1px solid #444;
+  color:#fff;
+  border-radius:8px;
+  margin:7px 0 12px
+}
+
+button{
+  padding:13px 16px;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700
+}
+
+.primary{
+  background:#fff;
+  color:#111
+}
+
+.danger{
+  background:#b33;
+  color:#fff
+}
+
+.muted{
+  color:#aaa;
+  font-size:13px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px
+}
+
+.card{
+  background:#111;
+  border:1px solid #333;
+  border-radius:12px;
+  overflow:hidden
+}
+
+.card img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  background:#222
+}
+
+.card .body{
+  padding:12px
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:10px
+}
+
+.actions button{
+  flex:1
+}
+
+.hidden{
+  display:none
+}
+
+.size-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:7px 0 12px
+}
+
+.size-options label{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  background:#0f0f0f;
+  border:1px solid #444;
+  padding:9px 11px;
+  border-radius:8px;
+  cursor:pointer
+}
+
+.size-options input{
+  width:auto;
+  margin:0
+}
+
+.color-help{
+  margin-top:-5px;
+  margin-bottom:12px;
+  color:#aaa;
+  font-size:12px
+}
+
+.preview{
+  max-width:180px;
+  max-height:180px;
+  display:none;
+  margin:8px 0;
+  border-radius:8px
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center
+}
+
+.top a{
+  color:#fff
+}
+
+.error{
+  color:#ff8585
+}
+
+.ok{
+  color:#8cff9b
+}
+
+.color-list{
+  margin-top:5px;
+  font-size:12px;
+  color:#ccc
+}
+
+@media(max-width:750px){
+  .grid,
+  .products{
+    grid-template-columns:1fr
+  }
+
+  .top{
+    display:block
+  }
+
+  .top button{
+    margin-top:10px
+  }
+}
 </style>
 </head>
-<body>
-<div class="wrap">
-  <div class="brand"><img src="alven-logo.jpg" alt="ALVÉN"><h1>ALVÉN</h1><div class="muted">ADMIN PANEL</div></div>
 
+<body>
+
+<div class="wrap">
+
+  <!-- BRAND -->
+  <div class="brand">
+    <img src="alven-logo.jpg" alt="ALVÉN">
+    <h1>ALVÉN</h1>
+    <div class="muted">ADMIN PANEL</div>
+  </div>
+
+
+  <!-- LOGIN -->
   <section id="login" class="panel">
+
     <h2>Admin Sign In</h2>
-    <div class="muted">Sign in with your Supabase admin account.</div>
-    <input id="email" type="email" placeholder="Admin email" autocomplete="username">
-    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-    <button id="loginBtn" class="primary">SIGN IN</button>
+
+    <div class="muted">
+      Sign in with your Supabase admin account.
+    </div>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Admin email"
+      autocomplete="username"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
+    <button id="loginBtn" class="primary">
+      SIGN IN
+    </button>
+
     <p id="loginMsg" class="error"></p>
+
   </section>
 
-  <section id="app" class="hidden">
-    <div class="panel top"><div><b>ALVÉN Products</b><div class="muted">Supabase connected · Storage: product-images</div></div><div><button class="primary" type="button" onclick="openStore()">OPEN SHOP</button> <button id="logoutBtn">LOG OUT</button></div></div>
 
-    <section class="panel">
-      <h2>Add Product</h2>
-      <div class="grid">
-        <div><label>Product name</label><input id="name" placeholder="e.g. ALVÉN Hoodie"></div>
-        <div><label>Price (AED)</label><input id="price" type="number" min="0" step="1" placeholder="150"></div>
-        <div><label>Category</label><select id="category"><option>SHOES</option><option>HOODIE</option><option>PANTS</option><option>T-SHIRT</option></select></div><div id="brandWrap"><label>Shoe brand</label><select id="brand"><option>ADIDAS</option><option>NIKE</option><option>PUMA</option><option>JORDAN</option><option>NEW BALANCE</option><option>LOUIS VUITTON</option><option>GUCCI</option><option>BALENCIAGA</option><option>DIOR</option><option>PRADA</option><option>OTHER BRANDS</option></select><label>Shoe number</label><div id="shoeSizes" class="size-options"><label><input type="checkbox" value="36"> 36</label><label><input type="checkbox" value="37"> 37</label><label><input type="checkbox" value="38"> 38</label><label><input type="checkbox" value="39"> 39</label><label><input type="checkbox" value="40"> 40</label><label><input type="checkbox" value="41"> 41</label><label><input type="checkbox" value="42"> 42</label><label><input type="checkbox" value="43"> 43</label><label><input type="checkbox" value="44"> 44</label><label><input type="checkbox" value="45"> 45</label><label><input type="checkbox" value="46"> 46</label><label><input type="checkbox" value="47"> 47</label></div><div class="muted">Select all available shoe numbers.</div></div>
-        <div><label>Product image — choose from phone gallery</label><input id="image" type="file" accept="image/*" multiple><img id="preview" class="preview" alt="Preview"></div>
+  <!-- ADMIN APP -->
+  <section id="app" class="hidden">
+
+    <!-- TOP BAR -->
+    <div class="panel top">
+
+      <div>
+        <b>ALVÉN Products</b>
+
+        <div class="muted">
+          Supabase connected · Storage: product-images
+        </div>
       </div>
-      <button id="addBtn" class="primary">UPLOAD IMAGE + ADD PRODUCT</button>
+
+      <div>
+
+        <button
+          class="primary"
+          type="button"
+          onclick="openStore()"
+        >
+          OPEN SHOP
+        </button>
+
+        <button id="logoutBtn">
+          LOG OUT
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ADD PRODUCT -->
+    <section class="panel">
+
+      <h2>Add Product</h2>
+
+      <div class="grid">
+
+        <!-- PRODUCT NAME -->
+        <div>
+
+          <label>Product name</label>
+
+          <input
+            id="name"
+            placeholder="e.g. ALVÉN Hoodie"
+          >
+
+        </div>
+
+
+        <!-- PRICE -->
+        <div>
+
+          <label>Price (AED)</label>
+
+          <input
+            id="price"
+            type="number"
+            min="0"
+            step="1"
+            placeholder="150"
+          >
+
+        </div>
+
+
+        <!-- CATEGORY -->
+        <div>
+
+          <label>Category</label>
+
+          <select id="category">
+
+            <option>SHOES</option>
+            <option>HOODIE</option>
+            <option>PANTS</option>
+            <option>T-SHIRT</option>
+
+          </select>
+
+        </div>
+
+
+        <!-- SHOE BRAND + SIZE -->
+        <div id="brandWrap">
+
+          <label>Shoe brand</label>
+
+          <select id="brand">
+
+            <option>ADIDAS</option>
+            <option>NIKE</option>
+            <option>PUMA</option>
+            <option>JORDAN</option>
+            <option>NEW BALANCE</option>
+            <option>LOUIS VUITTON</option>
+            <option>GUCCI</option>
+            <option>BALENCIAGA</option>
+            <option>DIOR</option>
+            <option>PRADA</option>
+            <option>OTHER BRANDS</option>
+
+          </select>
+
+
+          <label>Shoe number</label>
+
+          <div id="shoeSizes" class="size-options">
+
+            <label>
+              <input type="checkbox" value="36"> 36
+            </label>
+
+            <label>
+              <input type="checkbox" value="37"> 37
+            </label>
+
+            <label>
+              <input type="checkbox" value="38"> 38
+            </label>
+
+            <label>
+              <input type="checkbox" value="39"> 39
+            </label>
+
+            <label>
+              <input type="checkbox" value="40"> 40
+            </label>
+
+            <label>
+              <input type="checkbox" value="41"> 41
+            </label>
+
+            <label>
+              <input type="checkbox" value="42"> 42
+            </label>
+
+            <label>
+              <input type="checkbox" value="43"> 43
+            </label>
+
+            <label>
+              <input type="checkbox" value="44"> 44
+            </label>
+
+            <label>
+              <input type="checkbox" value="45"> 45
+            </label>
+
+            <label>
+              <input type="checkbox" value="46"> 46
+            </label>
+
+            <label>
+              <input type="checkbox" value="47"> 47
+            </label>
+
+          </div>
+
+          <div class="muted">
+            Select all available shoe numbers.
+          </div>
+
+        </div>
+
+
+        <!-- COLORS -->
+        <div>
+
+          <label>
+            Product colors
+          </label>
+
+          <input
+            id="colors"
+            type="text"
+            placeholder="Black, White, Red"
+          >
+
+          <div class="color-help">
+            Enter multiple colors separated by commas.
+            Example: Black, White, Red
+          </div>
+
+        </div>
+
+
+        <!-- IMAGES -->
+        <div>
+
+          <label>
+            Product image — choose from phone gallery
+          </label>
+
+          <input
+            id="image"
+            type="file"
+            accept="image/*"
+            multiple
+          >
+
+          <img
+            id="preview"
+            class="preview"
+            alt="Preview"
+          >
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="addBtn"
+        class="primary"
+      >
+        UPLOAD IMAGE + ADD PRODUCT
+      </button>
+
       <p id="msg"></p>
+
     </section>
 
-    <section class="panel"><h2>Products</h2><div id="products" class="products"><div class="muted">Loading...</div></div></section>
+
+    <!-- PRODUCTS -->
+    <section class="panel">
+
+      <h2>Products</h2>
+
+      <div id="products" class="products">
+
+        <div class="muted">
+          Loading...
+        </div>
+
+      </div>
+
+    </section>
+
   </section>
+
 </div>
+
+
 <script>
-const SUPABASE_URL='https://oqvyrehcqxsmzpunxeys.supabase.co';
-const SUPABASE_KEY='sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a';
-const BUCKET='product-images';
-let brandAvailable=true,imagesAvailable=true,sizeAvailable=true;
-let db=null;
+
+/* ================================
+   SUPABASE
+================================ */
+
+const SUPABASE_URL =
+'https://oqvyrehcqxsmzpunxeys.supabase.co';
+
+const SUPABASE_KEY =
+'sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a';
+
+const BUCKET =
+'product-images';
+
+
+/* ================================
+   VARIABLES
+================================ */
+
+let brandAvailable = true;
+let imagesAvailable = true;
+let sizeAvailable = true;
+let colorsAvailable = true;
+
+let db = null;
+
+
+/* ================================
+   HELPERS
+================================ */
+
+const $ = id =>
+document.getElementById(id);
+
+
+const esc = s =>
+String(s ?? '').replace(
+  /[&<>"']/g,
+  m => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[m])
+);
+
+
+function msg(t,ok=false){
+
+  $('msg').textContent = t;
+
+  $('msg').className =
+    ok ? 'ok' : 'error';
+
+}
+
+
+/* ================================
+   COLORS
+================================ */
+
+function getColors(){
+
+  return $('colors')
+    .value
+    .split(',')
+    .map(x => x.trim())
+    .filter(Boolean);
+
+}
+
+
+function colorsToText(colors){
+
+  if(!Array.isArray(colors)){
+    return '';
+  }
+
+  return colors
+    .map(x => String(x).trim())
+    .filter(Boolean)
+    .join(', ');
+
+}
+
+
+function parseColors(value){
+
+  if(!value){
+    return [];
+  }
+
+  if(Array.isArray(value)){
+    return value
+      .map(x => String(x).trim())
+      .filter(Boolean);
+  }
+
+  if(typeof value === 'string'){
+
+    try{
+
+      const parsed =
+        JSON.parse(value);
+
+      if(Array.isArray(parsed)){
+        return parsed
+          .map(x => String(x).trim())
+          .filter(Boolean);
+      }
+
+    }catch(e){}
+
+    return value
+      .split(',')
+      .map(x => x.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+
+/* ================================
+   SHOE SIZES
+================================ */
+
+function selectedShoeSizes(){
+
+  return [
+    ...document.querySelectorAll(
+      '#shoeSizes input:checked'
+    )
+  ].map(x => x.value);
+
+}
+
+
+function setShoeSizes(values=[]){
+
+  const set =
+    new Set(
+      (values || [])
+        .map(String)
+    );
+
+  document
+    .querySelectorAll(
+      '#shoeSizes input'
+    )
+    .forEach(x => {
+
+      x.checked =
+        set.has(x.value);
+
+    });
+
+}
+
+
+/* ================================
+   SUPABASE INIT
+================================ */
+
 function initSupabase(){
-  if(typeof supabase==='undefined'){
-    $('loginBtn').disabled=true;
-    $('loginMsg').textContent='Connection library could not load. Check internet connection and refresh.';
+
+  if(typeof supabase === 'undefined'){
+
+    $('loginBtn').disabled = true;
+
+    $('loginMsg').textContent =
+      'Connection library could not load. Check internet connection and refresh.';
+
     return false;
   }
-  db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'} });
+
+  db =
+    supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY,
+      {
+        auth:{
+          persistSession:true,
+          autoRefreshToken:true,
+          detectSessionInUrl:true,
+          flowType:'pkce'
+        }
+      }
+    );
+
   return true;
 }
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function msg(t,ok=false){$('msg').textContent=t;$('msg').className=ok?'ok':'error'}
-function selectedShoeSizes(){return [...document.querySelectorAll('#shoeSizes input:checked')].map(x=>x.value)}
-function setShoeSizes(values=[]){const set=new Set((values||[]).map(String));document.querySelectorAll('#shoeSizes input').forEach(x=>x.checked=set.has(x.value))}
-$('category').addEventListener('change',()=>{$('brandWrap').classList.toggle('hidden',$('category').value!=='SHOES')});$('category').dispatchEvent(new Event('change'));
-$('image').addEventListener('change',e=>{const files=[...(e.target.files||[])];const p=$('preview');if(!files.length){p.style.display='none';return}p.src=window.URL.createObjectURL(files[0]);p.style.display='block';$('msg').textContent=files.length+' photo(s) selected.'});
-async function load(){
-  let result=await db.from('products').select('id,name,price,category,brand,shoe_sizes,image_url,image_urls').order('id',{ascending:false});
-  if(result.error){
-    result=await db.from('products').select('id,name,price,category,brand,shoe_sizes,image_url').order('id',{ascending:false});
-  }
-  if(result.error && /brand/i.test(result.error.message||'')){
-    brandAvailable=false;
-    result=await db.from('products').select('id,name,price,category,shoe_sizes,image_url').order('id',{ascending:false});
-  }
-  const {data,error}=result;
-  if(error){$('products').innerHTML='<div class="error">'+esc(error.message)+'</div>';return}
-  $('products').innerHTML=(data||[]).map(p=>`<article class="card"><img src="${esc(p.image_url||'')}" alt="${esc(p.name)}"><div class="body"><b>${esc(p.name||'')}</b><div class="muted">AED ${Number(p.price||0).toFixed(0)} · ${esc(p.category||'')}${p.brand?' · '+esc(p.brand):''}${Array.isArray(p.shoe_sizes)&&p.shoe_sizes.length?' · Sizes: '+esc(p.shoe_sizes.join(', ')):''}${Array.isArray(p.image_urls)&&p.image_urls.length>1?' · '+p.image_urls.length+' photos':''}</div><div class="actions"><button onclick='editProduct(${JSON.stringify(p).replace(/</g,'\\u003c')})'>EDIT</button><button class="danger" onclick="deleteProduct('${String(p.id).replace(/'/g,"\\'")}')">DELETE</button></div></div></article>`).join('')||'<div class="muted">No products yet.</div>';
+
+
+/* ================================
+   CATEGORY CHANGE
+================================ */
+
+function updateCategoryUI(){
+
+  const isShoes =
+    $('category').value === 'SHOES';
+
+  $('brandWrap').classList.toggle(
+    'hidden',
+    !isShoes
+  );
+
 }
-async function add(){
-  const name=$('name').value.trim(), price=Number($('price').value), category=$('category').value, brand=category==='SHOES'?$('brand').value:null, shoe_sizes=category==='SHOES'?selectedShoeSizes():[], files=[...($('image').files||[])];
-  if(!name||!Number.isFinite(price)||!files.length){msg('Enter name, price and choose one or more photos from your gallery.');return}
-  if(category==='SHOES'&&!shoe_sizes.length){msg('Select at least one shoe number (for example 38 or 39).');return}
-  $('addBtn').disabled=true;$('addBtn').textContent='UPLOADING PHOTOS...';msg('');
-  try{
-    const urls=[];
-    for(const file of files){
-      const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-      const path=`${Date.now()}-${crypto.randomUUID()}.${ext}`;
-      const up=await db.storage.from(BUCKET).upload(path,file,{contentType:file.type||'image/jpeg',upsert:false});
-      if(up.error)throw up.error;
-      urls.push(db.storage.from(BUCKET).getPublicUrl(path).data.publicUrl);
+
+
+$('category').addEventListener(
+  'change',
+  updateCategoryUI
+);
+
+updateCategoryUI();
+
+
+/* ================================
+   IMAGE PREVIEW
+================================ */
+
+$('image').addEventListener(
+  'change',
+  e => {
+
+    const files =
+      [...(e.target.files || [])];
+
+    const p =
+      $('preview');
+
+    if(!files.length){
+
+      p.style.display = 'none';
+
+      return;
     }
-    let payload={name,price,category,image_url:urls[0]};
-    if(category==='SHOES'&&sizeAvailable)payload.shoe_sizes=shoe_sizes;
-    if(brandAvailable)payload.brand=brand;
-    payload.image_urls=urls;
-    let ins=await db.from('products').insert(payload).select().single();
-    if(ins.error && /shoe_sizes/i.test(ins.error.message||'')){delete payload.shoe_sizes;sizeAvailable=false;ins=await db.from('products').insert(payload).select().single()}
-    if(ins.error && /image_urls/i.test(ins.error.message||'')){delete payload.image_urls;ins=await db.from('products').insert(payload).select().single()}
-    if(ins.error && /brand/i.test(ins.error.message||'')){delete payload.brand;brandAvailable=false;ins=await db.from('products').insert(payload).select().single()}
-    if(ins.error)throw ins.error;
-    $('name').value='';$('price').value='';$('image').value='';$('preview').style.display='none';setShoeSizes([]);msg('Product added successfully with '+urls.length+' photo(s).',true);await load();
-  }catch(e){msg(e.message||'Upload failed.')}
-  finally{$('addBtn').disabled=false;$('addBtn').textContent='UPLOAD PHOTOS + ADD PRODUCT'}
+
+    p.src =
+      window.URL.createObjectURL(
+        files[0]
+      );
+
+    p.style.display =
+      'block';
+
+    $('msg').textContent =
+      files.length +
+      ' photo(s) selected.';
+
+  }
+);
+
+
+/* ================================
+   LOAD PRODUCTS
+================================ */
+
+async function load(){
+
+  let result =
+    await db
+      .from('products')
+      .select(
+        'id,name,price,category,brand,colors,shoe_sizes,image_url,image_urls'
+      )
+      .order(
+        'id',
+        {ascending:false}
+      );
+
+
+  /*
+    Fallback if some old columns
+    are missing.
+  */
+
+  if(result.error){
+
+    result =
+      await db
+        .from('products')
+        .select(
+          'id,name,price,category,brand,shoe_sizes,image_url,image_urls'
+        )
+        .order(
+          'id',
+          {ascending:false}
+        );
+
+  }
+
+
+  /*
+    Brand fallback
+  */
+
+  if(
+    result.error &&
+    /brand/i.test(
+      result.error.message || ''
+    )
+  ){
+
+    brandAvailable = false;
+
+    result =
+      await db
+        .from('products')
+        .select(
+          'id,name,price,category,shoe_sizes,image_url'
+        )
+        .order(
+          'id',
+          {ascending:false}
+        );
+
+  }
+
+
+  const {
+    data,
+    error
+  } = result;
+
+
+  if(error){
+
+    $('products').innerHTML =
+      '<div class="error">' +
+      esc(error.message) +
+      '</div>';
+
+    return;
+  }
+
+
+  $('products').innerHTML =
+    (data || [])
+      .map(p => {
+
+        const colors =
+          parseColors(p.colors);
+
+
+        const colorText =
+          colors.length
+            ? ' · Colors: ' +
+              esc(
+                colorsToText(colors)
+              )
+            : '';
+
+
+        const sizeText =
+          Array.isArray(p.shoe_sizes) &&
+          p.shoe_sizes.length
+            ? ' · Sizes: ' +
+              esc(
+                p.shoe_sizes.join(', ')
+              )
+            : '';
+
+
+        const photosText =
+          Array.isArray(p.image_urls) &&
+          p.image_urls.length > 1
+            ? ' · ' +
+              p.image_urls.length +
+              ' photos'
+            : '';
+
+
+        return `
+
+          <article class="card">
+
+            <img
+              src="${esc(p.image_url || '')}"
+              alt="${esc(p.name)}"
+            >
+
+            <div class="body">
+
+              <b>
+                ${esc(p.name || '')}
+              </b>
+
+              <div class="muted">
+
+                AED
+                ${Number(
+                  p.price || 0
+                ).toFixed(0)}
+
+                ·
+                ${esc(
+                  p.category || ''
+                )}
+
+                ${
+                  p.brand
+                    ? ' · ' +
+                      esc(p.brand)
+                    : ''
+                }
+
+                ${sizeText}
+
+                ${colorText}
+
+                ${photosText}
+
+              </div>
+
+
+              <div class="actions">
+
+                <button
+                  onclick='editProduct(${JSON.stringify(p).replace(/</g,'\\u003c')})'
+                >
+                  EDIT
+                </button>
+
+                <button
+                  class="danger"
+                  onclick="deleteProduct('${String(p.id).replace(/'/g,"\\'")}')"
+                >
+                  DELETE
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        `;
+
+      })
+      .join('') ||
+
+    '<div class="muted">No products yet.</div>';
+
 }
-async function deleteProduct(id){if(!confirm('Delete this product?'))return;const {error}=await db.from('products').delete().eq('id',id);if(error){alert(error.message);return}await load()}
-async function editProduct(p){
-  const name=prompt('Product name:',p.name||'');if(name===null)return;
-  const price=prompt('Price (AED):',p.price??'');if(price===null)return;
-  const category=prompt('Category:',p.category||'');if(category===null)return;
-  const updates={name:name.trim(),price:Number(price),category:category.trim()};
-  if(category.trim().toUpperCase()==='SHOES'&&sizeAvailable){const raw=prompt('Shoe numbers (comma separated):',Array.isArray(p.shoe_sizes)?p.shoe_sizes.join(', '):'38, 39, 40');if(raw===null)return;updates.shoe_sizes=raw.split(',').map(x=>x.trim()).filter(Boolean)}else if(category.trim().toUpperCase()!=='SHOES'&&sizeAvailable){updates.shoe_sizes=[]}
-  if(brandAvailable&&category.trim().toUpperCase()==='SHOES'){const brand=prompt('Shoe brand:',p.brand||'NIKE');if(brand!==null)updates.brand=brand.trim().toUpperCase()}
-  const {error}=await db.from('products').update(updates).eq('id',p.id);if(error){alert(error.message);return}await load()
-}
-function openStore(){const url=(location.protocol==='file:')?'index.html#shop':(location.origin+'/#shop');window.open(url,'_blank')}
-$('category').addEventListener('change',()=>{$('brandWrap').style.display=$('category').value==='SHOES'?'block':'none'});$('category').dispatchEvent(new Event('change'));
-$('addBtn').onclick=add;
-$('logoutBtn').onclick=async()=>{await db.auth.signOut();location.reload()};
-$('loginBtn').onclick=async()=>{
-  const email=$('email').value.trim(),password=$('password').value;
-  if(!db){$('loginMsg').textContent='Admin connection is not ready. Refresh the page and try again.';return}
-  if(!email||!password){$('loginMsg').textContent='Enter your email and password.';return}
-  $('loginBtn').disabled=true;$('loginBtn').textContent='SIGNING IN...';$('loginMsg').textContent='';
+
+
+/* ================================
+   ADD PRODUCT
+================================ */
+
+async function add(){
+
+  const name =
+    $('name')
+      .value
+      .trim();
+
+  const price =
+    Number(
+      $('price').value
+    );
+
+  const category =
+    $('category').value;
+
+  const brand =
+    category === 'SHOES'
+      ? $('brand').value
+      : null;
+
+  const shoe_sizes =
+    category === 'SHOES'
+      ? selectedShoeSizes()
+      : [];
+
+  const colors =
+    getColors();
+
+  const files =
+    [
+      ...(
+        $('image').files || []
+      )
+    ];
+
+
+  /* VALIDATION */
+
+  if(
+    !name ||
+    !Number.isFinite(price) ||
+    !files.length
+  ){
+
+    msg(
+      'Enter name, price and choose one or more photos from your gallery.'
+    );
+
+    return;
+  }
+
+
+  if(
+    category === 'SHOES' &&
+    !shoe_sizes.length
+  ){
+
+    msg(
+      'Select at least one shoe number (for example 38 or 39).'
+    );
+
+    return;
+  }
+
+
+  $('addBtn').disabled =
+    true;
+
+  $('addBtn').textContent =
+    'UPLOADING PHOTOS...';
+
+  msg('');
+
+
   try{
-    const {data,error}=await db.auth.signInWithPassword({email,password});
-    if(error)throw error;
-    if(!data.session)throw new Error('No login session was created.');
-    $('login').classList.add('hidden');$('app').classList.remove('hidden');await load();
+
+    /* UPLOAD IMAGES */
+
+    const urls = [];
+
+
+    for(
+      const file of files
+    ){
+
+      const ext =
+        (
+          file.name
+            .split('.')
+            .pop() ||
+          'jpg'
+        )
+        .toLowerCase()
+        .replace(
+          /[^a-z0-9]/g,
+          ''
+        ) || 'jpg';
+
+
+      const path =
+        `${Date.now()}-${crypto.randomUUID()}.${ext}`;
+
+
+      const up =
+        await db
+          .storage
+          .from(BUCKET)
+          .upload(
+            path,
+            file,
+            {
+              contentType:
+                file.type ||
+                'image/jpeg',
+
+              upsert:false
+            }
+          );
+
+
+      if(up.error)
+        throw up.error;
+
+
+      urls.push(
+        db
+          .storage
+          .from(BUCKET)
+          .getPublicUrl(path)
+          .data
+          .publicUrl
+      );
+
+    }
+
+
+    /* PRODUCT DATA */
+
+    let payload = {
+
+      name,
+
+      price,
+
+      category,
+
+      image_url:
+        urls[0]
+
+    };
+
+
+    if(
+      category === 'SHOES' &&
+      sizeAvailable
+    ){
+
+      payload.shoe_sizes =
+        shoe_sizes;
+
+    }
+
+
+    if(
+      brandAvailable
+    ){
+
+      payload.brand =
+        brand;
+
+    }
+
+
+    /*
+      SAVE COLORS
+      as comma-separated text
+    */
+
+    if(
+      colorsAvailable
+    ){
+
+      payload.colors =
+        colorsToText(colors);
+
+    }
+
+
+    /*
+      SAVE MULTIPLE IMAGE URLS
+    */
+
+    payload.image_urls =
+      urls;
+
+
+    /* INSERT */
+
+    let ins =
+      await db
+        .from('products')
+        .insert(payload)
+        .select()
+        .single();
+
+
+    /*
+      If colors column does not exist,
+      retry without colors.
+    */
+
+    if(
+      ins.error &&
+      /colors/i.test(
+        ins.error.message || ''
+      )
+    ){
+
+      delete payload.colors;
+
+      colorsAvailable = false;
+
+      ins =
+        await db
+          .from('products')
+          .insert(payload)
+          .select()
+          .single();
+
+    }
+
+
+    /*
+      Shoe sizes fallback
+    */
+
+    if(
+      ins.error &&
+      /shoe_sizes/i.test(
+        ins.error.message || ''
+      )
+    ){
+
+      delete payload.shoe_sizes;
+
+      sizeAvailable = false;
+
+      ins =
+        await db
+          .from('products')
+          .insert(payload)
+          .select()
+          .single();
+
+    }
+
+
+    /*
+      Image URLs fallback
+    */
+
+    if(
+      ins.error &&
+      /image_urls/i.test(
+        ins.error.message || ''
+      )
+    ){
+
+      delete payload.image_urls;
+
+      ins =
+        await db
+          .from('products')
+          .insert(payload)
+          .select()
+          .single();
+
+    }
+
+
+    /*
+      Brand fallback
+    */
+
+    if(
+      ins.error &&
+      /brand/i.test(
+        ins.error.message || ''
+      )
+    ){
+
+      delete payload.brand;
+
+      brandAvailable = false;
+
+      ins =
+        await db
+          .from('products')
+          .insert(payload)
+          .select()
+          .single();
+
+    }
+
+
+    if(ins.error)
+      throw ins.error;
+
+
+    /* RESET FORM */
+
+    $('name').value = '';
+
+    $('price').value = '';
+
+    $('colors').value = '';
+
+    $('image').value = '';
+
+    $('preview').style.display =
+      'none';
+
+    setShoeSizes([]);
+
+
+    msg(
+      'Product added successfully with ' +
+      urls.length +
+      ' photo(s).' +
+      (
+        colors.length
+          ? ' Colors saved: ' +
+            colorsToText(colors) +
+            '.'
+          : ''
+      ),
+      true
+    );
+
+
+    await load();
+
+
   }catch(e){
-    $('loginMsg').textContent=e?.message||'Sign in failed. Check your email, password, and internet connection.';
-  }finally{$('loginBtn').disabled=false;$('loginBtn').textContent='SIGN IN'}
-};
+
+    msg(
+      e.message ||
+      'Upload failed.'
+    );
+
+  }finally{
+
+    $('addBtn').disabled =
+      false;
+
+    $('addBtn').textContent =
+      'UPLOAD PHOTOS + ADD PRODUCT';
+
+  }
+
+}
+
+
+/* ================================
+   DELETE
+================================ */
+
+async function deleteProduct(id){
+
+  if(
+    !confirm(
+      'Delete this product?'
+    )
+  )
+    return;
+
+
+  const {
+    error
+  } =
+    await db
+      .from('products')
+      .delete()
+      .eq('id',id);
+
+
+  if(error){
+
+    alert(
+      error.message
+    );
+
+    return;
+  }
+
+
+  await load();
+
+}
+
+
+/* ================================
+   EDIT PRODUCT
+================================ */
+
+async function editProduct(p){
+
+  /* NAME */
+
+  const name =
+    prompt(
+      'Product name:',
+      p.name || ''
+    );
+
+  if(name === null)
+    return;
+
+
+  /* PRICE */
+
+  const price =
+    prompt(
+      'Price (AED):',
+      p.price ?? ''
+    );
+
+  if(price === null)
+    return;
+
+
+  /* CATEGORY */
+
+  const category =
+    prompt(
+      'Category:',
+      p.category || ''
+    );
+
+  if(category === null)
+    return;
+
+
+  const updates = {
+
+    name:
+      name.trim(),
+
+    price:
+      Number(price),
+
+    category:
+      category.trim()
+
+  };
+
+
+  const normalizedCategory =
+    category
+      .trim()
+      .toUpperCase();
+
+
+  /* SHOE SIZES */
+
+  if(
+    normalizedCategory === 'SHOES' &&
+    sizeAvailable
+  ){
+
+    const raw =
+      prompt(
+        'Shoe numbers (comma separated):',
+        Array.isArray(
+          p.shoe_sizes
+        )
+          ? p.shoe_sizes.join(', ')
+          : '38, 39, 40'
+      );
+
+
+    if(raw === null)
+      return;
+
+
+    updates.shoe_sizes =
+      raw
+        .split(',')
+        .map(
+          x => x.trim()
+        )
+        .filter(Boolean);
+
+  }else if(
+    normalizedCategory !== 'SHOES' &&
+    sizeAvailable
+  ){
+
+    updates.shoe_sizes = [];
+
+  }
+
+
+  /* SHOE BRAND */
+
+  if(
+    brandAvailable &&
+    normalizedCategory === 'SHOES'
+  ){
+
+    const brand =
+      prompt(
+        'Shoe brand:',
+        p.brand || 'NIKE'
+      );
+
+
+    if(brand !== null){
+
+      updates.brand =
+        brand
+          .trim()
+          .toUpperCase();
+
+    }
+
+  }
+
+
+  /* COLORS */
+
+  if(colorsAvailable){
+
+    const existingColors =
+      parseColors(
+        p.colors
+      );
+
+
+    const rawColors =
+      prompt(
+        'Product colors (comma separated):',
+        colorsToText(
+          existingColors
+        )
+      );
+
+
+    if(rawColors === null)
+      return;
+
+
+    updates.colors =
+      rawColors
+        .split(',')
+        .map(
+          x => x.trim()
+        )
+        .filter(Boolean)
+        .join(', ');
+
+  }
+
+
+  /* UPDATE */
+
+  const {
+    error
+  } =
+    await db
+      .from('products')
+      .update(updates)
+      .eq('id',p.id);
+
+
+  if(error){
+
+    alert(
+      error.message
+    );
+
+    return;
+  }
+
+
+  await load();
+
+}
+
+
+/* ================================
+   OPEN STORE
+================================ */
+
+function openStore(){
+
+  const url =
+    (
+      location.protocol === 'file:'
+    )
+      ? 'index.html#shop'
+      : (
+          location.origin +
+          '/#shop'
+        );
+
+
+  window.open(
+    url,
+    '_blank'
+  );
+
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+$('addBtn').onclick =
+  add;
+
+
+$('logoutBtn').onclick =
+  async () => {
+
+    await db.auth.signOut();
+
+    location.reload();
+
+  };
+
+
+/* ================================
+   LOGIN
+================================ */
+
+$('loginBtn').onclick =
+  async () => {
+
+    const email =
+      $('email')
+        .value
+        .trim();
+
+    const password =
+      $('password')
+        .value;
+
+
+    if(!db){
+
+      $('loginMsg').textContent =
+        'Admin connection is not ready. Refresh the page and try again.';
+
+      return;
+
+    }
+
+
+    if(!email || !password){
+
+      $('loginMsg').textContent =
+        'Enter your email and password.';
+
+      return;
+
+    }
+
+
+    $('loginBtn').disabled =
+      true;
+
+    $('loginBtn').textContent =
+      'SIGNING IN...';
+
+    $('loginMsg').textContent =
+      '';
+
+
+    try{
+
+      const {
+        data,
+        error
+      } =
+        await db.auth
+          .signInWithPassword({
+            email,
+            password
+          });
+
+
+      if(error)
+        throw error;
+
+
+      if(!data.session)
+        throw new Error(
+          'No login session was created.'
+        );
+
+
+      $('login')
+        .classList
+        .add('hidden');
+
+      $('app')
+        .classList
+        .remove('hidden');
+
+
+      await load();
+
+
+    }catch(e){
+
+      $('loginMsg').textContent =
+        e?.message ||
+        'Sign in failed. Check your email, password, and internet connection.';
+
+    }finally{
+
+      $('loginBtn').disabled =
+        false;
+
+      $('loginBtn').textContent =
+        'SIGN IN';
+
+    }
+
+  };
+
+
+/* ================================
+   START
+================================ */
+
 if(initSupabase()){
-  db.auth.onAuthStateChange((event,session)=>{
-    if(session){$('login').classList.add('hidden');$('app').classList.remove('hidden');load()}
-    else if(event==='SIGNED_OUT'){ $('login').classList.remove('hidden');$('app').classList.add('hidden'); }
-  });
-  db.auth.getSession().then(async({data,error})=>{
-    if(error){$('loginMsg').textContent=error.message||'Could not check login session.';return}
-    if(data.session){$('login').classList.add('hidden');$('app').classList.remove('hidden');await load()}
-  });
+
+  db.auth.onAuthStateChange(
+    (event,session) => {
+
+      if(session){
+
+        $('login')
+          .classList
+          .add('hidden');
+
+        $('app')
+          .classList
+          .remove('hidden');
+
+        load();
+
+      }else if(
+        event === 'SIGNED_OUT'
+      ){
+
+        $('login')
+          .classList
+          .remove('hidden');
+
+        $('app')
+          .classList
+          .add('hidden');
+
+      }
+
+    }
+  );
+
+
+  db.auth
+    .getSession()
+    .then(
+      async ({
+        data,
+        error
+      }) => {
+
+        if(error){
+
+          $('loginMsg')
+            .textContent =
+            error.message ||
+            'Could not check login session.';
+
+          return;
+
+        }
+
+
+        if(data.session){
+
+          $('login')
+            .classList
+            .add('hidden');
+
+          $('app')
+            .classList
+            .remove('hidden');
+
+          await load();
+
+        }
+
+      }
+    );
+
 }
 
 </script>
-</body></html>
+
+</body>
+</html>
