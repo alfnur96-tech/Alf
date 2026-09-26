@@ -69,16 +69,22 @@ a{text-decoration:none;color:inherit}.delivery-banner{width:100%;background:#111
 <div class="modalbox" style="display:block;max-width:620px;position:relative">
 <button class="modalclose" onclick="closeCheckout()">×</button>
 <div class="modalinfo">
-<div class="kicker">ALVÉN CHECKOUT</div><h2>Pay on Delivery</h2>
-<p style="color:#777">Enter your UAE delivery details. You will pay when your order is delivered.</p>
+<div class="kicker">ALVÉN CHECKOUT</div><h2>Complete Your Order</h2>
+<p style="color:#777">Choose your GCC country and payment method.</p>
 <div class="formgrid">
 <div><label>FULL NAME *</label><input id="customerName" autocomplete="name" placeholder="Your name"></div>
-<div><label>PHONE *</label><input id="customerPhone" type="tel" autocomplete="tel" placeholder="+971 5X XXX XXXX"></div>
-<div class="full"><label>UAE DELIVERY ADDRESS *</label><textarea id="customerAddress" autocomplete="street-address" placeholder="Building, street, area"></textarea></div>
-<div><label>CITY *</label><input id="customerCity" placeholder="Dubai, Sharjah, Ajman..."></div>
-<div><label>ORDER NOTES</label><input id="customerNotes" placeholder="Optional"></div>
+<div><label>COUNTRY *</label><select id="customerCountry" onchange="updateCheckoutOptions()"><option value="AE">🇦🇪 UAE</option><option value="SA">🇸🇦 Saudi Arabia</option><option value="QA">🇶🇦 Qatar</option><option value="KW">🇰🇼 Kuwait</option><option value="OM">🇴🇲 Oman</option><option value="BH">🇧🇭 Bahrain</option></select></div>
+<div><label>PHONE *</label><div style="display:flex;gap:6px"><span id="phonePrefix" style="padding:12px 10px;border:1px solid #ccc;background:#f7f7f7;min-width:62px;text-align:center;font-weight:700">+971</span><input id="customerPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="50 123 4567" style="flex:1"></div></div>
+<div class="full">
+<label>DELIVERY ADDRESS *</label>
+<div id="addressFields" class="formgrid" style="margin-top:6px"></div>
+<input type="hidden" id="customerAddress">
 </div>
-<div class="codnote"><b>PAYMENT: PAY ON DELIVERY</b><br>No online payment is required. Cash/card payment can be arranged at delivery according to your delivery service.</div>
+<div><label>PAYMENT METHOD *</label><select id="paymentMethod" onchange="updatePaymentNote()"><option value="PAY_ON_DELIVERY">💵 Cash on Delivery</option><option value="ONLINE_PAYMENT">💳 Online Payment</option></select></div>
+<div><label>SHIPPING</label><div id="shippingFee" style="padding:12px;border:1px solid #ddd;background:#f7f7f7">FREE — UAE</div></div>
+<div class="full"><label>ORDER NOTES</label><input id="customerNotes" placeholder="Optional"></div>
+</div>
+<div id="paymentNote" class="codnote"><b>PAYMENT: PAY ON DELIVERY</b><br>Available for UAE orders.</div>
 <p id="checkoutMsg" style="color:#b00020"></p>
 <button class="checkout" onclick="placeOrder()">PLACE ORDER</button>
 </div></div></div>
@@ -182,24 +188,118 @@ function removeCart(i){cart.splice(i,1);updateCart()}
 function openCart(){$('drawer').classList.add('open');updateCart()}
 function closeCart(){$('drawer').classList.remove('open')}
 
+function shippingPerPair(country){return country==='AE'?0:12}
+function cartQty(){return cart.reduce((s,x)=>s+Number(x.qty||1),0)}
+function updateCheckoutOptions(){
+  const country=$('customerCountry').value;
+  const prefixes={AE:'+971',SA:'+966',QA:'+974',KW:'+965',OM:'+968',BH:'+973'};
+  const placeholders={AE:'50 123 4567',SA:'5X XXX XXXX',QA:'3XXX XXXX',KW:'5XXX XXXX',OM:'9XXX XXXX',BH:'3XXX XXXX'};
+  $('phonePrefix').textContent=prefixes[country]||'+971';
+  $('customerPhone').placeholder=placeholders[country]||'Phone number';
+  const fee=shippingPerPair(country)*cartQty();
+  $('shippingFee').textContent=country==='AE'?'FREE — UAE':'AED '+fee.toFixed(0)+' — GCC delivery';
+  const pm=$('paymentMethod');
+  if(country==='AE'){
+    pm.innerHTML='<option value="PAY_ON_DELIVERY">💵 Cash on Delivery</option><option value="ONLINE_PAYMENT">💳 Online Payment</option>';
+  }else{
+    pm.innerHTML='<option value="ONLINE_PAYMENT">💳 Online Payment</option>';
+  }
+  renderAddressFields(country);
+  updatePaymentNote();
+}
+
+function field(id,label,placeholder,required=true){
+  return `<div><label>${label}${required?' *':''}</label><input id="addr_${id}" placeholder="${placeholder}" ${required?'required':''}></div>`;
+}
+function renderAddressFields(country){
+  let html='';
+  if(country==='AE'){
+    html=field('emirate','EMIRATE','Dubai / Sharjah / Ajman')+
+         field('city','CITY','Dubai / Sharjah / Ajman')+
+         field('building','BUILDING / VILLA NO.','Building 12 / Villa 5')+
+         field('street','STREET','Street name')+
+         field('area','AREA / COMMUNITY','Al Nahda / JVC / Al Barsha')+
+         field('unit','APARTMENT / UNIT NO.','Apartment 304',false)+
+         field('po','PO BOX','Optional',false)+
+         field('landmark','LANDMARK','Near a known place',false);
+  }else if(country==='SA'){
+    html=field('building','BUILDING NO.','1234')+
+         field('street','STREET','King Fahd Road')+
+         field('secondary','SECONDARY NUMBER','5678')+
+         field('district','DISTRICT','Al Olaya')+
+         field('city','CITY','Riyadh / Jeddah')+
+         field('postal','POSTAL CODE','12345')+
+         field('short','SHORT ADDRESS','Optional',false);
+  }else if(country==='QA'){
+    html=field('zone','ZONE NUMBER','Zone 50')+
+         field('streetno','STREET NUMBER','Street 123')+
+         field('building','BUILDING NUMBER','Building 45')+
+         field('city','CITY','Doha')+
+         field('unit','APARTMENT / UNIT NO.','Optional',false)+
+         field('landmark','LANDMARK','Optional',false);
+  }else if(country==='KW'){
+    html=field('area','AREA / DISTRICT','Salmiya')+
+         field('block','BLOCK / ZONE','Block 10')+
+         field('street','STREET','Street 5')+
+         field('building','BUILDING NO.','Building 20')+
+         field('city','CITY','Kuwait City')+
+         field('postal','POSTAL CODE','Optional',false)+
+         field('unit','APARTMENT / FLOOR','Optional',false);
+  }else if(country==='OM'){
+    html=field('way','WAY / STREET NO.','Way 1234')+
+         field('building','HOUSE / BUILDING NO.','House 25')+
+         field('block','BLOCK','Block 3')+
+         field('area','AREA','Al Khuwair')+
+         field('city','CITY','Muscat / Salalah')+
+         field('landmark','LANDMARK','Optional',false);
+  }else if(country==='BH'){
+    html=field('building','BUILDING / HOUSE NO.','Building 123')+
+         field('road','ROAD / STREET','Road 456')+
+         field('block','BLOCK','Block 789')+
+         field('area','AREA','Juffair')+
+         field('city','CITY','Manama')+
+         field('postal','POSTAL CODE','Optional',false);
+  }
+  $('addressFields').innerHTML=html;
+}
+
+function collectAddress(country){
+  const labels={
+    emirate:'Emirate',city:'City',building:'Building/Villa No.',street:'Street',area:'Area/Community',unit:'Apartment/Unit',po:'PO Box',landmark:'Landmark',
+    secondary:'Secondary Number',district:'District',postal:'Postal Code',short:'Short Address',zone:'Zone Number',streetno:'Street Number',
+    block:'Block/Zone',way:'Way/Street No.',road:'Road/Street'
+  };
+  const ids=['emirate','city','building','street','area','unit','po','landmark','secondary','district','postal','short','zone','streetno','block','way','road'];
+  const parts=[];
+  ids.forEach(id=>{const el=$('addr_'+id);if(el&&el.value.trim())parts.push(labels[id]+': '+el.value.trim())});
+  return parts.join(', ');
+}
+function updatePaymentNote(){
+  const country=$('customerCountry').value,pm=$('paymentMethod').value;
+  if(country==='AE'&&pm==='PAY_ON_DELIVERY')$('paymentNote').innerHTML='<b>PAYMENT: CASH ON DELIVERY</b><br>Pay when your order is delivered in the UAE.';
+  else $('paymentNote').innerHTML='<b>PAYMENT: ONLINE PAYMENT</b><br>Online payment must be completed before the order can be dispatched. Payment gateway connection is required to collect the payment.';
+}
 function openCheckout(){
   if(!cart.length){alert('Your bag is empty.');return}
-  $('checkoutMsg').textContent='';$('checkoutModal').classList.add('open');document.body.style.overflow='hidden'
+  $('checkoutMsg').textContent='';$('checkoutModal').classList.add('open');document.body.style.overflow='hidden';updateCheckoutOptions();
 }
 function closeCheckout(){$('checkoutModal').classList.remove('open');document.body.style.overflow=''}
 function cartTotal(){return cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0)}
 async function placeOrder(){
   if(!cart.length){$('checkoutMsg').textContent='Your bag is empty.';return}
-  const name=$('customerName').value.trim(),phone=$('customerPhone').value.trim(),address=$('customerAddress').value.trim(),city=$('customerCity').value.trim(),notes=$('customerNotes').value.trim();
-  if(!name||!phone||!address||!city){$('checkoutMsg').textContent='Please fill in your name, phone, UAE address and city.';return}
+  const name=$('customerName').value.trim(),country=$('customerCountry').value,phoneDigits=$('customerPhone').value.trim(),phonePrefix=$('phonePrefix').textContent,phone=phonePrefix+' '+phoneDigits,address=collectAddress(country),city=($('addr_city')?.value||$('customerCity').value).trim(),notes=$('customerNotes').value.trim(),payment=$('paymentMethod').value;
+  if(!name||!phoneDigits||!address||!city){$('checkoutMsg').textContent='Please fill in all required address fields and your phone number.';return}
+  if(country!=='AE'&&payment==='PAY_ON_DELIVERY'){ $('checkoutMsg').textContent='Cash on Delivery is available only in the UAE.';return }
+  if(payment==='ONLINE_PAYMENT'){ $('checkoutMsg').textContent='Online payment is selected, but the payment gateway is not connected yet. Choose Cash on Delivery for UAE or connect a payment gateway before accepting online payments.';return }
   const btn=document.querySelector('#checkoutModal .checkout');btn.disabled=true;btn.textContent='PLACING ORDER...';$('checkoutMsg').textContent='';
+  const shipping=shippingPerPair(country)*cartQty();
   const items=cart.map(x=>({id:x.id,name:x.name,price:Number(x.price||0),qty:Number(x.qty||1),color:x.color||'',size:x.size||'',image_url:x.image_url||''}));
-  const payload={customer_name:name,phone,address,city,notes,payment_method:'PAY_ON_DELIVERY',items,total:cartTotal(),status:'NEW'};
+  const payload={customer_name:name,phone,address:('Country: '+country+'\n'+address),city,notes,payment_method:payment,items,total:cartTotal()+shipping,status:'NEW'};
   try{
     const r=await fetch(SUPABASE_URL+'/rest/v1/orders',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(payload)});
     const data=await r.json();if(!r.ok)throw new Error(data.message||data.hint||'Order could not be placed.');
     const order=data[0]||data;
-    $('checkoutModal').querySelector('.modalinfo').innerHTML=`<div class="success"><div class="kicker">ORDER RECEIVED</div><h2>Thank you!</h2><p>Your ALVÉN order has been submitted successfully.</p><p><b>Order #${esc(order.id||'')}</b></p><p>Payment: <b>Pay on Delivery</b></p><button class="checkout" onclick="finishOrder()">DONE</button></div>`;
+    $('checkoutModal').querySelector('.modalinfo').innerHTML=`<div class="success"><div class="kicker">ORDER RECEIVED</div><h2>Thank you!</h2><p>Your ALVÉN order has been submitted successfully.</p><p><b>Order #${esc(order.id||'')}</b></p><p>Country: <b>${esc(country)}</b></p><p>Payment: <b>Cash on Delivery</b></p><p>Delivery: <b>${shipping===0?'FREE':'AED '+shipping.toFixed(0)}</b></p><button class="checkout" onclick="finishOrder()">DONE</button></div>`;
   }catch(e){$('checkoutMsg').textContent=e.message||'Order failed.'}finally{btn.disabled=false;btn.textContent='PLACE ORDER'}
 }
 function finishOrder(){cart=[];localStorage.removeItem('alven_cart');updateCart();closeCheckout();openCart();setTimeout(closeCart,1200)}
