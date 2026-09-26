@@ -3,207 +3,2756 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>ALVÉN | Premium Fashion & Sneakers in UAE</title>
+
 <meta name="description" content="Shop ALVÉN fashion, sneakers and streetwear. Browse products, prices in AED, available sizes and order across the UAE.">
+
 <link rel="canonical" href="https://alvenstore.vercel.app/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ALVÉN | Premium Fashion & Sneakers">
-<meta property="og:description" content="Shop ALVÉN fashion, sneakers and streetwear in AED.">
+
+<meta property="og:title" content="ALVÉN | Premium Fashion & Sneakers in UAE">
+<meta property="og:description" content="Premium fashion, sneakers and streetwear across the UAE.">
 <meta property="og:url" content="https://alvenstore.vercel.app/">
+<meta property="og:type" content="website">
 <meta property="og:image" content="https://alvenstore.vercel.app/alven-logo.jpg">
-<meta name="twitter:card" content="summary_large_image">
+
 <style>
-:root{--bg:#f5f3ee;--ink:#111;--muted:#777;--line:#ddd8cf}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
-a{text-decoration:none;color:inherit}.delivery-banner{width:100%;background:#111;color:#fff;text-align:center;padding:10px 12px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-.nav{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;background:rgba(245,243,238,.95);backdrop-filter:blur(12px);z-index:20}
-.logo{font-weight:900;letter-spacing:.18em;font-size:22px;display:flex;align-items:center;gap:10px}.logo img{width:42px;height:42px;object-fit:contain}
-.links{display:flex;gap:28px;text-transform:uppercase;letter-spacing:.14em;font-size:11px}.actions{display:flex;gap:18px;font-size:11px;text-transform:uppercase;letter-spacing:.1em}.actions button{border:0;background:none;padding:0;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;color:inherit}
-.hero{min-height:76vh;background:#111;color:#fff;display:flex;align-items:flex-end;padding:7%;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 25%,#444,transparent 32%),linear-gradient(120deg,#101010,#252525)}.hero>*{position:relative;z-index:1}
-.eyebrow{font-size:10px;letter-spacing:.22em;margin-bottom:22px}.hero h1{font-size:clamp(68px,13vw,170px);line-height:.78;letter-spacing:-.08em;margin:0 0 28px}.hero p{max-width:520px;color:#bbb;line-height:1.6}.btn{display:inline-block;margin-top:18px;background:#fff;color:#111;padding:15px 23px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;border:0;cursor:pointer}
-.section{padding:70px 5%}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:30px}.head h2{font-size:40px;letter-spacing:-.05em;margin:4px 0}.kicker{font-size:10px;color:#777;letter-spacing:.2em}
-.textcats{display:flex;gap:30px;border-bottom:1px solid var(--line);overflow:auto;white-space:nowrap}.textcats button,.filter{border:0;background:none;padding:12px 0;font-size:12px;letter-spacing:.14em;font-weight:700;cursor:pointer;color:#777}.shoeBrands{display:none;gap:8px;flex-wrap:wrap;padding:16px 0;border-bottom:1px solid var(--line)}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{padding:10px 15px;border:1px solid #bbb;font-size:10px;text-transform:uppercase;color:#111}.filter.active{background:#111;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:#fff;position:relative}.pic{aspect-ratio:4/5;background:#e8e5df;display:flex;align-items:center;justify-content:center;color:#999;font-size:10px;overflow:hidden}.pic img,.gallery img{width:100%;height:100%;object-fit:cover}.info{padding:14px}.info h3{margin:0 0 7px;font-size:14px}.meta{display:flex;justify-content:space-between;font-size:12px;gap:10px}.cattext{font-size:9px;color:#777;letter-spacing:.1em;text-transform:uppercase;margin-top:7px}.buy{width:100%;border:0;background:#111;color:#fff;padding:11px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}.empty{grid-column:1/-1;text-align:center;padding:60px;color:#777}
-.banner{padding:90px 5%;background:#ddd9d0}.banner h2{font-size:clamp(40px,7vw,90px);letter-spacing:-.06em;margin:0}.footer{background:#111;color:#fff;padding:55px 5%;display:flex;justify-content:space-between;gap:30px}.footer p{color:#999;line-height:1.7}
-.drawer{position:fixed;right:0;top:0;width:min(430px,100%);height:100%;background:#fff;z-index:50;transform:translateX(100%);transition:.25s;box-shadow:-15px 0 40px #0002;padding:25px;display:flex;flex-direction:column}.drawer.open{transform:translateX(0)}.drawerhead{display:flex;justify-content:space-between}.cartitems{flex:1;overflow:auto;margin:20px 0}.cartrow{border-bottom:1px solid #eee;padding:14px 0;display:flex;justify-content:space-between;gap:12px}.close{border:0;background:none;font-size:22px;cursor:pointer}.checkout{width:100%;background:#111;color:#fff;border:0;padding:15px;font-weight:700;cursor:pointer}.total{font-size:16px;font-weight:700;margin-bottom:14px}
-.searchbox{margin:0 0 20px}.searchbox input{width:100%;padding:14px;border:1px solid #ccc;background:#fff;color:#111;outline:none;letter-spacing:.08em}.gallery{position:relative;overflow:hidden}.gallery-nav,.modalnav{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.gallery-nav button,.modalnav button{pointer-events:auto;border:0;background:#111b;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer}.gallery-dots{position:absolute;bottom:8px;left:0;right:0;text-align:center}.gallery-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#fff8;margin:0 3px}.gallery-dot.active{background:#fff}
-.modal{display:none;position:fixed;inset:0;background:#000b;z-index:100;align-items:center;justify-content:center;padding:16px}.modal.open{display:flex}.modalbox{background:#fff;color:#111;width:min(950px,100%);max-height:92vh;overflow:auto;display:grid;grid-template-columns:1.2fr .8fr}.modalgallery{position:relative;background:#eee;min-height:420px}.modalgallery img{width:100%;height:100%;max-height:80vh;object-fit:contain;display:block}.modalnav{padding:0 12px}.modalnav button{width:42px;height:42px;font-size:24px}.modalinfo{padding:28px}.sizebtn{min-width:44px;padding:10px 12px;border:1px solid #bbb;background:#fff;color:#111;cursor:pointer;font-size:11px}.sizebtn.active{background:#111;color:#fff;border-color:#111}.modalclose{position:absolute;right:16px;top:12px;border:0;background:#fff;color:#111;border-radius:50%;width:38px;height:38px;font-size:24px;z-index:3;cursor:pointer}.thumbs{display:flex;gap:7px;overflow:auto;padding:10px}.thumbs img{width:58px;height:70px;object-fit:cover;cursor:pointer;border:2px solid transparent}.thumbs img.active{border-color:#111}.qty{display:flex;align-items:center;gap:10px}.qty button{width:28px;height:28px;border:1px solid #ccc;background:#fff;cursor:pointer}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formgrid label{font-size:11px;font-weight:700;letter-spacing:.08em}.formgrid input,.formgrid textarea,.formgrid select{width:100%;margin-top:6px;padding:12px;border:1px solid #ccc;background:#fff;font:inherit}.formgrid textarea{min-height:90px;resize:vertical}.full{grid-column:1/-1}.codnote{background:#f5f3ee;padding:12px;font-size:12px;margin-top:12px}.success{padding:20px;text-align:center}.success h2{margin-top:0}
-@media(max-width:800px){.links{display:none}.grid{grid-template-columns:repeat(2,1fr)}.head{display:block}.filters{margin-top:18px}.footer{display:block}.hero h1{font-size:72px}.modalbox{grid-template-columns:1fr}.modalgallery{min-height:55vh}.formgrid{grid-template-columns:1fr}}
+:root{
+  --pink:#f08bb7;
+  --pink2:#ffb6d5;
+  --black:#090909;
+  --white:#fff;
+  --gray:#f4f4f4;
+  --muted:#777;
+  --line:#e8e8e8;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--black);
+  background:#fff;
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.topbar{
+  background:#050505;
+  color:#fff;
+  text-align:center;
+  padding:10px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1.5px;
+}
+
+.header{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 22px;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  background:#fff;
+  z-index:20;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:-1.5px;
+}
+
+.logo span{
+  color:var(--pink);
+}
+
+.nav{
+  display:flex;
+  gap:22px;
+  align-items:center;
+  font-size:12px;
+  font-weight:700;
+}
+
+.nav a:hover{
+  color:var(--pink);
+}
+
+.header-actions{
+  display:flex;
+  gap:4px;
+  align-items:center;
+}
+
+.icon-btn{
+  border:0;
+  background:none;
+  font-size:23px;
+  cursor:pointer;
+  width:42px;
+  height:42px;
+}
+
+.cart-count{
+  background:var(--pink);
+  color:#000;
+  border-radius:99px;
+  font-size:10px;
+  padding:2px 6px;
+  position:relative;
+  top:-14px;
+  left:-12px;
+  font-weight:800;
+}
+
+.hero{
+  position:relative;
+  min-height:620px;
+  background:
+  linear-gradient(90deg,rgba(0,0,0,.68),rgba(0,0,0,.08)),
+  url("https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1600&q=85")
+  center/cover;
+  display:flex;
+  align-items:flex-end;
+}
+
+.hero-content{
+  color:#fff;
+  padding:48px 24px 54px;
+  max-width:650px;
+}
+
+.hero-kicker{
+  font-size:12px;
+  letter-spacing:3px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.hero h1{
+  font-size:clamp(42px,10vw,78px);
+  line-height:.92;
+  margin-bottom:18px;
+}
+
+.hero p{
+  font-size:16px;
+  line-height:1.5;
+  max-width:450px;
+  margin-bottom:25px;
+}
+
+.btn{
+  border:0;
+  background:#fff;
+  color:#000;
+  padding:15px 24px;
+  font-weight:800;
+  cursor:pointer;
+  display:inline-block;
+}
+
+.btn.dark{
+  background:#000;
+  color:#fff;
+}
+
+.btn.pink{
+  background:var(--pink);
+  color:#000;
+}
+
+.section{
+  padding:48px 22px;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:22px;
+  gap:20px;
+}
+
+.section h2{
+  font-size:28px;
+}
+
+.section-head a{
+  text-decoration:underline;
+  font-size:13px;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.cat{
+  height:150px;
+  position:relative;
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:end;
+  padding:14px;
+  color:#fff;
+  overflow:hidden;
+}
+
+.cat:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.7));
+}
+
+.cat span{
+  position:relative;
+  z-index:1;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.filters{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.filter{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:9px 13px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.filter.active,
+.filter:hover{
+  background:#000;
+  color:#fff;
+  border-color:#000;
+}
+
+.brand-row{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:5px;
+  margin-top:-5px;
+  margin-bottom:25px;
+}
+
+.brand{
+  white-space:nowrap;
+  border:1px solid #ddd;
+  background:#fff;
+  padding:9px 13px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.brand.active,
+.brand:hover{
+  background:#000;
+  color:#fff;
+  border-color:#000;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.product{
+  position:relative;
+}
+
+.product-img{
+  aspect-ratio:3/4;
+  background:#f2f2f2;
+  overflow:hidden;
+  position:relative;
+}
+
+.product-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.3s;
+}
+
+.product:hover img{
+  transform:scale(1.03);
+}
+
+.badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:#fff;
+  padding:7px 9px;
+  font-size:10px;
+  font-weight:800;
+  z-index:2;
+}
+
+.heart{
+  position:absolute;
+  right:10px;
+  top:8px;
+  border:0;
+  background:#fff;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  z-index:2;
+}
+
+.product-info{
+  padding:11px 2px;
+}
+
+.product-title{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.price{
+  font-weight:800;
+}
+
+.colors{
+  display:flex;
+  gap:5px;
+  margin-top:9px;
+}
+
+.dot{
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  border:1px solid #bbb;
+}
+
+.banner{
+  margin:10px 22px 48px;
+  min-height:360px;
+  background:
+  linear-gradient(90deg,rgba(0,0,0,.65),rgba(0,0,0,.15)),
+  url("https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1600&q=85")
+  center/cover;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  padding:35px;
+}
+
+.banner h2{
+  font-size:clamp(36px,7vw,62px);
+  max-width:600px;
+  margin-bottom:15px;
+}
+
+.newsletter{
+  background:#f6f6f6;
+  text-align:center;
+  padding:55px 22px;
+}
+
+.newsletter h2{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.newsletter p{
+  color:var(--muted);
+  margin-bottom:20px;
+}
+
+.form{
+  display:flex;
+  max-width:500px;
+  margin:auto;
+}
+
+.form input{
+  flex:1;
+  border:1px solid #ccc;
+  padding:15px;
+}
+
+.form button{
+  border:0;
+  background:#000;
+  color:#fff;
+  padding:0 20px;
+  font-weight:800;
+}
+
+footer{
+  background:#080808;
+  color:#fff;
+  padding:45px 22px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:35px;
+}
+
+footer h3{
+  margin-bottom:15px;
+}
+
+footer p,
+footer a{
+  color:#aaa;
+  font-size:13px;
+  line-height:2;
+  display:block;
+}
+
+.drawer{
+  position:fixed;
+  right:-420px;
+  top:0;
+  width:min(420px,100%);
+  height:100vh;
+  background:#fff;
+  z-index:50;
+  transition:.3s;
+  box-shadow:-5px 0 25px #0002;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+}
+
+.drawer.open{
+  right:0;
+}
+
+.drawer-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
+}
+
+.cart-items{
+  flex:1;
+  overflow:auto;
+  padding:20px 0;
+}
+
+.cart-item{
+  display:flex;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.cart-item img{
+  width:75px;
+  height:95px;
+  object-fit:cover;
+}
+
+.cart-item h4{
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+.qty{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:8px;
+}
+
+.qty button{
+  border:1px solid #ddd;
+  background:#fff;
+  width:27px;
+  height:27px;
+  cursor:pointer;
+}
+
+.cart-total{
+  border-top:1px solid var(--line);
+  padding-top:18px;
+}
+
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:40;
+}
+
+.overlay.show{
+  display:block;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:60;
+  background:#0009;
+  padding:18px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:#fff;
+  max-width:900px;
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  max-height:90vh;
+  overflow:auto;
+}
+
+.modal-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  min-height:480px;
+}
+
+.modal-info{
+  padding:30px;
+}
+
+.modal-info h2{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.modal-info .price{
+  font-size:20px;
+  margin:15px 0;
+}
+
+.size-row{
+  display:flex;
+  gap:8px;
+  margin:15px 0 25px;
+  flex-wrap:wrap;
+}
+
+.size{
+  padding:11px 16px;
+  border:1px solid #ccc;
+  background:#fff;
+  cursor:pointer;
+}
+
+.size.active{
+  border-color:#000;
+  background:#000;
+  color:#fff;
+}
+
+.color-row{
+  display:flex;
+  gap:9px;
+  margin:15px 0 25px;
+  flex-wrap:wrap;
+}
+
+.color-btn{
+  border:1px solid #ccc;
+  background:#fff;
+  padding:8px 12px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.color-btn.active{
+  background:#000;
+  color:#fff;
+  border-color:#000;
+}
+
+.close{
+  border:0;
+  background:#fff;
+  font-size:28px;
+  cursor:pointer;
+  float:right;
+}
+
+.checkout-modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:70;
+  background:#0009;
+  padding:18px;
+}
+
+.checkout-modal.show{
+  display:flex;
+}
+
+.checkout-box{
+  background:#fff;
+  width:min(600px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:25px;
+}
+
+.checkout-box h2{
+  margin-bottom:20px;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  border:1px solid #ccc;
+  padding:13px;
+  outline:none;
+}
+
+.field textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.pod{
+  background:#f7f7f7;
+  padding:13px;
+  margin:15px 0;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.empty{
+  text-align:center;
+  padding:60px 20px;
+  color:#777;
+  grid-column:1/-1;
+}
+
+.error-box{
+  text-align:center;
+  padding:45px 20px;
+  color:#777;
+  grid-column:1/-1;
+}
+
+.loading{
+  text-align:center;
+  padding:60px 20px;
+  color:#777;
+  grid-column:1/-1;
+}
+
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:#000;
+  color:#fff;
+  padding:13px 18px;
+  z-index:100;
+  transition:.3s;
+  font-size:13px;
+  border-radius:4px;
+}
+
+.toast.show{
+  transform:translateX(-50%) translateY(0);
+}
+
+@media(max-width:900px){
+  .nav{
+    display:none;
+  }
+
+  .products{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:700px){
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .hero{
+    min-height:570px;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .modal-box{
+    grid-template-columns:1fr;
+  }
+
+  .modal-box img{
+    min-height:330px;
+    max-height:430px;
+  }
+}
+
+@media(max-width:500px){
+  .header{
+    height:65px;
+    padding:0 12px;
+  }
+
+  .logo{
+    font-size:22px;
+  }
+
+  .hero-content{
+    padding:35px 18px 40px;
+  }
+
+  .section{
+    padding:38px 14px;
+  }
+
+  .products{
+    gap:10px;
+  }
+
+  .product-title{
+    font-size:13px;
+  }
+
+  .banner{
+    margin:5px 14px 35px;
+    min-height:320px;
+    padding:25px;
+  }
+
+  .form{
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .form button{
+    height:48px;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
 </style>
 </head>
-<body>
-<div class="delivery-banner">🚚 FREE DELIVERY ACROSS UAE 🇦🇪</div>
-<nav class="nav">
-<a class="logo" href="/"><img src="alven-logo.jpg" alt="ALVÉN logo"><span>ALVÉN</span></a>
-<div class="links"><a href="/shop.html">Shop</a><a href="/products.html">Products</a><a href="/about.html">About</a><a href="/shipping.html">Shipping</a><a href="/contact.html">Contact</a></div>
-<div class="actions"><button onclick="focusSearch()">Search</button><button onclick="openCart()">Bag (<b id="count">0</b>)</button></div>
-</nav>
-<header class="hero"><div><div class="eyebrow">NEW DROP • PREMIUM STREETWEAR • AED PRICES</div><h1>ALVÉN</h1><p>Modern essentials designed for your everyday. Clean silhouettes, premium attitude and effortless streetwear.</p><a class="btn" href="/shop.html">Shop Collection</a></div></header>
-<section class="section">
-<div class="searchbox" style="display:flex;gap:8px"><input id="searchInput" type="search" placeholder="SEARCH PRODUCTS..." autocomplete="off" oninput="setSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();runSearch()}" style="flex:1"><button class="filter" onclick="runSearch()">SEARCH</button><button class="filter" onclick="clearSearch()">CLEAR</button></div>
-<div class="head"><div><div class="kicker">EXPLORE</div><h2>SHOP</h2></div></div>
-<div class="textcats"><button onclick="pick('SHOES')">SHOES</button><button onclick="pick('HOODIE')">HOODIE</button><button onclick="pick('PANTS')">PANTS</button><button onclick="pick('T-SHIRT')">T-SHIRT</button></div>
-<div id="shoeBrands" class="shoeBrands"></div>
-</section>
-<section class="section" id="shop"><div class="head"><div><div class="kicker">THE COLLECTION</div><h2>Latest Pieces</h2></div><div class="filters" id="filters"></div></div><div class="grid" id="products"><div class="empty">Loading collection...</div></div></section>
-<section class="banner"><h2>BUILT FOR<br>YOUR EVERYDAY.</h2></section>
-<footer class="footer"><div><div class="logo"><img src="alven-logo.jpg" alt="ALVÉN logo"><span>ALVÉN</span></div><p>Modern fashion. Simple identity.</p></div><div><b>SHOP</b><p><a href="/shop.html">Shop</a><br><a href="/products.html">Products</a><br><a href="/shipping.html">Shipping</a></p></div><div><b>ABOUT</b><p><a href="/about.html">About ALVÉN</a><br><a href="/contact.html">Contact</a></p></div></footer>
 
-<aside class="drawer" id="drawer">
-<div class="drawerhead"><h2>Your Bag</h2><button class="close" onclick="closeCart()">×</button></div>
-<div class="cartitems" id="cartitems"></div>
-<div class="total">Total: <span id="total">AED 0</span></div>
-<button class="checkout" onclick="openCheckout()">CHECKOUT — PAY ON DELIVERY</button>
+<body>
+
+<div class="topbar">
+  🚚 FREE DELIVERY ACROSS UAE 🇦🇪
+</div>
+
+<header class="header">
+
+  <button class="icon-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    ☰
+  </button>
+
+  <a href="/" class="logo">
+    ALVÉN<span>.</span>
+  </a>
+
+  <nav class="nav">
+    <a href="#shop">SHOP</a>
+    <a href="#categories">CATEGORIES</a>
+    <a href="#shop">NEW ARRIVALS</a>
+    <a href="#footer">CONTACT</a>
+  </nav>
+
+  <div class="header-actions">
+
+    <button class="icon-btn" onclick="focusSearch()" aria-label="Search">
+      ⌕
+    </button>
+
+    <button class="icon-btn" onclick="openCart()" aria-label="Cart">
+      🛍
+    </button>
+
+    <span id="cartCount" class="cart-count">0</span>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-kicker">
+      ALVÉN / NEW COLLECTION
+    </div>
+
+    <h1>
+      WEAR YOUR<br>
+      OWN STORY.
+    </h1>
+
+    <p>
+      Premium fashion, sneakers and streetwear made for everyday confidence.
+      Shop ALVÉN across the UAE.
+    </p>
+
+    <a class="btn" href="#shop">
+      SHOP COLLECTION
+    </a>
+
+  </div>
+
+</section>
+
+<section class="section" id="categories">
+
+  <div class="section-head">
+    <h2>Shop by category</h2>
+  </div>
+
+  <div class="categories">
+
+    <a class="cat"
+       onclick="pick('SHOES')"
+       style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80')">
+      <span>SHOES</span>
+    </a>
+
+    <a class="cat"
+       onclick="pick('HOODIE')"
+       style="background-image:url('https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=80')">
+      <span>HOODIES</span>
+    </a>
+
+    <a class="cat"
+       onclick="pick('PANTS')"
+       style="background-image:url('https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=700&q=80')">
+      <span>PANTS</span>
+    </a>
+
+    <a class="cat"
+       onclick="pick('T-SHIRT')"
+       style="background-image:url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80')">
+      <span>T-SHIRTS</span>
+    </a>
+
+  </div>
+
+</section>
+
+<section class="section" id="shop">
+
+  <div class="section-head">
+
+    <div>
+      <div class="hero-kicker" style="color:#777">
+        THE COLLECTION
+      </div>
+
+      <h2>Latest Pieces</h2>
+    </div>
+
+    <div class="filters" id="filters">
+
+      <button class="filter active" onclick="pick('ALL')">
+        ALL
+      </button>
+
+      <button class="filter" onclick="pick('SHOES')">
+        SHOES
+      </button>
+
+      <button class="filter" onclick="pick('HOODIE')">
+        HOODIE
+      </button>
+
+      <button class="filter" onclick="pick('PANTS')">
+        PANTS
+      </button>
+
+      <button class="filter" onclick="pick('T-SHIRT')">
+        T-SHIRT
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="brand-row" id="brands">
+
+    <button class="brand active" onclick="pickBrand('ALL')">
+      ALL BRANDS
+    </button>
+
+    <button class="brand" onclick="pickBrand('ADIDAS')">
+      ADIDAS
+    </button>
+
+    <button class="brand" onclick="pickBrand('NIKE')">
+      NIKE
+    </button>
+
+    <button class="brand" onclick="pickBrand('PUMA')">
+      PUMA
+    </button>
+
+    <button class="brand" onclick="pickBrand('JORDAN')">
+      JORDAN
+    </button>
+
+    <button class="brand" onclick="pickBrand('NEW BALANCE')">
+      NEW BALANCE
+    </button>
+
+    <button class="brand" onclick="pickBrand('LOUIS VUITTON')">
+      LOUIS VUITTON
+    </button>
+
+    <button class="brand" onclick="pickBrand('GUCCI')">
+      GUCCI
+    </button>
+
+    <button class="brand" onclick="pickBrand('BALENCIAGA')">
+      BALENCIAGA
+    </button>
+
+    <button class="brand" onclick="pickBrand('DIOR')">
+      DIOR
+    </button>
+
+    <button class="brand" onclick="pickBrand('PRADA')">
+      PRADA
+    </button>
+
+    <button class="brand" onclick="pickBrand('OTHER BRANDS')">
+      OTHER BRANDS
+    </button>
+
+  </div>
+
+  <div class="products" id="products">
+
+    <div class="loading">
+      Loading ALVÉN collection...
+    </div>
+
+  </div>
+
+</section>
+
+<section class="banner">
+
+  <div>
+
+    <div class="hero-kicker">
+      ALVÉN / EVERYDAY COLLECTION
+    </div>
+
+    <h2>
+      BUILT FOR YOUR NEXT MOVE.
+    </h2>
+
+    <button
+      class="btn pink"
+      onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">
+      SHOP NOW
+    </button>
+
+  </div>
+
+</section>
+
+<section class="newsletter">
+
+  <h2>
+    Join ALVÉN.
+  </h2>
+
+  <p>
+    Get first access to new drops and special offers.
+  </p>
+
+  <form class="form" onsubmit="subscribe(event)">
+
+    <input
+      type="email"
+      placeholder="Your email address"
+      required
+    >
+
+    <button>
+      SUBSCRIBE
+    </button>
+
+  </form>
+
+</section>
+
+<footer id="footer">
+
+  <div class="footer-grid">
+
+    <div>
+      <h3>ALVÉN.</h3>
+
+      <p>
+        Premium fashion, sneakers and streetwear across the UAE.
+      </p>
+    </div>
+
+    <div>
+
+      <h3>SHOP</h3>
+
+      <a href="#shop">New arrivals</a>
+      <a href="#shop">Shoes</a>
+      <a href="#shop">Hoodies</a>
+      <a href="#shop">T-Shirts</a>
+
+    </div>
+
+    <div>
+
+      <h3>HELP</h3>
+
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+      <a href="#">Size guide</a>
+      <a href="mailto:alvenstore@example.com">Contact</a>
+
+    </div>
+
+    <div>
+
+      <h3>FOLLOW</h3>
+
+      <a
+        href="https://www.instagram.com/alven_sto"
+        target="_blank"
+        rel="noopener">
+        Instagram
+      </a>
+
+      <a
+        href="https://wa.me/971556324924"
+        target="_blank"
+        rel="noopener">
+        WhatsApp
+      </a>
+
+    </div>
+
+  </div>
+
+</footer>
+
+<div
+  class="overlay"
+  id="overlay"
+  onclick="closeCart()">
+</div>
+
+<aside class="drawer" id="cart">
+
+  <div class="drawer-head">
+
+    <h2>Your bag</h2>
+
+    <button class="close" onclick="closeCart()">
+      ×
+    </button>
+
+  </div>
+
+  <div class="cart-items" id="cartItems"></div>
+
+  <div class="cart-total">
+
+    <div
+      style="display:flex;justify-content:space-between;margin-bottom:15px">
+
+      <b>Total</b>
+
+      <b id="total">
+        AED 0.00
+      </b>
+
+    </div>
+
+    <button
+      class="btn dark"
+      style="width:100%"
+      onclick="checkout()">
+
+      CHECKOUT
+
+    </button>
+
+  </div>
+
 </aside>
 
-<div class="modal" id="productModal" onclick="if(event.target===this)closeProduct()">
-<div class="modalbox"><button class="modalclose" onclick="closeProduct()">×</button><div class="modalgallery" id="modalGallery"></div><div class="modalinfo">
-<div class="kicker">PRODUCT</div><h2 id="modalTitle"></h2><h3 id="modalPrice"></h3><p id="modalCategory" class="cattext"></p>
-<div id="colorPicker" style="display:none;margin-top:22px"><b style="font-size:11px;letter-spacing:.12em">SELECT COLOR</b><div id="productColors" style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px"></div><small id="colorMsg" style="display:block;color:#b00020;margin-top:8px"></small></div>
-<div id="sizePicker" style="display:none;margin-top:22px"><b style="font-size:11px;letter-spacing:.12em">SELECT SHOE SIZE</b><div id="shoeSizes" style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px"></div><small id="sizeMsg" style="display:block;color:#b00020;margin-top:8px"></small></div>
-<button class="buy" style="margin-top:25px" onclick="addModalToBag()">ADD TO BAG</button>
-</div></div></div>
+<div class="modal" id="modal">
 
-<div class="modal" id="checkoutModal">
-<div class="modalbox" style="display:block;max-width:620px;position:relative">
-<button class="modalclose" onclick="closeCheckout()">×</button>
-<div class="modalinfo">
-<div class="kicker">ALVÉN CHECKOUT</div><h2>Pay on Delivery</h2>
-<p style="color:#777">Enter your UAE delivery details. You will pay when your order is delivered.</p>
-<div class="formgrid">
-<div><label>FULL NAME *</label><input id="customerName" autocomplete="name" placeholder="Your name"></div>
-<div><label>PHONE *</label><input id="customerPhone" type="tel" autocomplete="tel" placeholder="+971 5X XXX XXXX"></div>
-<div class="full"><label>UAE DELIVERY ADDRESS *</label><textarea id="customerAddress" autocomplete="street-address" placeholder="Building, street, area"></textarea></div>
-<div><label>CITY *</label><input id="customerCity" placeholder="Dubai, Sharjah, Ajman..."></div>
-<div><label>ORDER NOTES</label><input id="customerNotes" placeholder="Optional"></div>
+  <div class="modal-box">
+
+    <div>
+      <img
+        id="modalImg"
+        src=""
+        alt="ALVÉN product">
+    </div>
+
+    <div class="modal-info">
+
+      <button
+        class="close"
+        onclick="closeProduct()">
+        ×
+      </button>
+
+      <h2 id="modalTitle"></h2>
+
+      <div
+        class="price"
+        id="modalPrice">
+      </div>
+
+      <p
+        id="modalDesc"
+        style="color:#666;line-height:1.6">
+      </p>
+
+      <h4 style="margin-top:25px">
+        COLOR
+      </h4>
+
+      <div
+        class="color-row"
+        id="modalColors">
+      </div>
+
+      <h4>
+        SIZE
+      </h4>
+
+      <div
+        class="size-row"
+        id="sizes">
+      </div>
+
+      <button
+        class="btn dark"
+        style="width:100%"
+        onclick="addModalToBag()">
+
+        ADD TO BAG
+
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
-<div class="codnote"><b>PAYMENT: PAY ON DELIVERY</b><br>No online payment is required. Cash/card payment can be arranged at delivery according to your delivery service.</div>
-<p id="checkoutMsg" style="color:#b00020"></p>
-<button class="checkout" onclick="placeOrder()">PLACE ORDER</button>
-</div></div></div>
+
+<div class="checkout-modal" id="checkoutModal">
+
+  <div class="checkout-box">
+
+    <button
+      class="close"
+      onclick="closeCheckout()">
+      ×
+    </button>
+
+    <h2>
+      Checkout
+    </h2>
+
+    <div class="field">
+
+      <label>
+        FULL NAME
+      </label>
+
+      <input
+        id="customerName"
+        type="text"
+        placeholder="Your full name"
+        required>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        PHONE
+      </label>
+
+      <input
+        id="customerPhone"
+        type="tel"
+        placeholder="+971..."
+        required>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        UAE DELIVERY ADDRESS
+      </label>
+
+      <textarea
+        id="customerAddress"
+        placeholder="Building, street, area..."
+        required></textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        CITY / EMIRATE
+      </label>
+
+      <select id="customerCity">
+
+        <option value="">
+          Select city
+        </option>
+
+        <option>Dubai</option>
+        <option>Abu Dhabi</option>
+        <option>Sharjah</option>
+        <option>Ajman</option>
+        <option>Umm Al Quwain</option>
+        <option>Ras Al Khaimah</option>
+        <option>Fujairah</option>
+        <option>Al Ain</option>
+
+      </select>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        ORDER NOTES
+      </label>
+
+      <textarea
+        id="customerNotes"
+        placeholder="Optional delivery notes"></textarea>
+
+    </div>
+
+    <div class="pod">
+
+      <b>💵 Pay on Delivery</b><br>
+
+      You will pay when your order is delivered.
+
+    </div>
+
+    <div
+      style="display:flex;justify-content:space-between;margin-bottom:18px">
+
+      <b>
+        Order total
+      </b>
+
+      <b id="checkoutTotal">
+        AED 0.00
+      </b>
+
+    </div>
+
+    <button
+      id="placeOrderBtn"
+      class="btn dark"
+      style="width:100%"
+      onclick="placeOrder()">
+
+      PLACE ORDER
+
+    </button>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-const SUPABASE_URL='https://oqvyrehcqxsmzpunxeys.supabase.co';
-const SUPABASE_KEY='sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a';
-const WA='971556324924';
-const SHOE_BRANDS=['ADIDAS','NIKE','PUMA','JORDAN','NEW BALANCE','LOUIS VUITTON','GUCCI','BALENCIAGA','DIOR','PRADA','OTHER BRANDS'];
-let all=[],cart=[],selected='SHOES',selectedBrand='';
-window.selectedShoeSize='';window.selectedColor='';
-try{cart=JSON.parse(localStorage.getItem('alven_cart')||'[]')}catch(e){cart=[]}
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
-async function load(){
-  const box=$('products');box.innerHTML='<div class="empty">Loading collection...</div>';renderFilters();
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+'https://oqvyrehcqxsmzpunxeys.supabase.co';
+
+const SUPABASE_KEY =
+'sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a';
+
+const WA =
+'971556324924';
+
+
+/* =========================
+   STORE STATE
+========================= */
+
+let products = [];
+
+let cart =
+JSON.parse(localStorage.getItem('alven_cart') || '[]');
+
+let selectedProduct = null;
+
+let selectedSize = '';
+
+let selectedColor = '';
+
+let activeCategory = 'ALL';
+
+let activeBrand = 'ALL';
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function escapeHTML(value){
+
+  return String(value ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+
+}
+
+
+function money(value){
+
+  return 'AED ' +
+    Number(value || 0).toFixed(2);
+
+}
+
+
+function showToast(message){
+
+  const toast =
+    document.getElementById('toast');
+
+  toast.textContent = message;
+
+  toast.classList.add('show');
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(()=>{
+      toast.classList.remove('show');
+    },2500);
+
+}
+
+
+/* =========================
+   PRODUCT IMAGES
+========================= */
+
+function getImages(product){
+
+  let images = [];
+
+  if(product.image_urls){
+
+    try{
+
+      if(Array.isArray(product.image_urls)){
+        images = product.image_urls;
+      }
+
+      else if(typeof product.image_urls === 'string'){
+
+        const parsed =
+          JSON.parse(product.image_urls);
+
+        if(Array.isArray(parsed)){
+          images = parsed;
+        }
+
+      }
+
+    }catch(e){
+
+      images =
+        String(product.image_urls)
+          .split(',')
+          .map(x=>x.trim())
+          .filter(Boolean);
+
+    }
+
+  }
+
+  if(!images.length && product.image_url){
+    images = [product.image_url];
+  }
+
+  return images.filter(Boolean);
+
+}
+
+
+function getSizes(product){
+
+  if(!product.shoe_sizes){
+    return [];
+  }
+
+  if(Array.isArray(product.shoe_sizes)){
+    return product.shoe_sizes;
+  }
+
+  return String(product.shoe_sizes)
+    .split(',')
+    .map(x=>x.trim())
+    .filter(Boolean);
+
+}
+
+
+function getColors(product){
+
+  if(!product.colors){
+    return [];
+  }
+
+  if(Array.isArray(product.colors)){
+    return product.colors;
+  }
+
+  return String(product.colors)
+    .split(',')
+    .map(x=>x.trim())
+    .filter(Boolean);
+
+}
+
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
+
+async function loadProducts(){
+
+  const container =
+    document.getElementById('products');
+
+  container.innerHTML =
+    '<div class="loading">Loading ALVÉN collection...</div>';
+
   try{
-    let r=await fetch(SUPABASE_URL+'/rest/v1/products?select=id,name,price,category,brand,image_url,image_urls,shoe_sizes,colors&order=id.desc',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
-    if(!r.ok)r=await fetch(SUPABASE_URL+'/rest/v1/products?select=id,name,price,category,image_url,shoe_sizes,colors&order=id.desc',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
-    if(!r.ok)throw new Error('HTTP '+r.status);all=await r.json();render();
-  }catch(e){box.innerHTML='<div class="empty">Collection could not be loaded.<br><small>'+esc(e.message)+'</small><br><button class="filter" onclick="load()">RETRY</button></div>'}
-}
-function renderFilters(){
-  const cs=['SHOES','HOODIE','PANTS','T-SHIRT'];$('filters').innerHTML=cs.map(c=>`<button class="filter ${c===selected?'active':''}" onclick="pick('${c}')">${c}</button>`).join('');
-  const b=$('shoeBrands');if(selected==='SHOES'){b.style.display='flex';b.innerHTML=SHOE_BRANDS.map(x=>`<button class="filter ${x===selectedBrand?'active':''}" onclick="pickBrand('${x}')">${x}</button>`).join('')}else{b.style.display='none';b.innerHTML=''}
-}
-function pick(c){selected=c;selectedBrand='';renderFilters();render();document.getElementById('shop').scrollIntoView({behavior:'smooth'})}
-function pickBrand(b){selected='SHOES';selectedBrand=b;renderFilters();render();document.getElementById('shop').scrollIntoView({behavior:'smooth'})}
-function productImages(p){
-  if(Array.isArray(p.image_urls)&&p.image_urls.length)return p.image_urls;
-  if(typeof p.image_urls==='string'){try{let a=JSON.parse(p.image_urls);if(Array.isArray(a)&&a.length)return a}catch(e){}}
-  return p.image_url?[p.image_url]:[]
-}
-function productColors(p){
-  if(!p)return[];let a=p.colors;
-  if(typeof a==='string'){try{let x=JSON.parse(a);a=Array.isArray(x)?x:a.split(',')}catch(e){a=a.split(',')}}
-  return Array.isArray(a)?a.map(x=>String(x).trim()).filter(Boolean):[]
-}
-function shoeSizes(p){
-  if(!p||String(p.category||'').toUpperCase()!=='SHOES')return[];let a=p.shoe_sizes;
-  if(typeof a==='string'){try{a=JSON.parse(a)}catch(e){a=a.split(',')}}
-  return Array.isArray(a)?a.map(x=>String(x).trim()).filter(Boolean).sort((a,b)=>Number(a)-Number(b)):[]
-}
-function normalizeSearch(v){return String(v??'').toLowerCase().trim().replace(/\s+/g,' ')}
-function setSearch(v){window.alvenSearch=normalizeSearch(v);render()}
-function runSearch(){window.alvenSearch=normalizeSearch($('searchInput').value);render();$('shop').scrollIntoView({behavior:'smooth'})}
-function clearSearch(){window.alvenSearch='';$('searchInput').value='';render()}
-function focusSearch(){$('searchInput').focus();$('searchInput').scrollIntoView({behavior:'smooth',block:'center'})}
 
-function render(){
-  const q=normalizeSearch(window.alvenSearch||'');
-  let list=all.filter(p=>{
-    if(q)return[p.name,p.category,p.brand,p.colors].some(v=>normalizeSearch(v).includes(q));
-    const c=String(p.category||'').toUpperCase();
-    if(selected==='HOODIE')return c==='HOODIE'||c==='HOODIES';
-    if(selected==='T-SHIRT')return c==='T-SHIRT'||c==='T-SHIRTS';
-    if(selected==='PANTS')return c==='PANTS'||c==='PANT';
-    return c==='SHOES';
-  });
-  if(!q&&selected==='SHOES'&&selectedBrand)list=list.filter(p=>String(p.brand||'').toUpperCase()===selectedBrand);
-  $('products').innerHTML=list.length?list.map(p=>{
-    const imgs=productImages(p),id=String(p.id),first=imgs[0]||'';
-    return `<article class="card"><div class="gallery" id="gallery-${esc(id)}" style="aspect-ratio:4/5;background:#eee;cursor:pointer" onclick="openProduct('${esc(id)}')"><img src="${esc(first)}" alt="${esc(p.name||'ALVÉN')}" loading="lazy"></div><div class="info"><h3>${esc(p.name||'ALVÉN')}</h3><div class="meta"><span>AED ${Number(p.price||0).toFixed(0)}</span><span>${esc(p.category||'')}${p.brand?' · '+esc(p.brand):''}</span></div></div><button class="buy" onclick="openOrAdd('${esc(id)}')">ADD TO BAG</button></article>`
-  }).join(''):'<div class="empty">No products found.</div>';
+    const url =
+      SUPABASE_URL +
+      '/rest/v1/products' +
+      '?select=id,name,price,category,brand,image_url,image_urls,shoe_sizes,colors' +
+      '&order=id.desc';
+
+    const response =
+      await fetch(url,{
+        method:'GET',
+        headers:{
+          apikey:SUPABASE_KEY,
+          Authorization:'Bearer ' + SUPABASE_KEY
+        }
+      });
+
+    if(!response.ok){
+
+      throw new Error(
+        'Products request failed: ' +
+        response.status
+      );
+
+    }
+
+    const data =
+      await response.json();
+
+    if(!Array.isArray(data)){
+      throw new Error('Invalid products data');
+    }
+
+    products = data.map(normalizeProduct);
+
+    renderProducts();
+
+    syncCart();
+
+  }catch(error){
+
+    console.error(error);
+
+    container.innerHTML = `
+      <div class="error-box">
+
+        <h3 style="margin-bottom:10px">
+          Store temporarily unavailable
+        </h3>
+
+        <p>
+          Please refresh the page and try again.
+        </p>
+
+        <button
+          class="btn dark"
+          style="margin-top:18px"
+          onclick="loadProducts()">
+
+          TRY AGAIN
+
+        </button>
+
+      </div>
+    `;
+
+  }
+
 }
-function openOrAdd(id){const p=all.find(x=>String(x.id)===String(id));if(!p)return;if(String(p.category||'').toUpperCase()==='SHOES'||productColors(p).length)openProduct(id);else addToCart(p)}
+
+
+function normalizeProduct(product){
+
+  return {
+
+    id:Number(product.id),
+
+    name:product.name || 'ALVÉN Product',
+
+    price:Number(product.price || 0),
+
+    category:
+      String(product.category || '')
+        .trim(),
+
+    brand:
+      String(product.brand || '')
+        .trim(),
+
+    image_url:
+      product.image_url || '',
+
+    image_urls:
+      product.image_urls || '',
+
+    shoe_sizes:
+      product.shoe_sizes || '',
+
+    colors:
+      product.colors || ''
+
+  };
+
+}
+
+
+/* =========================
+   FILTERING
+========================= */
+
+function pick(category){
+
+  activeCategory =
+    String(category || 'ALL')
+      .toUpperCase();
+
+  document
+    .querySelectorAll('#filters .filter')
+    .forEach(button=>{
+
+      button.classList.toggle(
+        'active',
+        button.textContent
+          .trim()
+          .toUpperCase() === activeCategory
+      );
+
+    });
+
+  renderProducts();
+
+  document
+    .getElementById('shop')
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+
+}
+
+
+function pickBrand(brand){
+
+  activeBrand =
+    String(brand || 'ALL')
+      .toUpperCase();
+
+  document
+    .querySelectorAll('#brands .brand')
+    .forEach(button=>{
+
+      button.classList.toggle(
+        'active',
+        button.textContent
+          .trim()
+          .toUpperCase() === activeBrand ||
+        (
+          activeBrand === 'ALL' &&
+          button.textContent
+            .trim()
+            .toUpperCase() === 'ALL BRANDS'
+        )
+      );
+
+    });
+
+  renderProducts();
+
+}
+
+
+function matchesProduct(product){
+
+  const category =
+    String(product.category || '')
+      .toUpperCase();
+
+  const brand =
+    String(product.brand || '')
+      .toUpperCase();
+
+  const categoryOK =
+    activeCategory === 'ALL' ||
+    category === activeCategory ||
+    category.includes(activeCategory);
+
+  const brandOK =
+    activeBrand === 'ALL' ||
+    brand === activeBrand ||
+    brand.includes(activeBrand);
+
+  return categoryOK && brandOK;
+
+}
+
+
+/* =========================
+   RENDER PRODUCTS
+========================= */
+
+function renderProducts(){
+
+  const container =
+    document.getElementById('products');
+
+  const filtered =
+    products.filter(matchesProduct);
+
+  if(!filtered.length){
+
+    container.innerHTML = `
+      <div class="empty">
+
+        <h3 style="margin-bottom:8px">
+          No products found
+        </h3>
+
+        <p>
+          Try another category or brand.
+        </p>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML =
+    filtered.map(product=>{
+
+      const images =
+        getImages(product);
+
+      const image =
+        images[0] || '';
+
+      const colors =
+        getColors(product);
+
+      return `
+
+        <article class="product">
+
+          <div class="product-img">
+
+            <span class="badge">
+              NEW
+            </span>
+
+            <button
+              class="heart"
+              onclick="toggleHeart(this)">
+              ♡
+            </button>
+
+            ${
+              image
+              ?
+              `
+              <img
+                src="${escapeHTML(image)}"
+                alt="${escapeHTML(product.name)}"
+                loading="lazy"
+                onclick="openProduct(${product.id})">
+              `
+              :
+              `
+              <div
+                style="
+                  width:100%;
+                  height:100%;
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  color:#999;
+                  font-size:12px;
+                ">
+                NO IMAGE
+              </div>
+              `
+            }
+
+          </div>
+
+          <div
+            class="product-info"
+            onclick="openProduct(${product.id})"
+            style="cursor:pointer">
+
+            <div class="product-title">
+              ${escapeHTML(product.name)}
+            </div>
+
+            <div class="price">
+              ${money(product.price)}
+            </div>
+
+            ${
+              colors.length
+              ?
+              `
+              <div class="colors">
+
+                ${colors.slice(0,5).map(color=>`
+
+                  <span
+                    class="dot"
+                    title="${escapeHTML(color)}"
+                    style="background:${colorToCSS(color)}">
+                  </span>
+
+                `).join('')}
+
+              </div>
+              `
+              :
+              ''
+            }
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join('');
+
+}
+
+
+function colorToCSS(color){
+
+  const c =
+    String(color || '')
+      .trim()
+      .toLowerCase();
+
+  const map = {
+
+    black:'#111',
+
+    white:'#fff',
+
+    red:'#d00',
+
+    blue:'#1677ff',
+
+    green:'#16834b',
+
+    yellow:'#ffd600',
+
+    orange:'#ff8a00',
+
+    pink:'#f08bb7',
+
+    purple:'#7b3ff2',
+
+    grey:'#999',
+
+    gray:'#999',
+
+    brown:'#795548'
+
+  };
+
+  return map[c] || color || '#ddd';
+
+}
+
+
+/* =========================
+   PRODUCT MODAL
+========================= */
+
 function openProduct(id){
-  window.modalProductId=id;window.selectedShoeSize='';window.selectedColor='';
-  const p=all.find(x=>String(x.id)===String(id));if(!p)return;
-  const imgs=productImages(p),g=$('modalGallery');g.dataset.i=0;
-  g.innerHTML=`<img id="modalMain" src="${esc(imgs[0]||'')}" alt="${esc(p.name||'')}"><div class="modalnav"><button onclick="modalPhoto(-1)">‹</button><button onclick="modalPhoto(1)">›</button></div><div class="thumbs">${imgs.map((u,i)=>`<img class="${i===0?'active':''}" src="${esc(u)}" onclick="modalSet(${i})">`).join('')}</div>`;
-  $('modalTitle').textContent=p.name||'ALVÉN';$('modalPrice').textContent='AED '+Number(p.price||0).toFixed(0);$('modalCategory').textContent=(p.category||'')+(p.brand?' · '+p.brand:'');
-  const colors=productColors(p);$('colorPicker').style.display=colors.length?'block':'none';$('productColors').innerHTML=colors.map(c=>`<button type="button" class="sizebtn" onclick="selectProductColor('${esc(c).replace(/'/g,'&#39;')}')">${esc(c)}</button>`).join('');$('colorMsg').textContent='';
-  const sizes=shoeSizes(p);const isS=String(p.category||'').toUpperCase()==='SHOES';$('sizePicker').style.display=isS?'block':'none';$('sizeMsg').textContent='';$('shoeSizes').innerHTML=sizes.length?sizes.map(s=>`<button type="button" class="sizebtn" onclick="selectShoeSize('${esc(s).replace(/'/g,'&#39;')}')">${esc(s)}</button>`).join(''):'<span style="color:#777;font-size:12px">No sizes listed</span>';
-  $('productModal').classList.add('open');document.body.style.overflow='hidden';
-}
-function selectProductColor(c){window.selectedColor=String(c);$('colorMsg').textContent='';document.querySelectorAll('#productColors .sizebtn').forEach(b=>b.classList.toggle('active',b.textContent===String(c)))}
-function selectShoeSize(s){window.selectedShoeSize=String(s);$('sizeMsg').textContent='';document.querySelectorAll('#shoeSizes .sizebtn').forEach(b=>b.classList.toggle('active',b.textContent===String(s)))}
-function modalSet(i){const p=all.find(x=>String(x.id)===String(window.modalProductId));if(!p)return;const imgs=productImages(p);if(!imgs.length)return;i=Math.max(0,Math.min(i,imgs.length-1));$('modalGallery').dataset.i=i;$('modalMain').src=imgs[i];document.querySelectorAll('.thumbs img').forEach((x,n)=>x.classList.toggle('active',n===i))}
-function modalPhoto(d){const p=all.find(x=>String(x.id)===String(window.modalProductId));if(!p)return;const imgs=productImages(p);let i=Number($('modalGallery').dataset.i||0)+d;if(i<0)i=imgs.length-1;if(i>=imgs.length)i=0;modalSet(i)}
-function closeProduct(){$('productModal').classList.remove('open');document.body.style.overflow='';window.modalProductId=null}
-function addModalToBag(){
-  const p=all.find(x=>String(x.id)===String(window.modalProductId));if(!p)return;
-  const colors=productColors(p),sizes=shoeSizes(p);
-  if(colors.length&&!window.selectedColor){$('colorMsg').textContent='Please choose a color.';return}
-  if(String(p.category||'').toUpperCase()==='SHOES'){if(!sizes.length){$('sizeMsg').textContent='No shoe sizes are available for this product.';return}if(!window.selectedShoeSize){$('sizeMsg').textContent='Please choose a shoe size.';return}}
-  addToCart(p,window.selectedShoeSize||'',window.selectedColor||'');closeProduct()
-}
-function addToCart(p,size='',color=''){
-  const found=cart.find(x=>String(x.id)===String(p.id)&&String(x.size||'')===String(size||'')&&String(x.color||'')===String(color||''));
-  if(found)found.qty++;else cart.push({...p,size,color,qty:1});updateCart();openCart()
-}
-function updateCart(){
-  localStorage.setItem('alven_cart',JSON.stringify(cart));$('count').textContent=cart.reduce((s,x)=>s+Number(x.qty||0),0);
-  if(!cart.length){$('cartitems').innerHTML='<div class="empty">Your bag is empty.</div>';$('total').textContent='AED 0';return}
-  let total=0;$('cartitems').innerHTML=cart.map((x,i)=>{const price=Number(x.price||0),qty=Number(x.qty||1);total+=price*qty;return `<div class="cartrow"><div style="flex:1"><b>${esc(x.name||'ALVÉN')}</b>${x.color?`<div style="font-size:11px;color:#777;margin-top:4px">Color: ${esc(x.color)}</div>`:''}${x.size?`<div style="font-size:11px;color:#777;margin-top:4px">Size: ${esc(x.size)}</div>`:''}<div style="font-size:12px;margin-top:5px">AED ${price.toFixed(0)}</div><div class="qty" style="margin-top:9px"><button onclick="changeQty(${i},-1)">−</button><span>${qty}</span><button onclick="changeQty(${i},1)">+</button><button style="border:0;background:none;color:#777;cursor:pointer" onclick="removeCart(${i})">REMOVE</button></div></div><b>AED ${(price*qty).toFixed(0)}</b></div>`}).join('');$('total').textContent='AED '+total.toFixed(0)
-}
-function changeQty(i,a){if(!cart[i])return;cart[i].qty=Number(cart[i].qty||1)+a;if(cart[i].qty<=0)cart.splice(i,1);updateCart()}
-function removeCart(i){cart.splice(i,1);updateCart()}
-function openCart(){$('drawer').classList.add('open');updateCart()}
-function closeCart(){$('drawer').classList.remove('open')}
 
-function openCheckout(){
-  if(!cart.length){alert('Your bag is empty.');return}
-  $('checkoutMsg').textContent='';$('checkoutModal').classList.add('open');document.body.style.overflow='hidden'
+  selectedProduct =
+    products.find(
+      product=>Number(product.id) === Number(id)
+    );
+
+  if(!selectedProduct){
+    return;
+  }
+
+  selectedSize = '';
+
+  selectedColor = '';
+
+  const images =
+    getImages(selectedProduct);
+
+  const mainImage =
+    images[0] || '';
+
+  document.getElementById('modalImg').src =
+    mainImage;
+
+  document.getElementById('modalTitle').textContent =
+    selectedProduct.name;
+
+  document.getElementById('modalPrice').textContent =
+    money(selectedProduct.price);
+
+  document.getElementById('modalDesc').textContent =
+    selectedProduct.brand
+      ?
+      selectedProduct.brand +
+      ' • ' +
+      (selectedProduct.category || 'ALVÉN')
+      :
+      (selectedProduct.category || 'ALVÉN');
+
+  renderColors();
+
+  renderSizes();
+
+  document
+    .getElementById('modal')
+    .classList.add('show');
+
 }
-function closeCheckout(){$('checkoutModal').classList.remove('open');document.body.style.overflow=''}
-function cartTotal(){return cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0)}
+
+
+function renderColors(){
+
+  const box =
+    document.getElementById('modalColors');
+
+  const colors =
+    getColors(selectedProduct);
+
+  if(!colors.length){
+
+    box.innerHTML =
+      '<span style="color:#777;font-size:12px">Standard color</span>';
+
+    selectedColor = '';
+
+    return;
+
+  }
+
+  box.innerHTML =
+    colors.map((color,index)=>`
+
+      <button
+        class="color-btn ${index===0?'active':''}"
+        onclick="selectProductColor('${escapeHTML(color)}',this)">
+
+        ${escapeHTML(color)}
+
+      </button>
+
+    `).join('');
+
+  selectedColor =
+    colors[0];
+
+}
+
+
+function selectProductColor(color,button){
+
+  selectedColor = color;
+
+  document
+    .querySelectorAll('#modalColors .color-btn')
+    .forEach(x=>{
+      x.classList.remove('active');
+    });
+
+  button.classList.add('active');
+
+}
+
+
+function renderSizes(){
+
+  const box =
+    document.getElementById('sizes');
+
+  const sizes =
+    getSizes(selectedProduct);
+
+  if(!sizes.length){
+
+    box.innerHTML =
+      '<span style="color:#777;font-size:12px">One size</span>';
+
+    selectedSize = '';
+
+    return;
+
+  }
+
+  box.innerHTML =
+    sizes.map((size,index)=>`
+
+      <button
+        class="size ${index===0?'active':''}"
+        onclick="selectShoeSize('${escapeHTML(size)}',this)">
+
+        ${escapeHTML(size)}
+
+      </button>
+
+    `).join('');
+
+  selectedSize =
+    sizes[0];
+
+}
+
+
+function selectShoeSize(size,button){
+
+  selectedSize = size;
+
+  document
+    .querySelectorAll('#sizes .size')
+    .forEach(x=>{
+      x.classList.remove('active');
+    });
+
+  button.classList.add('active');
+
+}
+
+
+function closeProduct(){
+
+  document
+    .getElementById('modal')
+    .classList.remove('show');
+
+}
+
+
+function addModalToBag(){
+
+  if(!selectedProduct){
+    return;
+  }
+
+  addToCart(
+    selectedProduct,
+    selectedSize,
+    selectedColor
+  );
+
+  closeProduct();
+
+  openCart();
+
+}
+
+
+/* =========================
+   CART
+========================= */
+
+function addToCart(product,size,color){
+
+  const existing =
+    cart.find(item=>
+      Number(item.id) === Number(product.id) &&
+      (item.size || '') === (size || '') &&
+      (item.color || '') === (color || '')
+    );
+
+  if(existing){
+
+    existing.qty += 1;
+
+  }else{
+
+    cart.push({
+
+      id:Number(product.id),
+
+      qty:1,
+
+      size:size || '',
+
+      color:color || ''
+
+    });
+
+  }
+
+  saveCart();
+
+  showToast('Added to bag ✓');
+
+}
+
+
+function removeFromCart(index){
+
+  cart.splice(index,1);
+
+  saveCart();
+
+}
+
+
+function changeQty(index,direction){
+
+  if(!cart[index]){
+    return;
+  }
+
+  cart[index].qty += direction;
+
+  if(cart[index].qty <= 0){
+    cart.splice(index,1);
+  }
+
+  saveCart();
+
+}
+
+
+function saveCart(){
+
+  localStorage.setItem(
+    'alven_cart',
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+
+}
+
+
+function syncCart(){
+
+  cart =
+    cart.filter(item=>
+      products.some(
+        product=>
+          Number(product.id) === Number(item.id)
+      )
+    );
+
+  saveCart();
+
+}
+
+
+function cartTotal(){
+
+  return cart.reduce((total,item)=>{
+
+    const product =
+      products.find(
+        p=>Number(p.id) === Number(item.id)
+      );
+
+    if(!product){
+      return total;
+    }
+
+    return total +
+      Number(product.price || 0) *
+      Number(item.qty || 0);
+
+  },0);
+
+}
+
+
+function renderCart(){
+
+  const box =
+    document.getElementById('cartItems');
+
+  if(!cart.length){
+
+    box.innerHTML = `
+      <div style="text-align:center;color:#777;margin-top:50px">
+
+        Your bag is empty.
+
+      </div>
+    `;
+
+  }else{
+
+    box.innerHTML =
+      cart.map((item,index)=>{
+
+        const product =
+          products.find(
+            p=>Number(p.id) === Number(item.id)
+          );
+
+        if(!product){
+          return '';
+        }
+
+        const images =
+          getImages(product);
+
+        const image =
+          images[0] || '';
+
+        return `
+
+          <div class="cart-item">
+
+            ${
+              image
+              ?
+              `<img src="${escapeHTML(image)}"
+                    alt="${escapeHTML(product.name)}">`
+              :
+              `<div style="width:75px;height:95px;background:#eee"></div>`
+            }
+
+            <div style="flex:1">
+
+              <h4>
+                ${escapeHTML(product.name)}
+              </h4>
+
+              ${
+                item.size
+                ?
+                `<div style="font-size:12px;color:#777">
+                  Size: ${escapeHTML(item.size)}
+                </div>`
+                :
+                ''
+              }
+
+              ${
+                item.color
+                ?
+                `<div style="font-size:12px;color:#777">
+                  Color: ${escapeHTML(item.color)}
+                </div>`
+                :
+                ''
+              }
+
+              <b>
+                ${money(
+                  Number(product.price || 0) *
+                  Number(item.qty || 0)
+                )}
+              </b>
+
+              <div class="qty">
+
+                <button onclick="changeQty(${index},-1)">
+                  −
+                </button>
+
+                <span>
+                  ${item.qty}
+                </span>
+
+                <button onclick="changeQty(${index},1)">
+                  +
+                </button>
+
+                <button
+                  style="
+                    margin-left:auto;
+                    border:0;
+                    background:none;
+                    text-decoration:underline;
+                  "
+                  onclick="removeFromCart(${index})">
+
+                  Remove
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join('');
+
+  }
+
+  document.getElementById('total').textContent =
+    money(cartTotal());
+
+  document.getElementById('cartCount').textContent =
+    cart.reduce(
+      (sum,item)=>
+        sum + Number(item.qty || 0),
+      0
+    );
+
+}
+
+
+function openCart(){
+
+  document
+    .getElementById('cart')
+    .classList.add('open');
+
+  document
+    .getElementById('overlay')
+    .classList.add('show');
+
+  renderCart();
+
+}
+
+
+function closeCart(){
+
+  document
+    .getElementById('cart')
+    .classList.remove('open');
+
+  document
+    .getElementById('overlay')
+    .classList.remove('show');
+
+}
+
+
+/* =========================
+   CHECKOUT
+========================= */
+
+function checkout(){
+
+  if(!cart.length){
+
+    showToast('Your bag is empty');
+
+    return;
+
+  }
+
+  closeCart();
+
+  document.getElementById('checkoutTotal').textContent =
+    money(cartTotal());
+
+  document
+    .getElementById('checkoutModal')
+    .classList.add('show');
+
+}
+
+
+function closeCheckout(){
+
+  document
+    .getElementById('checkoutModal')
+    .classList.remove('show');
+
+}
+
+
+function getValue(id){
+
+  return document
+    .getElementById(id)
+    .value
+    .trim();
+
+}
+
+
 async function placeOrder(){
-  if(!cart.length){$('checkoutMsg').textContent='Your bag is empty.';return}
-  const name=$('customerName').value.trim(),phone=$('customerPhone').value.trim(),address=$('customerAddress').value.trim(),city=$('customerCity').value.trim(),notes=$('customerNotes').value.trim();
-  if(!name||!phone||!address||!city){$('checkoutMsg').textContent='Please fill in your name, phone, UAE address and city.';return}
-  const btn=document.querySelector('#checkoutModal .checkout');btn.disabled=true;btn.textContent='PLACING ORDER...';$('checkoutMsg').textContent='';
-  const items=cart.map(x=>({id:x.id,name:x.name,price:Number(x.price||0),qty:Number(x.qty||1),color:x.color||'',size:x.size||'',image_url:x.image_url||''}));
-  const payload={customer_name:name,phone,address,city,notes,payment_method:'PAY_ON_DELIVERY',items,total:cartTotal(),status:'NEW'};
+
+  if(!cart.length){
+
+    showToast('Your bag is empty');
+
+    return;
+
+  }
+
+  const name =
+    getValue('customerName');
+
+  const phone =
+    getValue('customerPhone');
+
+  const address =
+    getValue('customerAddress');
+
+  const city =
+    getValue('customerCity');
+
+  const notes =
+    getValue('customerNotes');
+
+  if(!name || !phone || !address || !city){
+
+    showToast('Please complete all required fields');
+
+    return;
+
+  }
+
+  const button =
+    document.getElementById('placeOrderBtn');
+
+  button.disabled = true;
+
+  button.textContent =
+    'PLACING ORDER...';
+
+  const orderItems =
+    cart.map(item=>{
+
+      const product =
+        products.find(
+          p=>Number(p.id) === Number(item.id)
+        );
+
+      return {
+
+        id:product ? product.id : item.id,
+
+        name:product ? product.name : '',
+
+        price:product ? product.price : 0,
+
+        qty:item.qty,
+
+        size:item.size || '',
+
+        color:item.color || ''
+
+      };
+
+    });
+
+  const payload = {
+
+    customer_name:name,
+
+    phone:phone,
+
+    address:address,
+
+    city:city,
+
+    notes:notes,
+
+    payment_method:'PAY_ON_DELIVERY',
+
+    items:orderItems,
+
+    total:cartTotal(),
+
+    status:'NEW'
+
+  };
+
   try{
-    const r=await fetch(SUPABASE_URL+'/rest/v1/orders',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(payload)});
-    const data=await r.json();if(!r.ok)throw new Error(data.message||data.hint||'Order could not be placed.');
-    const order=data[0]||data;
-    $('checkoutModal').querySelector('.modalinfo').innerHTML=`<div class="success"><div class="kicker">ORDER RECEIVED</div><h2>Thank you!</h2><p>Your ALVÉN order has been submitted successfully.</p><p><b>Order #${esc(order.id||'')}</b></p><p>Payment: <b>Pay on Delivery</b></p><button class="checkout" onclick="finishOrder()">DONE</button></div>`;
-  }catch(e){$('checkoutMsg').textContent=e.message||'Order failed.'}finally{btn.disabled=false;btn.textContent='PLACE ORDER'}
+
+    const response =
+      await fetch(
+        SUPABASE_URL + '/rest/v1/orders',
+        {
+
+          method:'POST',
+
+          headers:{
+
+            apikey:SUPABASE_KEY,
+
+            Authorization:
+              'Bearer ' + SUPABASE_KEY,
+
+            'Content-Type':
+              'application/json',
+
+            Prefer:
+              'return=representation'
+
+          },
+
+          body:
+            JSON.stringify(payload)
+
+        }
+      );
+
+    const text =
+      await response.text();
+
+    if(!response.ok){
+
+      console.error(text);
+
+      throw new Error(
+        'Order failed: ' +
+        response.status
+      );
+
+    }
+
+    let result = null;
+
+    try{
+      result = JSON.parse(text);
+    }catch(e){}
+
+    const orderId =
+      Array.isArray(result) &&
+      result[0] &&
+      result[0].id
+      ?
+      result[0].id
+      :
+      '';
+
+    cart = [];
+
+    saveCart();
+
+    closeCheckout();
+
+    document
+      .getElementById('customerName')
+      .value = '';
+
+    document
+      .getElementById('customerPhone')
+      .value = '';
+
+    document
+      .getElementById('customerAddress')
+      .value = '';
+
+    document
+      .getElementById('customerCity')
+      .value = '';
+
+    document
+      .getElementById('customerNotes')
+      .value = '';
+
+    if(orderId){
+
+      showToast(
+        'Order placed successfully! Order #' +
+        orderId
+      );
+
+    }else{
+
+      showToast(
+        'Order placed successfully ✓'
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      'Could not place order. Please try again.'
+    );
+
+  }finally{
+
+    button.disabled = false;
+
+    button.textContent =
+      'PLACE ORDER';
+
+  }
+
 }
-function finishOrder(){cart=[];localStorage.removeItem('alven_cart');updateCart();closeCheckout();openCart();setTimeout(closeCart,1200)}
-load();updateCart();
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function focusSearch(){
+
+  const query =
+    prompt('Search ALVÉN products:');
+
+  if(!query){
+    return;
+  }
+
+  const q =
+    query.toLowerCase().trim();
+
+  const found =
+    products.filter(product=>
+
+      String(product.name || '')
+        .toLowerCase()
+        .includes(q)
+
+      ||
+
+      String(product.brand || '')
+        .toLowerCase()
+        .includes(q)
+
+      ||
+
+      String(product.category || '')
+        .toLowerCase()
+        .includes(q)
+
+    );
+
+  if(!found.length){
+
+    showToast(
+      'No products found for "' +
+      query +
+      '"'
+    );
+
+    return;
+
+  }
+
+  activeCategory = 'ALL';
+
+  activeBrand = 'ALL';
+
+  renderProducts();
+
+  document
+    .getElementById('shop')
+    .scrollIntoView({
+      behavior:'smooth'
+    });
+
+  showToast(
+    found.length +
+    ' product(s) found'
+  );
+
+}
+
+
+/* =========================
+   NEWSLETTER
+========================= */
+
+function subscribe(event){
+
+  event.preventDefault();
+
+  showToast(
+    "Thanks! You're subscribed ✓"
+  );
+
+  event.target.reset();
+
+}
+
+
+/* =========================
+   HEART
+========================= */
+
+function toggleHeart(button){
+
+  button.textContent =
+    button.textContent === '♡'
+    ?
+    '♥'
+    :
+    '♡';
+
+  button.style.color =
+    button.textContent === '♥'
+    ?
+    '#f08bb7'
+    :
+    '';
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadProducts();
+
+renderCart();
+
+
+/* =========================
+   CLOSE MODALS WITH ESC
+========================= */
+
+document.addEventListener(
+  'keydown',
+  event=>{
+
+    if(event.key === 'Escape'){
+
+      closeProduct();
+
+      closeCheckout();
+
+      closeCart();
+
+    }
+
+  }
+);
+
 </script>
+
 </body>
-</html>
+  </html>
