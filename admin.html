@@ -1,167 +1,348 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
 <title>ALVÉN Admin</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
   margin:0;
-  background:#f5f5f5;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f3ef;
   color:#111;
+}
+
+header{
+  background:#111;
+  color:#fff;
+  padding:15px 18px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  height:40px;
+  max-width:150px;
+  object-fit:contain;
 }
 
 .wrap{
-  max-width:1100px;
+  max-width:1000px;
   margin:auto;
-  padding:20px;
+  padding:18px;
 }
 
-/* LOGO */
-.admin-logo{
-  text-align:center;
-  padding:10px 0 25px;
-}
-
-.admin-logo-text{
-  font-size:38px;
-  font-weight:900;
-  letter-spacing:4px;
-  color:#111;
-}
-
-/* BOX */
-.box{
+.card{
   background:#fff;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:20px;
-  box-shadow:0 2px 10px rgba(0,0,0,.04);
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
 }
 
-/* INPUTS */
+h1,h2{
+  margin:0 0 14px;
+}
+
+label{
+  font-size:12px;
+  font-weight:700;
+  display:block;
+  margin:12px 0 6px;
+}
+
 input,
 select,
-textarea{
-  width:100%;
-  padding:11px;
-  margin:6px 0 12px;
-  box-sizing:border-box;
-  border:1px solid #ddd;
-  border-radius:7px;
-  background:#fff;
-  color:#111;
-  font-size:15px;
-}
-
-select{
-  cursor:pointer;
-}
-
-/* BUTTONS */
 button{
-  padding:11px 15px;
+  font:inherit;
+}
+
+input,
+select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  background:#fff;
+}
+
+button{
   border:0;
-  border-radius:7px;
+  border-radius:9px;
+  padding:12px 15px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.primary{
   background:#111;
   color:#fff;
-  cursor:pointer;
-  font-weight:600;
-}
-
-button:hover{
-  opacity:.9;
 }
 
 .danger{
   background:#b00020;
+  color:#fff;
+}
+
+.ghost{
+  background:#eee;
+  color:#111;
+}
+
+.green{
+  background:#16733b;
+  color:#fff;
+}
+
+.location{
+  background:#111;
+  color:#fff;
+}
+
+.small{
+  padding:8px 10px;
+  font-size:12px;
 }
 
 .hidden{
-  display:none;
+  display:none!important;
 }
 
-/* PRODUCT */
-.product{
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:12px;
+.msg{
+  padding:10px;
+  border-radius:8px;
   margin:10px 0;
+  font-size:13px;
+  background:#eef6ee;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.actions{
   display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.photos{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.photo{
+  position:relative;
+  width:88px;
+  height:110px;
+}
+
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:8px;
+  border:1px solid #ddd;
+}
+
+.photo button{
+  position:absolute;
+  right:3px;
+  top:3px;
+  padding:4px 7px;
+  background:#fff;
+  color:#b00020;
+}
+
+.product{
+  display:grid;
+  grid-template-columns:75px 1fr auto;
   gap:12px;
   align-items:center;
-  background:#fff;
+  border-top:1px solid #eee;
+  padding:12px 0;
 }
 
 .product img{
-  width:70px;
-  height:70px;
+  width:75px;
+  height:85px;
   object-fit:cover;
   border-radius:8px;
   background:#eee;
 }
 
-.product-info{
-  flex:1;
-  line-height:1.6;
+.meta{
+  font-size:12px;
+  color:#666;
+  margin-top:4px;
 }
 
-/* ORDER */
+.login{
+  max-width:420px;
+  margin:10vh auto;
+}
+
+
+/* ================================
+   ORDERS
+================================ */
+
 .order{
   border:1px solid #ddd;
-  border-radius:10px;
+  border-radius:14px;
   padding:15px;
-  margin:10px 0;
+  margin-top:12px;
   background:#fff;
-  line-height:1.7;
 }
 
-.order select{
-  max-width:250px;
+.order-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
 }
 
-/* LABEL */
-label{
-  display:block;
+.order-title{
+  font-weight:800;
+  font-size:16px;
+}
+
+.order-date{
+  color:#777;
+  font-size:11px;
   margin-top:5px;
 }
 
-/* MOBILE */
-@media(max-width:600px){
+.order-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
 
-  .wrap{
-    padding:12px;
+.order-info div{
+  background:#f7f7f7;
+  border-radius:8px;
+  padding:10px;
+  font-size:13px;
+  word-break:break-word;
+}
+
+.order-info strong{
+  display:block;
+  font-size:10px;
+  color:#777;
+  margin-bottom:4px;
+}
+
+.order-items{
+  margin-top:12px;
+  background:#fafafa;
+  border-radius:10px;
+  padding:12px;
+}
+
+.items-title{
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.item-box{
+  border-top:1px solid #e5e5e5;
+  padding:10px 0;
+}
+
+.item-box:first-child{
+  border-top:0;
+  padding-top:0;
+}
+
+.item-name{
+  font-weight:800;
+  font-size:14px;
+}
+
+.item-detail{
+  font-size:12px;
+  color:#555;
+  margin-top:4px;
+}
+
+.item-price{
+  font-size:12px;
+  font-weight:700;
+  margin-top:5px;
+}
+
+.order-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.status{
+  width:auto;
+  min-width:135px;
+  padding:8px 10px;
+}
+
+@media(max-width:650px){
+
+  .grid{
+    grid-template-columns:1fr;
   }
 
-  .box{
-    padding:15px;
-  }
-
-  .admin-logo-text{
-    font-size:30px;
+  .full{
+    grid-column:auto;
   }
 
   .product{
-    align-items:flex-start;
+    grid-template-columns:60px 1fr;
+  }
+
+  .product .actions{
+    grid-column:1/-1;
   }
 
   .product img{
     width:60px;
-    height:60px;
+    height:70px;
   }
 
-  .product button{
-    padding:9px 10px;
-    font-size:12px;
+  .order-info{
+    grid-template-columns:1fr;
+  }
+
+  .order-top{
+    flex-direction:column;
+  }
+
+  .status{
+    width:100%;
   }
 }
 </style>
@@ -169,401 +350,2519 @@ label{
 
 <body>
 
-<div class="wrap">
+<header>
 
-  <!-- ALVÉN LOGO -->
-  <div class="admin-logo">
-    <div class="admin-logo-text">ALVÉN</div>
-  </div>
+<img
+  class="logo"
+  src="alven-logo.png"
+  alt="ALVÉN"
+  onerror="this.style.display='none'"
+>
 
+<button
+  id="logoutBtn"
+  class="ghost small hidden"
+  onclick="logout()"
+>
+LOG OUT
+</button>
 
-  <!-- LOGIN -->
-  <div id="login" class="box">
-
-    <h2>Admin Login</h2>
-
-    <input
-      id="email"
-      type="email"
-      placeholder="Email"
-    >
-
-    <input
-      id="password"
-      type="password"
-      placeholder="Password"
-    >
-
-    <button onclick="login()">
-      LOGIN
-    </button>
-
-    <p id="msg"></p>
-
-  </div>
+</header>
 
 
-  <!-- ADMIN PANEL -->
-  <div id="panel" class="hidden">
+<main class="wrap">
 
 
-    <!-- TOP CONTROLS -->
-    <div class="box">
+<!-- =========================================
+     LOGIN
+========================================= -->
 
-      <button onclick="logout()">
-        LOGOUT
-      </button>
+<section id="login" class="card login">
 
-      <button onclick="loadOrders()">
-        REFRESH ORDERS
-      </button>
+<h1>ALVÉN Admin</h1>
 
-    </div>
+<p>
+Sign in with your Supabase admin account.
+</p>
 
+<label>Email</label>
 
-    <!-- ADD PRODUCT -->
-    <div class="box">
+<input
+  id="email"
+  type="email"
+  placeholder="Admin email"
+>
 
-      <h2>Add Product</h2>
+<label>Password</label>
 
+<input
+  id="password"
+  type="password"
+  placeholder="Password"
+>
 
-      <!-- PRODUCT NAME -->
-      <input
-        id="pname"
-        placeholder="Product name"
-      >
+<button
+  class="primary"
+  style="margin-top:14px"
+  onclick="login()"
+>
+SIGN IN
+</button>
 
+<div
+  id="loginMsg"
+  class="msg hidden"
+></div>
 
-      <!-- PRICE -->
-      <input
-        id="price"
-        type="number"
-        step="0.01"
-        placeholder="Price AED"
-      >
-
-
-      <!-- CATEGORY -->
-      <label>
-        <b>Category</b>
-      </label>
-
-      <select id="category">
-
-        <option value="SHOES">
-          SHOES
-        </option>
-
-        <option value="HOODIE">
-          HOODIE
-        </option>
-
-        <option value="PANTS">
-          PANTS
-        </option>
-
-        <option value="T-SHIRT">
-          T-SHIRT
-        </option>
-
-        <option value="STREETWEAR">
-          STREETWEAR
-        </option>
-
-      </select>
+</section>
 
 
-      <!-- BRAND -->
-      <input
-        id="brand"
-        placeholder="Brand"
-      >
+
+<!-- =========================================
+     ADMIN APP
+========================================= -->
+
+<section id="app" class="hidden">
 
 
-      <!-- IMAGE -->
-      <label>
-        <b>Product image — choose from gallery</b>
-      </label>
+<!-- =========================================
+     ORDERS
+========================================= -->
 
-      <input
-        id="file"
-        type="file"
-        accept="image/*"
-      >
+<div class="card">
 
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+"
+>
 
-      <!-- SHOE SIZES -->
-      <input
-        id="sizes"
-        placeholder="Shoe sizes: 39,40,41,42"
-      >
+<h2>
+Orders
+</h2>
 
+<button
+class="ghost small"
+onclick="loadOrders()"
+>
+REFRESH
+</button>
 
-      <!-- COLORS -->
-      <input
-        id="colors"
-        placeholder="Colors: Black,White,Red"
-      >
+</div>
 
+<div
+id="ordersMsg"
+class="msg hidden"
+></div>
 
-      <!-- ADD -->
-      <button onclick="addProduct()">
-        ADD PRODUCT
-      </button>
+<div id="orders">
 
-      <p id="uploadMsg"></p>
+<p>
+Loading orders...
+</p>
 
-    </div>
-
-
-    <!-- PRODUCTS -->
-    <div class="box">
-
-      <h2>Products</h2>
-
-      <div id="products">
-        Loading...
-      </div>
-
-    </div>
-
-
-    <!-- ORDERS -->
-    <div class="box">
-
-      <h2>Orders</h2>
-
-      <div id="orders">
-        Loading...
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
+
+<!-- =========================================
+     PRODUCT FORM
+========================================= -->
+
+<div class="card">
+
+<h1 id="formTitle">
+Add Product
+</h1>
+
+<div
+id="msg"
+class="msg hidden"
+></div>
+
+<div class="grid">
+
+
+<!-- NAME -->
+
+<div>
+
+<label>
+PRODUCT NAME *
+</label>
+
+<input
+id="name"
+placeholder="Product name"
+>
+
+</div>
+
+
+<!-- PRICE -->
+
+<div>
+
+<label>
+PRICE (AED) *
+</label>
+
+<input
+id="price"
+type="number"
+min="0"
+step="0.01"
+placeholder="250"
+>
+
+</div>
+
+
+<!-- CATEGORY -->
+
+<div>
+
+<label>
+CATEGORY *
+</label>
+
+<select
+id="category"
+onchange="categoryChanged()"
+>
+
+<option value="SHOES">
+SHOES
+</option>
+
+<option value="HOODIE">
+HOODIE
+</option>
+
+<option value="PANTS">
+PANTS
+</option>
+
+<option value="T-SHIRT">
+T-SHIRT
+</option>
+
+<option value="STREETWEAR">
+STREETWEAR
+</option>
+
+</select>
+
+</div>
+
+
+<!-- BRAND -->
+
+<div id="brandBox">
+
+<label>
+BRAND
+</label>
+
+<select id="brand">
+
+<option value="">
+Other / No Brand
+</option>
+
+<option>ADIDAS</option>
+<option>NIKE</option>
+<option>PUMA</option>
+<option>JORDAN</option>
+<option>NEW BALANCE</option>
+<option>LOUIS VUITTON</option>
+<option>GUCCI</option>
+<option>BALENCIAGA</option>
+<option>DIOR</option>
+<option>PRADA</option>
+<option>OTHER BRANDS</option>
+
+</select>
+
+</div>
+
+
+<!-- COLORS -->
+
+<div class="full">
+
+<label>
+COLORS
+</label>
+
+<input
+id="colors"
+placeholder="Black, White, Red"
+>
+
+</div>
+
+
+<!-- SHOE SIZES -->
+
+<div
+id="sizesBox"
+class="full"
+>
+
+<label>
+SHOE SIZES
+</label>
+
+<input
+id="shoeSizes"
+placeholder="38, 39, 40, 41, 42, 43, 44"
+>
+
+</div>
+
+
+<!-- PHOTOS -->
+
+<div class="full">
+
+<label>
+PRODUCT PHOTOS
+</label>
+
+<input
+id="files"
+type="file"
+accept="image/*"
+multiple
+onchange="previewFiles()"
+>
+
+<div
+id="photos"
+class="photos"
+></div>
+
+<small>
+You can select multiple photos.
+The first photo becomes the main product photo.
+</small>
+
+</div>
+
+</div>
+
+
+<div
+class="actions"
+style="margin-top:16px"
+>
+
+<button
+id="saveBtn"
+class="primary"
+onclick="saveProduct()"
+>
+ADD PRODUCT
+</button>
+
+<button
+id="cancelBtn"
+class="ghost hidden"
+onclick="resetForm()"
+>
+CANCEL EDIT
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================================
+     PRODUCTS
+========================================= -->
+
+<div class="card">
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+"
+>
+
+<h2>
+Products
+</h2>
+
+<button
+class="ghost small"
+onclick="loadProducts()"
+>
+REFRESH
+</button>
+
+</div>
+
+<input
+id="search"
+placeholder="Search products..."
+oninput="renderProducts()"
+>
+
+<div id="products">
+
+<p>
+Loading...
+</p>
+
+</div>
+
+</div>
+
+
+</section>
+
+</main>
+
+
+
 <script>
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+/* =========================================
+   SUPABASE SETTINGS
+========================================= */
 
-const URL =
+const SUPABASE_URL =
 'https://oqvyrehcqxsmzpunxeys.supabase.co';
 
-const KEY =
+const SUPABASE_KEY =
 'sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a';
 
-const db =
-supabase.createClient(URL,KEY);
-
 const BUCKET =
-'product-images';
+'products';
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+/* =========================================
+   VARIABLES
+========================================= */
+
+let session = null;
+
+let products = [];
+
+let orders = [];
+
+let editingId = null;
+
+let selectedFiles = [];
+
+let existingImages = [];
+
+
+/* =========================================
+   SHORTCUT
+========================================= */
+
+const $ = id =>
+document.getElementById(id);
+
+
+/* =========================================
+   ESCAPE
+========================================= */
 
 const esc = s =>
-String(s ?? '')
-.replace(/[&<>"']/g,m => ({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  '"':'&quot;',
-  "'":'&#039;'
-}[m]));
+String(s ?? '').replace(
+/[&<>"']/g,
+m => ({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[m])
+);
 
 
-/* =========================================================
+/* =========================================
+   HEADERS
+========================================= */
+
+function headers(extra = {}){
+
+return Object.assign(
+
+{
+apikey:SUPABASE_KEY,
+
+Authorization:
+'Bearer ' +
+(
+session?.access_token ||
+SUPABASE_KEY
+),
+
+'Content-Type':
+'application/json'
+},
+
+extra
+
+);
+
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function message(text,error=false){
+
+$('msg').textContent = text;
+
+$('msg')
+.classList
+.remove('hidden');
+
+$('msg').style.background =
+error
+? '#ffe5e8'
+: '#eef6ee';
+
+}
+
+
+/* =========================================
    LOGIN
-========================================================= */
+========================================= */
 
 async function login(){
 
-  const r =
-  await db.auth.signInWithPassword({
+const email =
+$('email').value.trim();
 
-    email:
-    document.getElementById('email')
-    .value
-    .trim(),
+const password =
+$('password').value;
 
-    password:
-    document.getElementById('password')
-    .value
+if(!email || !password){
 
-  });
+$('loginMsg').textContent =
+'Enter email and password.';
 
+$('loginMsg')
+.classList
+.remove('hidden');
 
-  if(r.error){
-
-    document.getElementById('msg')
-    .textContent =
-    r.error.message;
-
-    return;
-  }
-
-
-  show();
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-async function logout(){
-
-  await db.auth.signOut();
-
-  location.reload();
+return;
 
 }
 
+try{
 
-/* =========================================================
+const response =
+await fetch(
+
+SUPABASE_URL +
+'/auth/v1/token?grant_type=password',
+
+{
+method:'POST',
+
+headers:{
+apikey:SUPABASE_KEY,
+'Content-Type':'application/json'
+},
+
+body:JSON.stringify({
+email:email,
+password:password
+})
+
+}
+
+);
+
+const data =
+await response.json();
+
+if(!response.ok){
+
+throw new Error(
+data.error_description ||
+data.msg ||
+'Login failed'
+);
+
+}
+
+session = data;
+
+localStorage.setItem(
+'alven_admin_session',
+JSON.stringify(data)
+);
+
+showApp();
+
+loadProducts();
+
+loadOrders();
+
+}catch(error){
+
+$('loginMsg').textContent =
+error.message;
+
+$('loginMsg')
+.classList
+.remove('hidden');
+
+}
+
+}
+
+
+/* =========================================
+   RESTORE LOGIN
+========================================= */
+
+function restore(){
+
+try{
+
+session =
+JSON.parse(
+localStorage.getItem(
+'alven_admin_session'
+) || 'null'
+);
+
+}catch(error){
+
+session = null;
+
+}
+
+if(session?.access_token){
+
+showApp();
+
+loadProducts();
+
+loadOrders();
+
+}
+
+}
+
+
+/* =========================================
    SHOW ADMIN
-========================================================= */
+========================================= */
 
-async function show(){
+function showApp(){
 
-  document
-  .getElementById('login')
-  .classList
-  .add('hidden');
+$('login')
+.classList
+.add('hidden');
 
-  document
-  .getElementById('panel')
-  .classList
-  .remove('hidden');
+$('app')
+.classList
+.remove('hidden');
 
-  loadProducts();
-
-  loadOrders();
+$('logoutBtn')
+.classList
+.remove('hidden');
 
 }
 
 
-/* =========================================================
-   CHECK SESSION
-========================================================= */
+/* =========================================
+   LOGOUT
+========================================= */
 
-async function init(){
+function logout(){
 
-  const r =
-  await db.auth.getSession();
+localStorage.removeItem(
+'alven_admin_session'
+);
 
-  if(r.data.session){
-
-    show();
-
-  }
+location.reload();
 
 }
 
 
-/* =========================================================
-   ADD PRODUCT
-========================================================= */
+/* =========================================
+   CATEGORY
+========================================= */
 
-async function addProduct(){
+function categoryChanged(){
 
-  const f =
-  document
-  .getElementById('file')
-  .files[0];
+const shoes =
+$('category').value === 'SHOES';
 
+$('sizesBox')
+.classList
+.toggle(
+'hidden',
+!shoes
+);
 
-  const pname =
-  document
-  .getElementById('pname')
-  .value
-  .trim();
+$('brandBox')
+.classList
+.toggle(
+'hidden',
+!shoes
+);
 
-  const price =
-  document
-  .getElementById('price')
-  .value;
-
-  const category =
-  document
-  .getElementById('category')
-  .value
-  .trim();
-
-  const brand =
-  document
-  .getElementById('brand')
-  .value
-  .trim();
-
-  const sizes =
-  document
-  .getElementById('sizes')
-  .value
-  .trim();
-
-  const colors =
-  document
-  .getElementById('colors')
-  .value
-  .trim();
-
-  const uploadMsg =
-  document
-  .getElementById('uploadMsg');
+}
 
 
-  /* REQUIRED CHECK */
+/* =========================================
+   RESET FORM
+========================================= */
 
-  if(
-    !pname ||
-    !price ||
-    !f
-  ){
+function resetForm(){
 
-    uploadMsg.textContent =
-    'Product name, price and gallery image are required.';
+editingId = null;
 
-    return;
+selectedFiles = [];
 
-  }
+existingImages = [];
 
+$('formTitle').textContent =
+'Add Product';
 
-  uploadMsg.textContent =
-  'Uploading image...';
+$('saveBtn').textContent =
+'ADD PRODUCT';
 
+$('cancelBtn')
+.classList
+.add('hidden');
 
-  /* FILE EXTENSION */
+$('name').value = '';
 
-  const ext =
-  (
-    f.name
-    .split('.')
-    .pop() ||
-    'jpg'
-  )
-  .toLowerCase();
+$('price').value = '';
 
+$('category').value =
+'SHOES';
 
-  /* UNIQUE FILE NAME */
+$('brand').value = '';
 
-  const path =
-  Date.now() +
-  '-' +
-  Math.random()
-  .toString(36)
-  .slice(2) +
-  '.' +
-  ext;
+$('colors').value = '';
+
+$('shoeSizes').value = '';
+
+$('files').value = '';
+
+$('photos').innerHTML = '';
+
+categoryChanged();
+
+}
 
 
-  /* UPLOAD */
+/* =========================================
+   PHOTO PREVIEW
+========================================= */
 
-  const u =
- 
+function previewFiles(){
+
+selectedFiles =
+Array.from(
+$('files').files || []
+);
+
+renderPhotos();
+
+}
+
+
+/* =========================================
+   RENDER PHOTOS
+========================================= */
+
+function renderPhotos(){
+
+const box =
+$('photos');
+
+box.innerHTML = '';
+
+existingImages.forEach(
+(url,index)=>{
+
+const div =
+document.createElement('div');
+
+div.className =
+'photo';
+
+div.innerHTML =
+`
+<img src="${esc(url)}">
+
+<button
+type="button"
+onclick="removeExisting(${index})"
+>
+×
+</button>
+`;
+
+box.appendChild(div);
+
+}
+);
+
+
+selectedFiles.forEach(
+(file,index)=>{
+
+const div =
+document.createElement('div');
+
+div.className =
+'photo';
+
+const img =
+document.createElement('img');
+
+img.src =
+URL.createObjectURL(file);
+
+const button =
+document.createElement('button');
+
+button.type =
+'button';
+
+button.textContent =
+'×';
+
+button.onclick = ()=>{
+
+selectedFiles.splice(
+index,
+1
+);
+
+renderPhotos();
+
+};
+
+div.appendChild(img);
+
+div.appendChild(button);
+
+box.appendChild(div);
+
+}
+);
+
+}
+
+
+/* =========================================
+   REMOVE EXISTING IMAGE
+========================================= */
+
+function removeExisting(index){
+
+existingImages.splice(
+index,
+1
+);
+
+renderPhotos();
+
+}
+
+
+/* =========================================
+   LIST PARSER
+========================================= */
+
+function parseList(value){
+
+return value
+.split(',')
+.map(x=>x.trim())
+.filter(Boolean);
+
+}
+
+
+/* =========================================
+   UPLOAD IMAGE
+========================================= */
+
+async function uploadFile(file){
+
+const extension =
+(
+file.name
+.split('.')
+.pop() ||
+'jpg'
+)
+.toLowerCase()
+.replace(
+/[^a-z0-9]/g,
+''
+);
+
+const path =
+'products/' +
+Date.now() +
+'-' +
+Math.random()
+.toString(36)
+.slice(2) +
+'.' +
+extension;
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+'/storage/v1/object/' +
+BUCKET +
+'/' +
+path,
+
+{
+method:'POST',
+
+headers:{
+
+apikey:
+SUPABASE_KEY,
+
+Authorization:
+'Bearer ' +
+(
+session?.access_token ||
+SUPABASE_KEY
+),
+
+'Content-Type':
+file.type ||
+'image/jpeg',
+
+'x-upsert':
+'false'
+
+},
+
+body:file
+
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+'Image upload failed: ' +
+await response.text()
+);
+
+}
+
+return (
+
+SUPABASE_URL +
+
+'/storage/v1/object/public/' +
+
+BUCKET +
+
+'/' +
+
+path
+
+);
+
+}
+
+
+/* =========================================
+   SAVE PRODUCT
+========================================= */
+
+async function saveProduct(){
+
+const name =
+$('name').value.trim();
+
+const price =
+Number(
+$('price').value
+);
+
+const category =
+$('category').value;
+
+if(
+!name ||
+!Number.isFinite(price)
+){
+
+message(
+'Product name and price are required.',
+true
+);
+
+return;
+
+}
+
+$('saveBtn').disabled =
+true;
+
+try{
+
+message(
+'Saving product...'
+);
+
+let urls =
+[...existingImages];
+
+for(
+const file of selectedFiles
+){
+
+const url =
+await uploadFile(file);
+
+urls.push(url);
+
+}
+
+if(!urls.length){
+
+throw new Error(
+'Please select at least one product photo.'
+);
+
+}
+
+const payload = {
+
+name:name,
+
+price:price,
+
+category:category,
+
+brand:
+category === 'SHOES'
+? (
+$('brand').value ||
+null
+)
+: null,
+
+image_url:
+urls[0],
+
+image_urls:
+urls,
+
+shoe_sizes:
+category === 'SHOES'
+? parseList(
+$('shoeSizes').value
+)
+: [],
+
+colors:
+parseList(
+$('colors').value
+)
+
+};
+
+let response;
+
+
+/* EDIT */
+
+if(editingId){
+
+response =
+await fetch(
+
+SUPABASE_URL +
+'/rest/v1/products?id=eq.' +
+encodeURIComponent(
+editingId
+),
+
+{
+method:'PATCH',
+
+headers:
+headers({
+'Prefer':
+'return=minimal'
+}),
+
+body:
+JSON.stringify(payload)
+
+}
+
+);
+
+}
+
+
+/* ADD */
+
+else{
+
+response =
+await fetch(
+
+SUPABASE_URL +
+'/rest/v1/products',
+
+{
+method:'POST',
+
+headers:
+headers({
+'Prefer':
+'return=minimal'
+}),
+
+body:
+JSON.stringify(payload)
+
+}
+
+);
+
+}
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+message(
+editingId
+? 'Product updated successfully.'
+: 'Product added successfully.'
+);
+
+resetForm();
+
+await loadProducts();
+
+}catch(error){
+
+message(
+error.message,
+true
+);
+
+}finally{
+
+$('saveBtn').disabled =
+false;
+
+}
+
+}
+
+
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
+
+async function loadProducts(){
+
+$('products').innerHTML =
+'<p>Loading...</p>';
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+'/rest/v1/products?' +
+'select=id,name,price,category,brand,image_url,image_urls,shoe_sizes,colors' +
+'&order=id.desc',
+
+{
+headers:
+headers()
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+products =
+await response.json();
+
+renderProducts();
+
+}catch(error){
+
+$('products').innerHTML =
+`
+<div class="msg">
+${esc(error.message)}
+</div>
+`;
+
+}
+
+}
+
+
+/* =========================================
+   GET PRODUCT IMAGES
+========================================= */
+
+function imgs(product){
+
+if(
+Array.isArray(
+product.image_urls
+) &&
+product.image_urls.length
+){
+
+return product.image_urls;
+
+}
+
+if(
+typeof product.image_urls ===
+'string'
+){
+
+try{
+
+const array =
+JSON.parse(
+product.image_urls
+);
+
+if(
+Array.isArray(array)
+){
+
+return array;
+
+}
+
+}catch(error){}
+
+}
+
+return product.image_url
+? [product.image_url]
+: [];
+
+}
+
+
+/* =========================================
+   RENDER PRODUCTS
+========================================= */
+
+function renderProducts(){
+
+const query =
+$('search')
+.value
+.toLowerCase()
+.trim();
+
+const list =
+products.filter(
+product =>
+
+!query ||
+
+[
+product.name,
+product.category,
+product.brand
+]
+.join(' ')
+.toLowerCase()
+.includes(query)
+
+);
+
+if(!list.length){
+
+$('products').innerHTML =
+'<p>No products found.</p>';
+
+return;
+
+}
+
+$('products').innerHTML =
+list.map(
+product=>{
+
+const image =
+imgs(product)[0] ||
+'';
+
+return `
+
+<div class="product">
+
+<img
+src="${esc(image)}"
+alt=""
+>
+
+<div>
+
+<b>
+${esc(product.name)}
+</b>
+
+<div class="meta">
+
+AED
+${Number(
+product.price || 0
+).toFixed(0)}
+
+·
+
+${esc(
+product.category || ''
+)}
+
+${
+product.brand
+? ' · ' +
+esc(product.brand)
+: ''
+}
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button
+class="ghost small"
+onclick='editProduct(${JSON.stringify(String(product.id))})'
+>
+EDIT
+</button>
+
+<button
+class="danger small"
+onclick='deleteProduct(${JSON.stringify(String(product.id))})'
+>
+DELETE
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+).join('');
+
+}
+
+
+/* =========================================
+   EDIT PRODUCT
+========================================= */
+
+function editProduct(id){
+
+const product =
+products.find(
+item =>
+String(item.id) ===
+String(id)
+);
+
+if(!product){
+
+return;
+
+}
+
+editingId =
+product.id;
+
+existingImages =
+imgs(product);
+
+selectedFiles =
+[];
+
+$('formTitle').textContent =
+'Edit Product';
+
+$('saveBtn').textContent =
+'UPDATE PRODUCT';
+
+$('cancelBtn')
+.classList
+.remove('hidden');
+
+$('name').value =
+product.name || '';
+
+$('price').value =
+product.price ?? '';
+
+$('category').value =
+product.category ||
+'SHOES';
+
+$('brand').value =
+product.brand || '';
+
+if(
+Array.isArray(
+product.colors
+)
+){
+
+$('colors').value =
+product.colors.join(', ');
+
+}else{
+
+$('colors').value =
+product.colors || '';
+
+}
+
+let sizes =
+product.shoe_sizes;
+
+if(
+typeof sizes ===
+'string'
+){
+
+try{
+
+sizes =
+JSON.parse(sizes);
+
+}catch(error){
+
+sizes =
+parseList(sizes);
+
+}
+
+}
+
+$('shoeSizes').value =
+Array.isArray(sizes)
+? sizes.join(', ')
+: '';
+
+$('files').value =
+'';
+
+renderPhotos();
+
+categoryChanged();
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+
+/* =========================================
+   DELETE PRODUCT
+========================================= */
+
+async function deleteProduct(id){
+
+const product =
+products.find(
+item =>
+String(item.id) ===
+String(id)
+);
+
+if(
+!product ||
+!confirm(
+'Delete "' +
+product.name +
+'"?'
+)
+){
+
+return;
+
+}
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+'/rest/v1/products?id=eq.' +
+encodeURIComponent(id),
+
+{
+method:'DELETE',
+
+headers:
+headers()
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+await loadProducts();
+
+message(
+'Product deleted.'
+);
+
+}catch(error){
+
+message(
+error.message,
+true
+);
+
+}
+
+}
+
+
+/* =========================================
+   LOAD ORDERS
+========================================= */
+
+async function loadOrders(){
+
+$('orders').innerHTML =
+'<p>Loading orders...</p>';
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+'/rest/v1/orders?select=*&order=id.desc',
+
+{
+headers:
+headers()
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+orders =
+await response.json();
+
+renderOrders();
+
+}catch(error){
+
+$('orders').innerHTML =
+`
+<div
+class="msg"
+style="background:#ffe5e8"
+>
+${esc(error.message)}
+</div>
+`;
+
+}
+
+}
+
+
+/* =========================================
+   GET ORDER FIELD
+========================================= */
+
+function orderValue(order,names){
+
+for(
+const name of names
+){
+
+if(
+order[name] !== undefined &&
+order[name] !== null &&
+order[name] !== ''
+){
+
+return order[name];
+
+}
+
+}
+
+return '';
+
+}
+
+
+/* =========================================
+   PARSE ANY JSON VALUE
+========================================= */
+
+function parseMaybeJSON(value){
+
+if(
+typeof value !== 'string'
+){
+
+return value;
+
+}
+
+try{
+
+return JSON.parse(value);
+
+}catch(error){
+
+return value;
+
+}
+
+}
+
+
+/* =========================================
+   FORMAT ORDER ITEMS
+   SHOWS NAME + COLOR + SIZE
+========================================= */
+
+function formatOrderItems(order){
+
+let items =
+orderValue(
+order,
+[
+'items',
+'products',
+'order_items'
+]
+);
+
+if(!items){
+
+return `
+<div class="item-box">
+<div class="item-detail">
+No item details saved with this order.
+</div>
+</div>
+`;
+
+}
+
+items =
+parseMaybeJSON(items);
+
+
+/*
+  Sometimes an order has one object
+  instead of an array.
+*/
+
+if(
+!Array.isArray(items)
+){
+
+if(
+typeof items === 'object' &&
+items !== null
+){
+
+items = [items];
+
+}else{
+
+return `
+<div class="item-box">
+<div class="item-detail">
+${esc(String(items))}
+</div>
+</div>
+`;
+
+}
+
+}
+
+
+return items.map(
+(item,index)=>{
+
+/*
+  If item is only text
+*/
+
+if(
+typeof item === 'string'
+){
+
+return `
+
+<div class="item-box">
+
+<div class="item-name">
+
+${index + 1}. ${esc(item)}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/*
+  PRODUCT NAME
+*/
+
+const name =
+item.name ||
+item.product_name ||
+item.productName ||
+item.title ||
+item.product ||
+'Product';
+
+
+/*
+  QUANTITY
+*/
+
+const quantity =
+item.quantity ??
+item.qty ??
+item.count ??
+1;
+
+
+/*
+  COLOR
+*/
+
+let color =
+item.color ??
+item.colour ??
+item.selected_color ??
+item.selectedColor ??
+item.product_color ??
+'';
+
+
+/*
+  SIZE
+*/
+
+let size =
+item.size ??
+item.selected_size ??
+item.selectedSize ??
+item.shoe_size ??
+item.shoeSize ??
+item.product_size ??
+'';
+
+
+/*
+  PRICE
+*/
+
+const price =
+item.price ??
+item.unit_price ??
+item.product_price ??
+'';
+
+
+/*
+  TOTAL
+*/
+
+const itemTotal =
+item.total ??
+item.item_total ??
+'';
+
+
+/*
+  Handle nested options
+*/
+
+if(
+(!color || !size) &&
+item.options &&
+typeof item.options === 'object'
+){
+
+color =
+color ||
+item.options.color ||
+item.options.colour ||
+'';
+
+size =
+size ||
+item.options.size ||
+item.options.shoe_size ||
+'';
+
+}
+
+
+/*
+  Handle nested variant
+*/
+
+if(
+(!color || !size) &&
+item.variant &&
+typeof item.variant === 'object'
+){
+
+color =
+color ||
+item.variant.color ||
+item.variant.colour ||
+'';
+
+size =
+size ||
+item.variant.size ||
+item.variant.shoe_size ||
+'';
+
+}
+
+
+/*
+  Build item
+*/
+
+let html = `
+
+<div class="item-box">
+
+<div class="item-name">
+
+${index + 1}.
+${esc(name)}
+× ${esc(quantity)}
+
+</div>
+`;
+
+
+/* COLOR */
+
+if(color){
+
+html += `
+
+<div class="item-detail">
+
+🎨 <strong>Color:</strong>
+${esc(color)}
+
+</div>
+
+`;
+
+}else{
+
+html += `
+
+<div class="item-detail">
+
+🎨 <strong>Color:</strong>
+Not provided
+
+</div>
+
+`;
+
+}
+
+
+/* SIZE */
+
+if(size){
+
+html += `
+
+<div class="item-detail">
+
+📏 <strong>Size:</strong>
+${esc(size)}
+
+</div>
+
+`;
+
+}else{
+
+html += `
+
+<div class="item-detail">
+
+📏 <strong>Size:</strong>
+Not provided
+
+</div>
+
+`;
+
+}
+
+
+/* PRICE */
+
+if(price !== ''){
+
+html += `
+
+<div class="item-price">
+
+Price: AED ${esc(price)}
+
+</div>
+
+`;
+
+}
+
+
+/* ITEM TOTAL */
+
+if(itemTotal !== ''){
+
+html += `
+
+<div class="item-price">
+
+Item total: AED ${esc(itemTotal)}
+
+</div>
+
+`;
+
+}
+
+
+html += `
+
+</div>
+`;
+
+return html;
+
+}
+).join('');
+
+}
+
+
+/* =========================================
+   RENDER ORDERS
+========================================= */
+
+function renderOrders(){
+
+if(!orders.length){
+
+$('orders').innerHTML =
+'<p>No orders yet.</p>';
+
+return;
+
+}
+
+$('orders').innerHTML =
+orders.map(
+order=>{
+
+const id =
+orderValue(
+order,
+[
+'id',
+'order_id',
+'order_number'
+]
+);
+
+const name =
+orderValue(
+order,
+[
+'customer_name',
+'name',
+'full_name'
+]
+);
+
+const phone =
+orderValue(
+order,
+[
+'phone',
+'customer_phone',
+'whatsapp'
+]
+);
+
+const address =
+orderValue(
+order,
+[
+'address',
+'delivery_address',
+'customer_address'
+]
+);
+
+const total =
+orderValue(
+order,
+[
+'total',
+'total_price',
+'amount',
+'price'
+]
+);
+
+const method =
+orderValue(
+order,
+[
+'payment_method',
+'order_method',
+'method'
+]
+);
+
+const date =
+orderValue(
+order,
+[
+'created_at',
+'date',
+'order_date'
+]
+);
+
+const status =
+orderValue(
+order,
+[
+'status',
+'order_status'
+]
+) || 'NEW';
+
+
+/*
+  LOCATION
+*/
+
+const locationUrl =
+order.location_url ||
+(
+order.latitude &&
+order.longitude
+?
+`https://www.google.com/maps?q=${order.latitude},${order.longitude}`
+: ''
+);
+
+
+/*
+  ITEMS
+*/
+
+const itemsHTML =
+formatOrderItems(order);
+
+
+return `
+
+<div class="order">
+
+
+<div class="order-top">
+
+<div>
+
+<div class="order-title">
+
+ORDER #${esc(id)}
+
+</div>
+
+<div class="order-date">
+
+${esc(date || '')}
+
+</div>
+
+</div>
+
+
+<select
+class="status"
+onchange="
+updateOrderStatus(
+${JSON.stringify(String(id))},
+this.value
+)
+"
+>
+
+<option
+value="NEW"
+${status === 'NEW' ? 'selected' : ''}
+>
+NEW
+</option>
+
+<option
+value="CONFIRMED"
+${status === 'CONFIRMED' ? 'selected' : ''}
+>
+CONFIRMED
+</option>
+
+<option
+value="DELIVERED"
+${status === 'DELIVERED' ? 'selected' : ''}
+>
+DELIVERED
+</option>
+
+<option
+value="CANCELLED"
+${status === 'CANCELLED' ? 'selected' : ''}
+>
+CANCELLED
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="order-info">
+
+
+<div>
+
+<strong>
+CUSTOMER
+</strong>
+
+${esc(name || '—')}
+
+</div>
+
+
+<div>
+
+<strong>
+PHONE
+</strong>
+
+${esc(phone || '—')}
+
+</div>
+
+
+<div>
+
+<strong>
+ADDRESS
+</strong>
+
+${esc(address || '—')}
+
+</div>
+
+
+<div>
+
+<strong>
+TOTAL
+</strong>
+
+AED ${esc(total || '0')}
+
+</div>
+
+
+<div>
+
+<strong>
+PAYMENT / METHOD
+</strong>
+
+${esc(method || '—')}
+
+</div>
+
+
+</div>
+
+
+
+<div class="order-items">
+
+<div class="items-title">
+ORDER ITEMS
+</div>
+
+${itemsHTML}
+
+</div>
+
+
+
+<div class="order-actions">
+
+
+${
+phone
+?
+`
+<a
+href="https://wa.me/${String(phone).replace(/[^0-9]/g,'')}"
+target="_blank"
+rel="noopener"
+style="text-decoration:none"
+>
+
+<button
+class="green small"
+>
+WHATSAPP
+</button>
+
+</a>
+`
+:
+''
+}
+
+
+${
+locationUrl
+?
+`
+<a
+href="${esc(locationUrl)}"
+target="_blank"
+rel="noopener"
+style="text-decoration:none"
+>
+
+<button
+class="location small"
+>
+📍 VIEW LOCATION
+</button>
+
+</a>
+`
+:
+`
+<button
+class="ghost small"
+disabled
+>
+📍 NO LOCATION
+</button>
+`
+}
+
+
+<button
+class="danger small"
+onclick="
+deleteOrder(
+${JSON.stringify(String(id))}
+)
+"
+>
+DELETE ORDER
+</button>
+
+
+</div>
+
+
+</div>
+
+`;
+
+}
+).join('');
+
+}
+
+
+/* =========================================
+   UPDATE ORDER STATUS
+========================================= */
+
+async function updateOrderStatus(
+id,
+status
+){
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+'/rest/v1/orders?id=eq.' +
+encodeURIComponent(id),
+
+{
+method:'PATCH',
+
+headers:
+headers({
+'Prefer':
+'return=minimal'
+}),
+
+body:
+JSON.stringify({
+status:status
+})
+
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+await loadOrders();
+
+}catch(error){
+
+alert(
+'Could not update order: ' +
+error.message
+);
+
+}
+
+}
+
+
+/* =========================================
+   DELETE ORDER
+========================================= */
+
+async function deleteOrder(id){
+
+const order =
+orders.find(
+item =>
+String(
+orderValue(
+item,
+[
+'id',
+'order_id',
+'order_number'
+]
+)
+) === String(id)
+);
+
+const customer =
+order
+?
+orderValue(
+order,
+[
+'customer_name',
+'name',
+'full_name'
+]
+)
+: '';
+
+if(
+!confirm(
+'Delete this order' +
+(
+customer
+? ' from ' + customer
+: ''
+) +
+'?\n\nThis cannot be undone.'
+)
+){
+
+return;
+
+}
+
+try{
+
+const response =
+await fetch(
+
+SUPABASE_URL +
+'/rest/v1/orders?id=eq.' +
+encodeURIComponent(id),
+
+{
+method:'DELETE',
+
+headers:
+headers({
+'Prefer':
+'return=minimal'
+})
+
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+await response.text()
+);
+
+}
+
+await loadOrders();
+
+$('ordersMsg').textContent =
+'Order deleted successfully.';
+
+$('ordersMsg')
+.classList
+.remove('hidden');
+
+$('ordersMsg')
+.style.background =
+'#eef6ee';
+
+}catch(error){
+
+$('ordersMsg').textContent =
+'Could not delete order: ' +
+error.message;
+
+$('ordersMsg')
+.classList
+.remove('hidden');
+
+$('ordersMsg')
+.style.background =
+'#ffe5e8';
+
+}
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+categoryChanged();
+
+restore();
+
+</script>
+
+</body>
+  </html>
