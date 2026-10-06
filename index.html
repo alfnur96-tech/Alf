@@ -10,7 +10,7 @@
 <meta property="og:title" content="ALVÉN | Premium Fashion & Sneakers">
 <meta property="og:description" content="Shop ALVÉN fashion, sneakers and streetwear in AED.">
 <meta property="og:url" content="https://alvenstore.vercel.app/">
-<meta property="og:image" content="https://alvenstore.vercel.app/alven-logo.png">
+<meta property="og:image" content="https://alvenstore.vercel.app/ALVEN-logo-transparent.png">
 <meta name="twitter:card" content="summary_large_image">
 <style>
 :root{--bg:#f5f3ee;--ink:#111;--muted:#777;--line:#ddd8cf}
@@ -35,7 +35,7 @@ a{text-decoration:none;color:inherit}.delivery-banner{width:100%;background:#111
 <body>
 <div class="delivery-banner">🚚 FREE DELIVERY ACROSS UAE 🇦🇪</div>
 <nav class="nav">
-<a class="logo" href="/"><img src="alven-logo.png" alt="ALVÉN logo"><span>ALVÉN</span></a>
+<a class="logo" href="/"><img src="ALVEN-logo-transparent.png" alt="ALVÉN logo"><span>ALVÉN</span></a>
 <div class="links"><a href="/shop.html">Shop</a><a href="/products.html">Products</a><a href="/about.html">About</a><a href="/shipping.html">Shipping</a><a href="/contact.html">Contact</a></div>
 <div class="actions"><button onclick="focusSearch()">Search</button><button onclick="openCart()">Bag (<b id="count">0</b>)</button></div>
 </nav>
@@ -48,7 +48,7 @@ a{text-decoration:none;color:inherit}.delivery-banner{width:100%;background:#111
 </section>
 <section class="section" id="shop"><div class="head"><div><div class="kicker">THE COLLECTION</div><h2>Latest Pieces</h2></div><div class="filters" id="filters"></div></div><div class="grid" id="products"><div class="empty">Loading collection...</div></div></section>
 <section class="banner"><h2>BUILT FOR<br>YOUR EVERYDAY.</h2></section>
-<footer class="footer"><div><div class="logo"><img src="alven-logo.png" alt="ALVÉN logo"><span>ALVÉN</span></div><p>Modern fashion. Simple identity.</p></div><div><b>SHOP</b><p><a href="/shop.html">Shop</a><br><a href="/products.html">Products</a><br><a href="/shipping.html">Shipping</a></p></div><div><b>ABOUT</b><p><a href="/about.html">About ALVÉN</a><br><a href="/contact.html">Contact</a></p></div></footer>
+<footer class="footer"><div><div class="logo"><img src="ALVEN-logo-transparent.png" alt="ALVÉN logo"><span>ALVÉN</span></div><p>Modern fashion. Simple identity.</p></div><div><b>SHOP</b><p><a href="/shop.html">Shop</a><br><a href="/products.html">Products</a><br><a href="/shipping.html">Shipping</a></p></div><div><b>ABOUT</b><p><a href="/about.html">About ALVÉN</a><br><a href="/contact.html">Contact</a></p></div></footer>
 
 <aside class="drawer" id="drawer">
 <div class="drawerhead"><h2>Your Bag</h2><button class="close" onclick="closeCart()">×</button></div>
@@ -106,7 +106,7 @@ async function load(){
   }catch(e){box.innerHTML='<div class="empty">Collection could not be loaded.<br><small>'+esc(e.message)+'</small><br><button class="filter" onclick="load()">RETRY</button></div>'}
 }
 function renderFilters(){
-  const cs=['SHOES','HOODIE','PANTS','T-SHIRT'];$('filters').innerHTML=cs.map(c=>`<button class="filter ${c===selected?'active':''}" onclick="pick('${c}')">${c}</button>`).join('');
+  const cs=['SHOES','HOODIE','PANTS','T-SHIRT','STREETWEAR'];$('filters').innerHTML=cs.map(c=>`<button class="filter ${c===selected?'active':''}" onclick="pick('${c}')">${c}</button>`).join('');
   const b=$('shoeBrands');if(selected==='SHOES'){b.style.display='flex';b.innerHTML=SHOE_BRANDS.map(x=>`<button class="filter ${x===selectedBrand?'active':''}" onclick="pickBrand('${x}')">${x}</button>`).join('')}else{b.style.display='none';b.innerHTML=''}
 }
 function pick(c){selected=c;selectedBrand='';renderFilters();render();document.getElementById('shop').scrollIntoView({behavior:'smooth'})}
@@ -140,6 +140,7 @@ function render(){
     if(selected==='HOODIE')return c==='HOODIE'||c==='HOODIES';
     if(selected==='T-SHIRT')return c==='T-SHIRT'||c==='T-SHIRTS';
     if(selected==='PANTS')return c==='PANTS'||c==='PANT';
+    if(selected==='STREETWEAR')return c==='STREETWEAR'||c==='STREET WEAR';
     return c==='SHOES';
   });
   if(!q&&selected==='SHOES'&&selectedBrand)list=list.filter(p=>String(p.brand||'').toUpperCase()===selectedBrand);
