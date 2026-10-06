@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <title>ALVÉN Admin</title>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -18,13 +19,15 @@ body{
   color:#111;
 }
 
+/* HEADER */
+
 header{
   background:#111;
   color:#fff;
-  padding:15px 18px;
+  padding:14px 18px;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:100;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -36,8 +39,61 @@ header{
   object-fit:contain;
 }
 
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* BUTTONS */
+
+button,
+a{
+  font:inherit;
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  padding:11px 14px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.primary{
+  background:#111;
+  color:#fff;
+}
+
+.white{
+  background:#fff;
+  color:#111;
+}
+
+.ghost{
+  background:#eee;
+  color:#111;
+}
+
+.danger{
+  background:#b00020;
+  color:#fff;
+}
+
+.success{
+  background:#176b35;
+  color:#fff;
+}
+
+.small{
+  padding:7px 10px;
+  font-size:12px;
+}
+
+/* LAYOUT */
+
 .wrap{
-  max-width:1000px;
+  max-width:1100px;
   margin:auto;
   padding:18px;
 }
@@ -51,70 +107,70 @@ header{
   box-shadow:0 4px 18px rgba(0,0,0,.05);
 }
 
-h1,h2{
-  margin:0 0 14px;
+.hidden{
+  display:none!important;
+}
+
+/* LOGIN */
+
+.login{
+  max-width:430px;
+  margin:10vh auto;
+}
+
+h1,
+h2,
+h3{
+  margin-top:0;
 }
 
 label{
-  font-size:12px;
-  font-weight:700;
   display:block;
   margin:12px 0 6px;
+  font-size:12px;
+  font-weight:700;
 }
 
 input,
 select,
-button{
-  font:inherit;
-}
-
-input,
-select{
+textarea{
   width:100%;
   padding:12px;
   border:1px solid #ccc;
   border-radius:9px;
   background:#fff;
+  font:inherit;
 }
 
-button{
-  border:0;
-  border-radius:9px;
-  padding:12px 15px;
-  cursor:pointer;
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+/* ADMIN NAV */
+
+.admin-nav{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.nav-btn{
+  padding:14px;
+  background:#eee;
+  border-radius:10px;
+  text-align:center;
   font-weight:700;
+  cursor:pointer;
 }
 
-.primary{
+.nav-btn.active{
   background:#111;
   color:#fff;
 }
 
-.danger{
-  background:#b00020;
-  color:#fff;
-}
-
-.ghost{
-  background:#eee;
-}
-
-.small{
-  padding:8px 10px;
-  font-size:12px;
-}
-
-.hidden{
-  display:none!important;
-}
-
-.msg{
-  padding:10px;
-  border-radius:8px;
-  margin:10px 0;
-  font-size:13px;
-  background:#eef6ee;
-}
+/* GRID */
 
 .grid{
   display:grid;
@@ -126,11 +182,29 @@ button{
   grid-column:1/-1;
 }
 
+/* MESSAGES */
+
+.msg{
+  padding:11px;
+  border-radius:9px;
+  margin:10px 0;
+  background:#eef6ee;
+  font-size:13px;
+}
+
+.msg.error{
+  background:#ffe5e8;
+}
+
+/* ACTIONS */
+
 .actions{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
 }
+
+/* PHOTOS */
 
 .photos{
   display:flex;
@@ -140,9 +214,9 @@ button{
 }
 
 .photo{
-  position:relative;
   width:88px;
   height:110px;
+  position:relative;
 }
 
 .photo img{
@@ -157,10 +231,12 @@ button{
   position:absolute;
   right:3px;
   top:3px;
-  padding:4px 7px;
+  padding:3px 7px;
   background:#fff;
   color:#b00020;
 }
+
+/* PRODUCTS */
 
 .product{
   display:grid;
@@ -169,6 +245,10 @@ button{
   align-items:center;
   border-top:1px solid #eee;
   padding:12px 0;
+}
+
+.product:first-child{
+  border-top:0;
 }
 
 .product img{
@@ -182,15 +262,125 @@ button{
 .meta{
   font-size:12px;
   color:#666;
+  margin-top:5px;
+}
+
+/* ORDERS */
+
+.order{
+  border:1px solid #ddd;
+  border-radius:12px;
+  margin-top:12px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.order-top{
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  background:#fafafa;
+  border-bottom:1px solid #eee;
+}
+
+.order-body{
+  padding:14px;
+}
+
+.order-row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:6px 0;
+  font-size:14px;
+}
+
+.order-label{
+  color:#666;
+}
+
+.order-items{
+  background:#f7f7f7;
+  border-radius:8px;
+  padding:10px;
+  margin-top:10px;
+}
+
+.status{
+  padding:6px 9px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+  display:inline-block;
+}
+
+.status-new{
+  background:#fff1c7;
+  color:#795d00;
+}
+
+.status-confirmed{
+  background:#dcecff;
+  color:#164a80;
+}
+
+.status-delivered{
+  background:#dcf5e3;
+  color:#176b35;
+}
+
+.status-cancelled{
+  background:#ffe1e5;
+  color:#9b001b;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.stat{
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:15px;
+}
+
+.stat-number{
+  font-size:25px;
+  font-weight:800;
+}
+
+.stat-label{
+  font-size:12px;
+  color:#666;
   margin-top:4px;
 }
 
-.login{
-  max-width:420px;
-  margin:10vh auto;
+/* STORE BUTTON */
+
+.open-store{
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  color:#111;
+  padding:9px 12px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:700;
 }
 
-@media(max-width:650px){
+/* MOBILE */
+
+@media(max-width:700px){
 
   .grid{
     grid-template-columns:1fr;
@@ -198,6 +388,15 @@ button{
 
   .full{
     grid-column:auto;
+  }
+
+  .admin-nav{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+
+  .nav-btn{
+    font-size:12px;
+    padding:12px 5px;
   }
 
   .product{
@@ -212,11 +411,53 @@ button{
     width:60px;
     height:70px;
   }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .order-top{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
 }
+
+@media(max-width:430px){
+
+  .wrap{
+    padding:10px;
+  }
+
+  header{
+    padding:12px;
+  }
+
+  .logo{
+    height:32px;
+  }
+
+  .open-store{
+    font-size:10px;
+    padding:8px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header>
 
@@ -227,31 +468,53 @@ button{
     onerror="this.style.display='none'"
   >
 
-  <button
-    id="logoutBtn"
-    class="ghost small hidden"
-    onclick="logout()"
-  >
-    LOG OUT
-  </button>
+  <div class="header-actions">
+
+    <a
+      class="open-store"
+      href="https://alvenstore.vercel.app/"
+      target="_blank"
+    >
+      🛍️ OPEN STORE
+    </a>
+
+    <button
+      id="logoutBtn"
+      class="ghost small hidden"
+      onclick="logout()"
+    >
+      LOG OUT
+    </button>
+
+  </div>
 
 </header>
+
 
 
 <main class="wrap">
 
 
-<!-- LOGIN -->
+<!-- =========================================
+     LOGIN
+========================================= -->
 
-<section id="login" class="card login">
+<section
+  id="login"
+  class="card login"
+>
 
-  <h1>ALVÉN Admin</h1>
+  <h1>
+    ALVÉN Admin
+  </h1>
 
   <p>
     Sign in with your Supabase admin account.
   </p>
 
-  <label>Email</label>
+  <label>
+    Email
+  </label>
 
   <input
     id="email"
@@ -259,7 +522,9 @@ button{
     placeholder="Admin email"
   >
 
-  <label>Password</label>
+  <label>
+    Password
+  </label>
 
   <input
     id="password"
@@ -269,7 +534,7 @@ button{
 
   <button
     class="primary"
-    style="margin-top:14px"
+    style="margin-top:14px;width:100%;"
     onclick="login()"
   >
     SIGN IN
@@ -284,9 +549,166 @@ button{
 
 
 
-<!-- ADMIN APP -->
+<!-- =========================================
+     ADMIN APP
+========================================= -->
 
-<section id="app" class="hidden">
+<section
+  id="app"
+  class="hidden"
+>
+
+
+<!-- NAVIGATION -->
+
+<div class="admin-nav">
+
+  <div
+    id="ordersTab"
+    class="nav-btn active"
+    onclick="showSection('orders')"
+  >
+    📦 ORDERS
+  </div>
+
+  <div
+    id="productsTab"
+    class="nav-btn"
+    onclick="showSection('products')"
+  >
+    🛍️ PRODUCTS
+  </div>
+
+  <div
+    class="nav-btn"
+    onclick="openStore()"
+  >
+    🌐 STORE
+  </div>
+
+</div>
+
+
+
+<!-- =========================================
+     ORDERS SECTION
+========================================= -->
+
+<section
+  id="ordersSection"
+>
+
+
+  <!-- ORDER STATS -->
+
+  <div class="stats">
+
+    <div class="stat">
+
+      <div
+        id="totalOrders"
+        class="stat-number"
+      >
+        0
+      </div>
+
+      <div class="stat-label">
+        TOTAL ORDERS
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div
+        id="newOrders"
+        class="stat-number"
+      >
+        0
+      </div>
+
+      <div class="stat-label">
+        NEW ORDERS
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div
+        id="orderRevenue"
+        class="stat-number"
+      >
+        AED 0
+      </div>
+
+      <div class="stat-label">
+        TOTAL VALUE
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="card">
+
+    <div
+      style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      "
+    >
+
+      <h2>
+        Orders
+      </h2>
+
+      <button
+        class="ghost small"
+        onclick="loadOrders()"
+      >
+        REFRESH
+      </button>
+
+    </div>
+
+
+    <input
+      id="orderSearch"
+      placeholder="Search customer, phone or order..."
+      oninput="renderOrders()"
+    >
+
+
+    <div
+      id="orders"
+    >
+      <p>
+        Loading orders...
+      </p>
+    </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     PRODUCTS SECTION
+========================================= -->
+
+<section
+  id="productsSection"
+  class="hidden"
+>
 
 
 <!-- PRODUCT FORM -->
@@ -306,7 +728,7 @@ button{
   <div class="grid">
 
 
-    <!-- NAME -->
+    <!-- PRODUCT NAME -->
 
     <div>
 
@@ -483,7 +905,7 @@ button{
 
 
 
-    <!-- PHOTOS -->
+    <!-- PRODUCT PHOTOS -->
 
     <div class="full">
 
@@ -506,7 +928,7 @@ button{
 
       <small>
         You can select multiple photos.
-        The first photo becomes the main product photo.
+        The first photo is the main product photo.
       </small>
 
     </div>
@@ -514,8 +936,6 @@ button{
   </div>
 
 
-
-  <!-- BUTTONS -->
 
   <div
     class="actions"
@@ -550,10 +970,10 @@ button{
 
   <div
     style="
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
     "
   >
 
@@ -579,15 +999,14 @@ button{
 
 
   <div id="products">
-
     <p>
       Loading...
     </p>
-
   </div>
 
 </div>
 
+</section>
 
 </section>
 
@@ -597,8 +1016,9 @@ button{
 
 <script>
 
+
 /* =========================================
-   SUPABASE SETTINGS
+   SUPABASE
 ========================================= */
 
 const SUPABASE_URL =
@@ -611,7 +1031,6 @@ const BUCKET =
 'products';
 
 
-
 /* =========================================
    VARIABLES
 ========================================= */
@@ -620,6 +1039,8 @@ let session = null;
 
 let products = [];
 
+let orders = [];
+
 let editingId = null;
 
 let selectedFiles = [];
@@ -627,22 +1048,14 @@ let selectedFiles = [];
 let existingImages = [];
 
 
-
-/* =========================================
-   SHORTCUT
-========================================= */
-
-const $ = id =>
-document.getElementById(id);
+const $ =
+id => document.getElementById(id);
 
 
-
-/* =========================================
-   SECURITY ESCAPE
-========================================= */
-
-const esc = s =>
-String(s ?? '').replace(
+const esc =
+s =>
+String(s ?? '')
+.replace(
   /[&<>"']/g,
   m => ({
     '&':'&amp;',
@@ -652,7 +1065,6 @@ String(s ?? '').replace(
     "'":'&#39;'
   }[m])
 );
-
 
 
 /* =========================================
@@ -685,26 +1097,6 @@ function headers(extra = {}){
 }
 
 
-
-/* =========================================
-   MESSAGE
-========================================= */
-
-function message(text,error=false){
-
-  $('msg').textContent = text;
-
-  $('msg').classList.remove('hidden');
-
-  $('msg').style.background =
-    error
-    ? '#ffe5e8'
-    : '#eef6ee';
-
-}
-
-
-
 /* =========================================
    LOGIN
 ========================================= */
@@ -728,6 +1120,7 @@ async function login(){
     .remove('hidden');
 
     return;
+
   }
 
 
@@ -748,10 +1141,12 @@ async function login(){
           'application/json'
         },
 
-        body:JSON.stringify({
-          email:email,
-          password:password
+        body:
+        JSON.stringify({
+          email,
+          password
         })
+
       }
 
     );
@@ -772,7 +1167,8 @@ async function login(){
     }
 
 
-    session = data;
+    session =
+    data;
 
 
     localStorage.setItem(
@@ -782,6 +1178,8 @@ async function login(){
 
 
     showApp();
+
+    loadOrders();
 
     loadProducts();
 
@@ -800,9 +1198,8 @@ async function login(){
 }
 
 
-
 /* =========================================
-   RESTORE LOGIN
+   RESTORE SESSION
 ========================================= */
 
 function restore(){
@@ -827,6 +1224,8 @@ function restore(){
 
     showApp();
 
+    loadOrders();
+
     loadProducts();
 
   }
@@ -834,9 +1233,8 @@ function restore(){
 }
 
 
-
 /* =========================================
-   SHOW ADMIN
+   SHOW APP
 ========================================= */
 
 function showApp(){
@@ -856,7 +1254,6 @@ function showApp(){
 }
 
 
-
 /* =========================================
    LOGOUT
 ========================================= */
@@ -872,6 +1269,811 @@ function logout(){
 }
 
 
+/* =========================================
+   OPEN STORE
+========================================= */
+
+function openStore(){
+
+  window.open(
+    'https://alvenstore.vercel.app/',
+    '_blank'
+  );
+
+}
+
+
+/* =========================================
+   SECTION SWITCH
+========================================= */
+
+function showSection(section){
+
+  $('ordersSection')
+  .classList
+  .toggle(
+    'hidden',
+    section !== 'orders'
+  );
+
+
+  $('productsSection')
+  .classList
+  .toggle(
+    'hidden',
+    section !== 'products'
+  );
+
+
+  $('ordersTab')
+  .classList
+  .toggle(
+    'active',
+    section === 'orders'
+  );
+
+
+  $('productsTab')
+  .classList
+  .toggle(
+    'active',
+    section === 'products'
+  );
+
+
+  if(section === 'orders'){
+
+    loadOrders();
+
+  }
+
+
+  if(section === 'products'){
+
+    loadProducts();
+
+  }
+
+}
+
+
+/* =========================================
+   ORDER FIELD HELPER
+========================================= */
+
+function orderValue(order, names){
+
+  for(
+    const name of names
+  ){
+
+    if(
+      order[name] !== undefined &&
+      order[name] !== null
+    ){
+
+      return order[name];
+
+    }
+
+  }
+
+  return '';
+
+}
+
+
+/* =========================================
+   LOAD ORDERS
+========================================= */
+
+async function loadOrders(){
+
+  $('orders').innerHTML =
+  '<p>Loading orders...</p>';
+
+
+  try{
+
+    const response =
+    await fetch(
+
+      SUPABASE_URL +
+      '/rest/v1/orders?' +
+      'select=*' +
+      '&order=id.desc',
+
+      {
+        headers:
+        headers()
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    orders =
+    await response.json();
+
+
+    updateOrderStats();
+
+    renderOrders();
+
+
+  }catch(error){
+
+    $('orders').innerHTML = `
+
+      <div class="msg error">
+
+        Could not load orders.
+
+        <br><br>
+
+        ${esc(error.message)}
+
+        <br><br>
+
+        Make sure your Supabase
+        database has an <b>orders</b>
+        table.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================
+   ORDER STATS
+========================================= */
+
+function updateOrderStats(){
+
+  const total =
+  orders.length;
+
+
+  const newCount =
+  orders.filter(
+    order => {
+
+      const status =
+      String(
+        orderValue(
+          order,
+          ['status','order_status']
+        )
+      ).toLowerCase();
+
+      return (
+        !status ||
+        status === 'new' ||
+        status === 'pending'
+      );
+
+    }
+  ).length;
+
+
+  let revenue = 0;
+
+
+  orders.forEach(
+    order => {
+
+      revenue += Number(
+        orderValue(
+          order,
+          [
+            'total',
+            'total_price',
+            'amount',
+            'price'
+          ]
+        )
+      ) || 0;
+
+    }
+  );
+
+
+  $('totalOrders')
+  .textContent =
+  total;
+
+
+  $('newOrders')
+  .textContent =
+  newCount;
+
+
+  $('orderRevenue')
+  .textContent =
+  'AED ' +
+  revenue.toFixed(0);
+
+}
+
+
+/* =========================================
+   ORDER STATUS
+========================================= */
+
+function statusClass(status){
+
+  const s =
+  String(status || 'NEW')
+  .toLowerCase();
+
+
+  if(
+    s === 'confirmed'
+  ){
+
+    return 'status-confirmed';
+
+  }
+
+
+  if(
+    s === 'delivered'
+  ){
+
+    return 'status-delivered';
+
+  }
+
+
+  if(
+    s === 'cancelled' ||
+    s === 'canceled'
+  ){
+
+    return 'status-cancelled';
+
+  }
+
+
+  return 'status-new';
+
+}
+
+
+/* =========================================
+   RENDER ORDERS
+========================================= */
+
+function renderOrders(){
+
+  const query =
+  $('orderSearch')
+  .value
+  .toLowerCase()
+  .trim();
+
+
+  const filtered =
+  orders.filter(
+    order => {
+
+      const text =
+      JSON.stringify(order)
+      .toLowerCase();
+
+      return (
+        !query ||
+        text.includes(query)
+      );
+
+    }
+  );
+
+
+  if(!filtered.length){
+
+    $('orders').innerHTML =
+    '<p>No orders found.</p>';
+
+    return;
+
+  }
+
+
+  $('orders').innerHTML =
+  filtered.map(
+    order => {
+
+      const id =
+      orderValue(
+        order,
+        ['id','order_id','order_number']
+      );
+
+
+      const customer =
+      orderValue(
+        order,
+        [
+          'customer_name',
+          'name',
+          'full_name'
+        ]
+      ) ||
+      'Customer';
+
+
+      const phone =
+      orderValue(
+        order,
+        [
+          'phone',
+          'customer_phone',
+          'whatsapp'
+        ]
+      );
+
+
+      const address =
+      orderValue(
+        order,
+        [
+          'address',
+          'delivery_address',
+          'customer_address'
+        ]
+      );
+
+
+      const total =
+      orderValue(
+        order,
+        [
+          'total',
+          'total_price',
+          'amount',
+          'price'
+        ]
+      );
+
+
+      const method =
+      orderValue(
+        order,
+        [
+          'payment_method',
+          'order_method',
+          'method'
+        ]
+      );
+
+
+      const date =
+      orderValue(
+        order,
+        [
+          'created_at',
+          'date',
+          'order_date'
+        ]
+      );
+
+
+      const status =
+      orderValue(
+        order,
+        [
+          'status',
+          'order_status'
+        ]
+      ) ||
+      'NEW';
+
+
+      let items =
+      orderValue(
+        order,
+        [
+          'items',
+          'products',
+          'order_items'
+        ]
+      );
+
+
+      if(
+        typeof items === 'string'
+      ){
+
+        try{
+
+          items =
+          JSON.parse(items);
+
+        }catch(error){}
+
+      }
+
+
+      let itemsHTML =
+      '';
+
+
+      if(
+        Array.isArray(items)
+      ){
+
+        itemsHTML =
+        items.map(
+          item => {
+
+            const name =
+            item.name ||
+            item.product_name ||
+            'Product';
+
+
+            const quantity =
+            item.quantity ||
+            item.qty ||
+            1;
+
+
+            return `
+              <div>
+                ${esc(name)}
+                × ${esc(quantity)}
+              </div>
+            `;
+
+          }
+        ).join('');
+
+      }else if(items){
+
+        itemsHTML =
+        esc(items);
+
+      }else{
+
+        itemsHTML =
+        'Product information not available';
+
+      }
+
+
+      let formattedDate =
+      date;
+
+
+      if(date){
+
+        try{
+
+          formattedDate =
+          new Date(date)
+          .toLocaleString();
+
+        }catch(error){}
+
+      }
+
+
+      return `
+
+      <div class="order">
+
+        <div class="order-top">
+
+          <div>
+
+            <strong>
+              Order #${esc(id)}
+            </strong>
+
+            <div
+              style="
+              font-size:12px;
+              color:#777;
+              margin-top:4px;
+              "
+            >
+              ${esc(formattedDate)}
+            </div>
+
+          </div>
+
+
+          <span
+            class="status ${statusClass(status)}"
+          >
+            ${esc(
+              String(status)
+              .toUpperCase()
+            )}
+          </span>
+
+        </div>
+
+
+        <div class="order-body">
+
+
+          <div class="order-row">
+
+            <span class="order-label">
+              Customer
+            </span>
+
+            <strong>
+              ${esc(customer)}
+            </strong>
+
+          </div>
+
+
+          <div class="order-row">
+
+            <span class="order-label">
+              Phone
+            </span>
+
+            <span>
+              ${esc(phone || '-')}
+            </span>
+
+          </div>
+
+
+          <div class="order-row">
+
+            <span class="order-label">
+              Address
+            </span>
+
+            <span>
+              ${esc(address || '-')}
+            </span>
+
+          </div>
+
+
+          <div class="order-row">
+
+            <span class="order-label">
+              Method
+            </span>
+
+            <span>
+              ${esc(method || '-')}
+            </span>
+
+          </div>
+
+
+          <div class="order-row">
+
+            <span class="order-label">
+              Total
+            </span>
+
+            <strong>
+              AED
+              ${Number(total || 0).toFixed(2)}
+            </strong>
+
+          </div>
+
+
+          <div class="order-items">
+
+            <strong>
+              Products
+            </strong>
+
+            <div
+              style="
+              margin-top:7px;
+              font-size:13px;
+              line-height:1.7;
+              "
+            >
+              ${itemsHTML}
+            </div>
+
+          </div>
+
+
+          <div
+            class="actions"
+            style="margin-top:12px"
+          >
+
+            <select
+              onchange="changeOrderStatus(${JSON.stringify(String(id))},this.value)"
+              style="width:auto;min-width:150px"
+            >
+
+              <option
+                value="NEW"
+                ${String(status).toUpperCase()==='NEW'?'selected':''}
+              >
+                NEW
+              </option>
+
+              <option
+                value="CONFIRMED"
+                ${String(status).toUpperCase()==='CONFIRMED'?'selected':''}
+              >
+                CONFIRMED
+              </option>
+
+              <option
+                value="DELIVERED"
+                ${String(status).toUpperCase()==='DELIVERED'?'selected':''}
+              >
+                DELIVERED
+              </option>
+
+              <option
+                value="CANCELLED"
+                ${String(status).toUpperCase()==='CANCELLED'?'selected':''}
+              >
+                CANCELLED
+              </option>
+
+            </select>
+
+
+            <button
+              class="danger small"
+              onclick="deleteOrder(${JSON.stringify(String(id))})"
+            >
+              DELETE ORDER
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }
+  ).join('');
+
+}
+
+
+/* =========================================
+   CHANGE ORDER STATUS
+========================================= */
+
+async function changeOrderStatus(
+  id,
+  status
+){
+
+  try{
+
+    const response =
+    await fetch(
+
+      SUPABASE_URL +
+      '/rest/v1/orders?id=eq.' +
+      encodeURIComponent(id),
+
+      {
+        method:'PATCH',
+
+        headers:
+        headers({
+          'Prefer':
+          'return=minimal'
+        }),
+
+        body:
+        JSON.stringify({
+          status:status
+        })
+
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    await loadOrders();
+
+  }catch(error){
+
+    alert(
+      'Could not update order: ' +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   DELETE ORDER
+========================================= */
+
+async function deleteOrder(id){
+
+  if(
+    !confirm(
+      'Delete this order permanently?'
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const response =
+    await fetch(
+
+      SUPABASE_URL +
+      '/rest/v1/orders?id=eq.' +
+      encodeURIComponent(id),
+
+      {
+        method:'DELETE',
+        headers:headers()
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    await loadOrders();
+
+  }catch(error){
+
+    alert(
+      'Could not delete order: ' +
+      error.message
+    );
+
+  }
+
+}
+
 
 /* =========================================
    CATEGORY
@@ -880,7 +2082,8 @@ function logout(){
 function categoryChanged(){
 
   const shoes =
-  $('category').value === 'SHOES';
+  $('category').value ===
+  'SHOES';
 
 
   $('sizesBox')
@@ -901,9 +2104,8 @@ function categoryChanged(){
 }
 
 
-
 /* =========================================
-   RESET FORM
+   PRODUCT FORM RESET
 ========================================= */
 
 function resetForm(){
@@ -918,8 +2120,10 @@ function resetForm(){
   $('formTitle').textContent =
   'Add Product';
 
+
   $('saveBtn').textContent =
   'ADD PRODUCT';
+
 
   $('cancelBtn')
   .classList
@@ -949,9 +2153,8 @@ function resetForm(){
 }
 
 
-
 /* =========================================
-   PHOTO PREVIEW
+   PREVIEW FILES
 ========================================= */
 
 function previewFiles(){
@@ -966,7 +2169,6 @@ function previewFiles(){
 }
 
 
-
 /* =========================================
    RENDER PHOTOS
 ========================================= */
@@ -976,31 +2178,35 @@ function renderPhotos(){
   const box =
   $('photos');
 
+
   box.innerHTML = '';
 
-
-  /* Existing images */
 
   existingImages.forEach(
     (url,index)=>{
 
       const div =
-      document.createElement('div');
+      document.createElement(
+        'div'
+      );
 
       div.className =
       'photo';
 
 
-      div.innerHTML =
-      `
-      <img src="${esc(url)}">
+      div.innerHTML = `
 
-      <button
-        type="button"
-        onclick="removeExisting(${index})"
-      >
-        ×
-      </button>
+        <img
+          src="${esc(url)}"
+        >
+
+        <button
+          type="button"
+          onclick="removeExisting(${index})"
+        >
+          ×
+        </button>
+
       `;
 
 
@@ -1010,28 +2216,31 @@ function renderPhotos(){
   );
 
 
-
-  /* New images */
-
   selectedFiles.forEach(
     (file,index)=>{
 
       const div =
-      document.createElement('div');
+      document.createElement(
+        'div'
+      );
 
       div.className =
       'photo';
 
 
-      const img =
-      document.createElement('img');
+      const image =
+      document.createElement(
+        'img'
+      );
 
-      img.src =
+      image.src =
       URL.createObjectURL(file);
 
 
       const button =
-      document.createElement('button');
+      document.createElement(
+        'button'
+      );
 
       button.type =
       'button';
@@ -1052,7 +2261,7 @@ function renderPhotos(){
       };
 
 
-      div.appendChild(img);
+      div.appendChild(image);
 
       div.appendChild(button);
 
@@ -1064,9 +2273,8 @@ function renderPhotos(){
 }
 
 
-
 /* =========================================
-   REMOVE EXISTING IMAGE
+   REMOVE EXISTING PHOTO
 ========================================= */
 
 function removeExisting(index){
@@ -1081,24 +2289,25 @@ function removeExisting(index){
 }
 
 
-
 /* =========================================
-   LIST PARSER
+   PARSE LIST
 ========================================= */
 
 function parseList(value){
 
   return value
   .split(',')
-  .map(x=>x.trim())
+  .map(
+    item =>
+    item.trim()
+  )
   .filter(Boolean);
 
 }
 
 
-
 /* =========================================
-   UPLOAD IMAGE
+   UPLOAD PRODUCT IMAGE
 ========================================= */
 
 async function uploadFile(file){
@@ -1181,19 +2390,14 @@ async function uploadFile(file){
   return (
 
     SUPABASE_URL +
-
     '/storage/v1/object/public/' +
-
     BUCKET +
-
     '/' +
-
     path
 
   );
 
 }
-
 
 
 /* =========================================
@@ -1205,10 +2409,12 @@ async function saveProduct(){
   const name =
   $('name').value.trim();
 
+
   const price =
   Number(
     $('price').value
   );
+
 
   const category =
   $('category').value;
@@ -1219,7 +2425,7 @@ async function saveProduct(){
     !Number.isFinite(price)
   ){
 
-    message(
+    showProductMessage(
       'Product name and price are required.',
       true
     );
@@ -1235,7 +2441,7 @@ async function saveProduct(){
 
   try{
 
-    message(
+    showProductMessage(
       'Saving product...'
     );
 
@@ -1243,8 +2449,6 @@ async function saveProduct(){
     let urls =
     [...existingImages];
 
-
-    /* Upload new photos */
 
     for(
       const file of selectedFiles
@@ -1307,8 +2511,6 @@ async function saveProduct(){
     let response;
 
 
-    /* EDIT */
-
     if(editingId){
 
       response =
@@ -1338,12 +2540,7 @@ async function saveProduct(){
 
       );
 
-    }
-
-
-    /* ADD */
-
-    else{
+    }else{
 
       response =
       await fetch(
@@ -1381,7 +2578,7 @@ async function saveProduct(){
     }
 
 
-    message(
+    showProductMessage(
       editingId
       ? 'Product updated successfully.'
       : 'Product added successfully.'
@@ -1395,7 +2592,7 @@ async function saveProduct(){
 
   }catch(error){
 
-    message(
+    showProductMessage(
       error.message,
       true
     );
@@ -1409,6 +2606,33 @@ async function saveProduct(){
 
 }
 
+
+/* =========================================
+   PRODUCT MESSAGE
+========================================= */
+
+function showProductMessage(
+  text,
+  error=false
+){
+
+  $('msg').textContent =
+  text;
+
+
+  $('msg')
+  .classList
+  .remove('hidden');
+
+
+  $('msg')
+  .classList
+  .toggle(
+    'error',
+    error
+  );
+
+}
 
 
 /* =========================================
@@ -1457,17 +2681,21 @@ async function loadProducts(){
 
   }catch(error){
 
-    $('products').innerHTML =
-    `
-    <div class="msg">
-      ${esc(error.message)}
-    </div>
+    $('products').innerHTML = `
+
+      <div class="msg error">
+
+        ${esc(
+          error.message
+        )}
+
+      </div>
+
     `;
 
   }
 
 }
-
 
 
 /* =========================================
@@ -1500,6 +2728,7 @@ function imgs(product){
         product.image_urls
       );
 
+
       if(
         Array.isArray(array)
       ){
@@ -1518,7 +2747,6 @@ function imgs(product){
   : [];
 
 }
-
 
 
 /* =========================================
@@ -1580,11 +2808,13 @@ function renderProducts(){
           alt=""
         >
 
+
         <div>
 
           <b>
             ${esc(product.name)}
           </b>
+
 
           <div class="meta">
 
@@ -1640,7 +2870,6 @@ function renderProducts(){
 }
 
 
-
 /* =========================================
    EDIT PRODUCT
 ========================================= */
@@ -1656,7 +2885,9 @@ function editProduct(id){
 
 
   if(!product){
+
     return;
+
   }
 
 
@@ -1675,8 +2906,10 @@ function editProduct(id){
   $('formTitle').textContent =
   'Edit Product';
 
+
   $('saveBtn').textContent =
   'UPDATE PRODUCT';
+
 
   $('cancelBtn')
   .classList
@@ -1764,7 +2997,6 @@ function editProduct(id){
 }
 
 
-
 /* =========================================
    DELETE PRODUCT
 ========================================= */
@@ -1823,14 +3055,15 @@ async function deleteProduct(id){
 
     await loadProducts();
 
-    message(
+
+    showProductMessage(
       'Product deleted.'
     );
 
 
   }catch(error){
 
-    message(
+    showProductMessage(
       error.message,
       true
     );
@@ -1838,7 +3071,6 @@ async function deleteProduct(id){
   }
 
 }
-
 
 
 /* =========================================
@@ -1852,4 +3084,4 @@ restore();
 </script>
 
 </body>
- </html>
+  </html>
