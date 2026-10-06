@@ -1,100 +1,1855 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
 <title>ALVÉN Admin</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#111;color:#f7f5ef;font-family:Arial,Helvetica,sans-serif}.wrap{max-width:1150px;margin:auto;padding:28px 18px}.brand{text-align:center;margin-bottom:22px}.brand img{width:100px;height:100px;object-fit:contain}.brand h1{margin:5px 0;letter-spacing:.18em}.panel{background:#191919;border:1px solid #333;border-radius:14px;padding:20px;margin-bottom:18px}input,select,textarea{width:100%;padding:13px;background:#0f0f0f;border:1px solid #444;color:#fff;border-radius:8px;margin:7px 0 12px;font:inherit}textarea{min-height:80px}button{padding:13px 16px;border:0;border-radius:8px;cursor:pointer;font-weight:700}.primary{background:#fff;color:#111}.danger{background:#b33;color:#fff}.muted{color:#aaa;font-size:13px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.products{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#111;border:1px solid #333;border-radius:12px;overflow:hidden}.card img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#222}.card .body{padding:12px}.actions{display:flex;gap:8px;margin-top:10px}.actions button{flex:1}.hidden{display:none}.size-options{display:flex;flex-wrap:wrap;gap:8px;margin:7px 0 12px}.size-options label{display:flex;align-items:center;gap:5px;background:#0f0f0f;border:1px solid #444;padding:9px 11px;border-radius:8px;cursor:pointer}.size-options input{width:auto;margin:0}.preview{max-width:180px;max-height:180px;display:none;margin:8px 0;border-radius:8px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.error{color:#ff8585}.ok{color:#8cff9b}.order{background:#111;border:1px solid #333;border-radius:12px;padding:16px;margin-bottom:12px}.orderhead{display:flex;justify-content:space-between;gap:12px;align-items:center}.orderitems{margin:12px 0;padding:10px;background:#181818;border-radius:8px}.item{padding:8px 0;border-bottom:1px solid #333}.item:last-child{border-bottom:0}.badge{display:inline-block;padding:6px 9px;border-radius:20px;background:#333;font-size:11px}.ordergrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px}.statusrow{display:flex;gap:8px;align-items:center;margin-top:12px}.statusrow select{max-width:180px;margin:0}.refresh{margin-left:8px}@media(max-width:750px){.grid,.products,.ordergrid{grid-template-columns:1fr}.top{display:block}.top button{margin-top:10px}.orderhead{display:block}}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f3ef;
+  color:#111;
+}
+
+header{
+  background:#111;
+  color:#fff;
+  padding:15px 18px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  height:40px;
+  max-width:150px;
+  object-fit:contain;
+}
+
+.wrap{
+  max-width:1000px;
+  margin:auto;
+  padding:18px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+}
+
+h1,h2{
+  margin:0 0 14px;
+}
+
+label{
+  font-size:12px;
+  font-weight:700;
+  display:block;
+  margin:12px 0 6px;
+}
+
+input,
+select,
+button{
+  font:inherit;
+}
+
+input,
+select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  background:#fff;
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  padding:12px 15px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.primary{
+  background:#111;
+  color:#fff;
+}
+
+.danger{
+  background:#b00020;
+  color:#fff;
+}
+
+.ghost{
+  background:#eee;
+}
+
+.small{
+  padding:8px 10px;
+  font-size:12px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.msg{
+  padding:10px;
+  border-radius:8px;
+  margin:10px 0;
+  font-size:13px;
+  background:#eef6ee;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.photos{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.photo{
+  position:relative;
+  width:88px;
+  height:110px;
+}
+
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:8px;
+  border:1px solid #ddd;
+}
+
+.photo button{
+  position:absolute;
+  right:3px;
+  top:3px;
+  padding:4px 7px;
+  background:#fff;
+  color:#b00020;
+}
+
+.product{
+  display:grid;
+  grid-template-columns:75px 1fr auto;
+  gap:12px;
+  align-items:center;
+  border-top:1px solid #eee;
+  padding:12px 0;
+}
+
+.product img{
+  width:75px;
+  height:85px;
+  object-fit:cover;
+  border-radius:8px;
+  background:#eee;
+}
+
+.meta{
+  font-size:12px;
+  color:#666;
+  margin-top:4px;
+}
+
+.login{
+  max-width:420px;
+  margin:10vh auto;
+}
+
+@media(max-width:650px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .product{
+    grid-template-columns:60px 1fr;
+  }
+
+  .product .actions{
+    grid-column:1/-1;
+  }
+
+  .product img{
+    width:60px;
+    height:70px;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="wrap">
-<div class="brand"><img src="alven-logo.jpg" alt="ALVÉN"><h1>ALVÉN</h1><div class="muted">ADMIN PANEL</div></div>
-<section id="login" class="panel"><h2>Admin Sign In</h2><div class="muted">Sign in with your Supabase admin account.</div><input id="email" type="email" placeholder="Admin email" autocomplete="username"><input id="password" type="password" placeholder="Password" autocomplete="current-password"><button id="loginBtn" class="primary">SIGN IN</button><p id="loginMsg" class="error"></p></section>
+
+<header>
+
+  <img
+    class="logo"
+    src="alven-logo.png"
+    alt="ALVÉN"
+    onerror="this.style.display='none'"
+  >
+
+  <button
+    id="logoutBtn"
+    class="ghost small hidden"
+    onclick="logout()"
+  >
+    LOG OUT
+  </button>
+
+</header>
+
+
+<main class="wrap">
+
+
+<!-- LOGIN -->
+
+<section id="login" class="card login">
+
+  <h1>ALVÉN Admin</h1>
+
+  <p>
+    Sign in with your Supabase admin account.
+  </p>
+
+  <label>Email</label>
+
+  <input
+    id="email"
+    type="email"
+    placeholder="Admin email"
+  >
+
+  <label>Password</label>
+
+  <input
+    id="password"
+    type="password"
+    placeholder="Password"
+  >
+
+  <button
+    class="primary"
+    style="margin-top:14px"
+    onclick="login()"
+  >
+    SIGN IN
+  </button>
+
+  <div
+    id="loginMsg"
+    class="msg hidden"
+  ></div>
+
+</section>
+
+
+
+<!-- ADMIN APP -->
+
 <section id="app" class="hidden">
-<div class="panel top"><div><b>ALVÉN Admin</b><div class="muted">Products + customer orders</div></div><div><button class="primary" onclick="openStore()">OPEN SHOP</button> <button id="logoutBtn">LOG OUT</button></div></div>
 
-<section class="panel"><div class="top"><div><h2 style="margin:0">Orders</h2><div class="muted">Customer orders placed through the website.</div></div><button class="primary refresh" onclick="loadOrders()">REFRESH ORDERS</button></div><p id="ordersMsg"></p><div id="orders"><div class="muted">Loading orders...</div></div></section>
 
-<section class="panel"><h2>Add Product</h2><div class="grid">
-<div><label>Product name</label><input id="name" placeholder="e.g. ALVÉN Hoodie"></div>
-<div><label>Price (AED)</label><input id="price" type="number" min="0" step="1" placeholder="150"></div>
-<div><label>Category</label><select id="category"><option>SHOES</option><option>HOODIE</option><option>PANTS</option><option>T-SHIRT</option></select></div>
-<div id="brandWrap"><label>Shoe brand</label><select id="brand"><option>ADIDAS</option><option>NIKE</option><option>PUMA</option><option>JORDAN</option><option>NEW BALANCE</option><option>LOUIS VUITTON</option><option>GUCCI</option><option>BALENCIAGA</option><option>DIOR</option><option>PRADA</option><option>OTHER BRANDS</option></select><label>Shoe number</label><div id="shoeSizes" class="size-options"></div><div class="muted">Select all available shoe numbers.</div></div>
-<div><label>Product colors</label><input id="colors" placeholder="Black, White, Red"><div class="muted">Separate multiple colors with commas.</div></div>
-<div><label>Product image — choose from phone gallery</label><input id="image" type="file" accept="image/*" multiple><img id="preview" class="preview" alt="Preview"></div>
-</div><button id="addBtn" class="primary">UPLOAD IMAGE + ADD PRODUCT</button><p id="msg"></p></section>
+<!-- PRODUCT FORM -->
 
-<section class="panel"><h2>Products</h2><div id="products" class="products"><div class="muted">Loading...</div></div></section>
-</section></div>
+<div class="card">
+
+  <h1 id="formTitle">
+    Add Product
+  </h1>
+
+  <div
+    id="msg"
+    class="msg hidden"
+  ></div>
+
+
+  <div class="grid">
+
+
+    <!-- NAME -->
+
+    <div>
+
+      <label>
+        PRODUCT NAME *
+      </label>
+
+      <input
+        id="name"
+        placeholder="Product name"
+      >
+
+    </div>
+
+
+
+    <!-- PRICE -->
+
+    <div>
+
+      <label>
+        PRICE (AED) *
+      </label>
+
+      <input
+        id="price"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="250"
+      >
+
+    </div>
+
+
+
+    <!-- CATEGORY -->
+
+    <div>
+
+      <label>
+        CATEGORY *
+      </label>
+
+      <select
+        id="category"
+        onchange="categoryChanged()"
+      >
+
+        <option value="SHOES">
+          SHOES
+        </option>
+
+        <option value="HOODIE">
+          HOODIE
+        </option>
+
+        <option value="PANTS">
+          PANTS
+        </option>
+
+        <option value="T-SHIRT">
+          T-SHIRT
+        </option>
+
+        <option value="STREETWEAR">
+          STREETWEAR
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <!-- BRAND -->
+
+    <div id="brandBox">
+
+      <label>
+        BRAND
+      </label>
+
+      <select id="brand">
+
+        <option value="">
+          Other / No Brand
+        </option>
+
+        <option>
+          ADIDAS
+        </option>
+
+        <option>
+          NIKE
+        </option>
+
+        <option>
+          PUMA
+        </option>
+
+        <option>
+          JORDAN
+        </option>
+
+        <option>
+          NEW BALANCE
+        </option>
+
+        <option>
+          LOUIS VUITTON
+        </option>
+
+        <option>
+          GUCCI
+        </option>
+
+        <option>
+          BALENCIAGA
+        </option>
+
+        <option>
+          DIOR
+        </option>
+
+        <option>
+          PRADA
+        </option>
+
+        <option>
+          OTHER BRANDS
+        </option>
+
+      </select>
+
+    </div>
+
+
+
+    <!-- COLORS -->
+
+    <div class="full">
+
+      <label>
+        COLORS
+      </label>
+
+      <input
+        id="colors"
+        placeholder="Black, White, Red"
+      >
+
+    </div>
+
+
+
+    <!-- SHOE SIZES -->
+
+    <div
+      id="sizesBox"
+      class="full"
+    >
+
+      <label>
+        SHOE SIZES
+      </label>
+
+      <input
+        id="shoeSizes"
+        placeholder="38, 39, 40, 41, 42, 43, 44"
+      >
+
+    </div>
+
+
+
+    <!-- PHOTOS -->
+
+    <div class="full">
+
+      <label>
+        PRODUCT PHOTOS
+      </label>
+
+      <input
+        id="files"
+        type="file"
+        accept="image/*"
+        multiple
+        onchange="previewFiles()"
+      >
+
+      <div
+        id="photos"
+        class="photos"
+      ></div>
+
+      <small>
+        You can select multiple photos.
+        The first photo becomes the main product photo.
+      </small>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- BUTTONS -->
+
+  <div
+    class="actions"
+    style="margin-top:16px"
+  >
+
+    <button
+      id="saveBtn"
+      class="primary"
+      onclick="saveProduct()"
+    >
+      ADD PRODUCT
+    </button>
+
+    <button
+      id="cancelBtn"
+      class="ghost hidden"
+      onclick="resetForm()"
+    >
+      CANCEL EDIT
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- PRODUCT LIST -->
+
+<div class="card">
+
+  <div
+    style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    "
+  >
+
+    <h2>
+      Products
+    </h2>
+
+    <button
+      class="ghost small"
+      onclick="loadProducts()"
+    >
+      REFRESH
+    </button>
+
+  </div>
+
+
+  <input
+    id="search"
+    placeholder="Search products..."
+    oninput="renderProducts()"
+  >
+
+
+  <div id="products">
+
+    <p>
+      Loading...
+    </p>
+
+  </div>
+
+</div>
+
+
+</section>
+
+</main>
+
+
+
 <script>
-const SUPABASE_URL='https://oqvyrehcqxsmzpunxeys.supabase.co',SUPABASE_KEY='sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a',BUCKET='product-images';
-let db=null,brandAvailable=true,sizeAvailable=true,colorsAvailable=true;
-const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function init(){if(typeof supabase==='undefined')return false;db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});return true}
-function msg(t,ok=false){$('msg').textContent=t;$('msg').className=ok?'ok':'error'}
-function sizes(){return[...document.querySelectorAll('#shoeSizes input:checked')].map(x=>x.value)}
-function makeSizeBoxes(){let a=[];for(let n=36;n<=47;n++)a.push(`<label><input type="checkbox" value="${n}"> ${n}</label>`);$('shoeSizes').innerHTML=a.join('')}
-function parseColors(v){if(Array.isArray(v))return v.map(String).map(x=>x.trim()).filter(Boolean);if(!v)return[];return String(v).split(',').map(x=>x.trim()).filter(Boolean)}
-function colorsText(a){return parseColors(a).join(', ')}
-function updateCategoryUI(){$('brandWrap').classList.toggle('hidden',$('category').value!=='SHOES')}
-$('category').onchange=updateCategoryUI;makeSizeBoxes();updateCategoryUI();
-$('image').onchange=e=>{const f=[...(e.target.files||[])];if(!f.length){$('preview').style.display='none';return}$('preview').src=URL.createObjectURL(f[0]);$('preview').style.display='block';$('msg').textContent=f.length+' photo(s) selected.'};
+
+/* =========================================
+   SUPABASE SETTINGS
+========================================= */
+
+const SUPABASE_URL =
+'https://oqvyrehcqxsmzpunxeys.supabase.co';
+
+const SUPABASE_KEY =
+'sb_publishable_-_viWClT_hTFWK8spDeUaw_RB0hFL9a';
+
+const BUCKET =
+'products';
+
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let session = null;
+
+let products = [];
+
+let editingId = null;
+
+let selectedFiles = [];
+
+let existingImages = [];
+
+
+
+/* =========================================
+   SHORTCUT
+========================================= */
+
+const $ = id =>
+document.getElementById(id);
+
+
+
+/* =========================================
+   SECURITY ESCAPE
+========================================= */
+
+const esc = s =>
+String(s ?? '').replace(
+  /[&<>"']/g,
+  m => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[m])
+);
+
+
+
+/* =========================================
+   SUPABASE HEADERS
+========================================= */
+
+function headers(extra = {}){
+
+  return Object.assign(
+
+    {
+      apikey:SUPABASE_KEY,
+
+      Authorization:
+      'Bearer ' +
+      (
+        session?.access_token ||
+        SUPABASE_KEY
+      ),
+
+      'Content-Type':
+      'application/json'
+
+    },
+
+    extra
+
+  );
+
+}
+
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function message(text,error=false){
+
+  $('msg').textContent = text;
+
+  $('msg').classList.remove('hidden');
+
+  $('msg').style.background =
+    error
+    ? '#ffe5e8'
+    : '#eef6ee';
+
+}
+
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+async function login(){
+
+  const email =
+  $('email').value.trim();
+
+  const password =
+  $('password').value;
+
+
+  if(!email || !password){
+
+    $('loginMsg').textContent =
+    'Enter email and password.';
+
+    $('loginMsg')
+    .classList
+    .remove('hidden');
+
+    return;
+  }
+
+
+  try{
+
+    const response =
+    await fetch(
+
+      SUPABASE_URL +
+      '/auth/v1/token?grant_type=password',
+
+      {
+        method:'POST',
+
+        headers:{
+          apikey:SUPABASE_KEY,
+          'Content-Type':
+          'application/json'
+        },
+
+        body:JSON.stringify({
+          email:email,
+          password:password
+        })
+      }
+
+    );
+
+
+    const data =
+    await response.json();
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error_description ||
+        data.msg ||
+        'Login failed'
+      );
+
+    }
+
+
+    session = data;
+
+
+    localStorage.setItem(
+      'alven_admin_session',
+      JSON.stringify(data)
+    );
+
+
+    showApp();
+
+    loadProducts();
+
+
+  }catch(error){
+
+    $('loginMsg').textContent =
+    error.message;
+
+    $('loginMsg')
+    .classList
+    .remove('hidden');
+
+  }
+
+}
+
+
+
+/* =========================================
+   RESTORE LOGIN
+========================================= */
+
+function restore(){
+
+  try{
+
+    session =
+    JSON.parse(
+      localStorage.getItem(
+        'alven_admin_session'
+      ) || 'null'
+    );
+
+  }catch(error){
+
+    session = null;
+
+  }
+
+
+  if(session?.access_token){
+
+    showApp();
+
+    loadProducts();
+
+  }
+
+}
+
+
+
+/* =========================================
+   SHOW ADMIN
+========================================= */
+
+function showApp(){
+
+  $('login')
+  .classList
+  .add('hidden');
+
+  $('app')
+  .classList
+  .remove('hidden');
+
+  $('logoutBtn')
+  .classList
+  .remove('hidden');
+
+}
+
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+function logout(){
+
+  localStorage.removeItem(
+    'alven_admin_session'
+  );
+
+  location.reload();
+
+}
+
+
+
+/* =========================================
+   CATEGORY
+========================================= */
+
+function categoryChanged(){
+
+  const shoes =
+  $('category').value === 'SHOES';
+
+
+  $('sizesBox')
+  .classList
+  .toggle(
+    'hidden',
+    !shoes
+  );
+
+
+  $('brandBox')
+  .classList
+  .toggle(
+    'hidden',
+    !shoes
+  );
+
+}
+
+
+
+/* =========================================
+   RESET FORM
+========================================= */
+
+function resetForm(){
+
+  editingId = null;
+
+  selectedFiles = [];
+
+  existingImages = [];
+
+
+  $('formTitle').textContent =
+  'Add Product';
+
+  $('saveBtn').textContent =
+  'ADD PRODUCT';
+
+  $('cancelBtn')
+  .classList
+  .add('hidden');
+
+
+  $('name').value = '';
+
+  $('price').value = '';
+
+  $('category').value =
+  'SHOES';
+
+  $('brand').value = '';
+
+  $('colors').value = '';
+
+  $('shoeSizes').value = '';
+
+  $('files').value = '';
+
+  $('photos').innerHTML = '';
+
+
+  categoryChanged();
+
+}
+
+
+
+/* =========================================
+   PHOTO PREVIEW
+========================================= */
+
+function previewFiles(){
+
+  selectedFiles =
+  Array.from(
+    $('files').files || []
+  );
+
+  renderPhotos();
+
+}
+
+
+
+/* =========================================
+   RENDER PHOTOS
+========================================= */
+
+function renderPhotos(){
+
+  const box =
+  $('photos');
+
+  box.innerHTML = '';
+
+
+  /* Existing images */
+
+  existingImages.forEach(
+    (url,index)=>{
+
+      const div =
+      document.createElement('div');
+
+      div.className =
+      'photo';
+
+
+      div.innerHTML =
+      `
+      <img src="${esc(url)}">
+
+      <button
+        type="button"
+        onclick="removeExisting(${index})"
+      >
+        ×
+      </button>
+      `;
+
+
+      box.appendChild(div);
+
+    }
+  );
+
+
+
+  /* New images */
+
+  selectedFiles.forEach(
+    (file,index)=>{
+
+      const div =
+      document.createElement('div');
+
+      div.className =
+      'photo';
+
+
+      const img =
+      document.createElement('img');
+
+      img.src =
+      URL.createObjectURL(file);
+
+
+      const button =
+      document.createElement('button');
+
+      button.type =
+      'button';
+
+      button.textContent =
+      '×';
+
+
+      button.onclick = ()=>{
+
+        selectedFiles.splice(
+          index,
+          1
+        );
+
+        renderPhotos();
+
+      };
+
+
+      div.appendChild(img);
+
+      div.appendChild(button);
+
+      box.appendChild(div);
+
+    }
+  );
+
+}
+
+
+
+/* =========================================
+   REMOVE EXISTING IMAGE
+========================================= */
+
+function removeExisting(index){
+
+  existingImages.splice(
+    index,
+    1
+  );
+
+  renderPhotos();
+
+}
+
+
+
+/* =========================================
+   LIST PARSER
+========================================= */
+
+function parseList(value){
+
+  return value
+  .split(',')
+  .map(x=>x.trim())
+  .filter(Boolean);
+
+}
+
+
+
+/* =========================================
+   UPLOAD IMAGE
+========================================= */
+
+async function uploadFile(file){
+
+  const extension =
+  (
+    file.name
+    .split('.')
+    .pop() ||
+    'jpg'
+  )
+  .toLowerCase()
+  .replace(
+    /[^a-z0-9]/g,
+    ''
+  );
+
+
+  const path =
+  'products/' +
+  Date.now() +
+  '-' +
+  Math.random()
+  .toString(36)
+  .slice(2) +
+  '.' +
+  extension;
+
+
+  const response =
+  await fetch(
+
+    SUPABASE_URL +
+    '/storage/v1/object/' +
+    BUCKET +
+    '/' +
+    path,
+
+    {
+      method:'POST',
+
+      headers:{
+
+        apikey:
+        SUPABASE_KEY,
+
+        Authorization:
+        'Bearer ' +
+        (
+          session?.access_token ||
+          SUPABASE_KEY
+        ),
+
+        'Content-Type':
+        file.type ||
+        'image/jpeg',
+
+        'x-upsert':
+        'false'
+
+      },
+
+      body:file
+
+    }
+
+  );
+
+
+  if(!response.ok){
+
+    throw new Error(
+      'Image upload failed: ' +
+      await response.text()
+    );
+
+  }
+
+
+  return (
+
+    SUPABASE_URL +
+
+    '/storage/v1/object/public/' +
+
+    BUCKET +
+
+    '/' +
+
+    path
+
+  );
+
+}
+
+
+
+/* =========================================
+   SAVE PRODUCT
+========================================= */
+
+async function saveProduct(){
+
+  const name =
+  $('name').value.trim();
+
+  const price =
+  Number(
+    $('price').value
+  );
+
+  const category =
+  $('category').value;
+
+
+  if(
+    !name ||
+    !Number.isFinite(price)
+  ){
+
+    message(
+      'Product name and price are required.',
+      true
+    );
+
+    return;
+
+  }
+
+
+  $('saveBtn').disabled =
+  true;
+
+
+  try{
+
+    message(
+      'Saving product...'
+    );
+
+
+    let urls =
+    [...existingImages];
+
+
+    /* Upload new photos */
+
+    for(
+      const file of selectedFiles
+    ){
+
+      const url =
+      await uploadFile(file);
+
+      urls.push(url);
+
+    }
+
+
+    if(!urls.length){
+
+      throw new Error(
+        'Please select at least one product photo.'
+      );
+
+    }
+
+
+    const payload = {
+
+      name:name,
+
+      price:price,
+
+      category:category,
+
+      brand:
+      category === 'SHOES'
+      ? (
+          $('brand').value ||
+          null
+        )
+      : null,
+
+      image_url:
+      urls[0],
+
+      image_urls:
+      urls,
+
+      shoe_sizes:
+      category === 'SHOES'
+      ? parseList(
+          $('shoeSizes').value
+        )
+      : [],
+
+      colors:
+      parseList(
+        $('colors').value
+      )
+
+    };
+
+
+    let response;
+
+
+    /* EDIT */
+
+    if(editingId){
+
+      response =
+      await fetch(
+
+        SUPABASE_URL +
+        '/rest/v1/products?id=eq.' +
+        encodeURIComponent(
+          editingId
+        ),
+
+        {
+          method:'PATCH',
+
+          headers:
+          headers({
+            'Prefer':
+            'return=minimal'
+          }),
+
+          body:
+          JSON.stringify(
+            payload
+          )
+
+        }
+
+      );
+
+    }
+
+
+    /* ADD */
+
+    else{
+
+      response =
+      await fetch(
+
+        SUPABASE_URL +
+        '/rest/v1/products',
+
+        {
+          method:'POST',
+
+          headers:
+          headers({
+            'Prefer':
+            'return=minimal'
+          }),
+
+          body:
+          JSON.stringify(
+            payload
+          )
+
+        }
+
+      );
+
+    }
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    message(
+      editingId
+      ? 'Product updated successfully.'
+      : 'Product added successfully.'
+    );
+
+
+    resetForm();
+
+    await loadProducts();
+
+
+  }catch(error){
+
+    message(
+      error.message,
+      true
+    );
+
+  }finally{
+
+    $('saveBtn').disabled =
+    false;
+
+  }
+
+}
+
+
+
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
 
 async function loadProducts(){
- let r=await db.from('products').select('id,name,price,category,brand,colors,shoe_sizes,image_url,image_urls').order('id',{ascending:false});
- if(r.error)r=await db.from('products').select('id,name,price,category,brand,shoe_sizes,image_url,image_urls').order('id',{ascending:false});
- if(r.error&&/brand/i.test(r.error.message||'')){brandAvailable=false;r=await db.from('products').select('id,name,price,category,shoe_sizes,image_url').order('id',{ascending:false})}
- if(r.error){$('products').innerHTML='<div class="error">'+esc(r.error.message)+'</div>';return}
- $('products').innerHTML=(r.data||[]).map(p=>`<article class="card"><img src="${esc(p.image_url||'')}" alt="${esc(p.name)}"><div class="body"><b>${esc(p.name||'')}</b><div class="muted">AED ${Number(p.price||0).toFixed(0)} · ${esc(p.category||'')}${p.brand?' · '+esc(p.brand):''}${p.shoe_sizes?.length?' · Sizes: '+esc(p.shoe_sizes.join(', ')):''}${p.colors?' · Colors: '+esc(colorsText(p.colors)):''}${p.image_urls?.length>1?' · '+p.image_urls.length+' photos':''}</div><div class="actions"><button onclick='editProduct(${JSON.stringify(p).replace(/</g,'\\u003c')})'>EDIT</button><button class="danger" onclick="deleteProduct('${String(p.id).replace(/'/g,"\\'")}')">DELETE</button></div></div></article>`).join('')||'<div class="muted">No products yet.</div>';
-}
-async function add(){
- const name=$('name').value.trim(),price=Number($('price').value),category=$('category').value,brand=category==='SHOES'?$('brand').value:null,shoe_sizes=category==='SHOES'?sizes():[],colors=parseColors($('colors').value),files=[...($('image').files||[])];
- if(!name||!Number.isFinite(price)||!files.length){msg('Enter name, price and choose one or more photos.');return}
- if(category==='SHOES'&&!shoe_sizes.length){msg('Select at least one shoe number.');return}
- $('addBtn').disabled=true;$('addBtn').textContent='UPLOADING PHOTOS...';msg('');
- try{
-  const urls=[];
-  for(const file of files){const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';const path=`${Date.now()}-${crypto.randomUUID()}.${ext}`;const up=await db.storage.from(BUCKET).upload(path,file,{contentType:file.type||'image/jpeg',upsert:false});if(up.error)throw up.error;urls.push(db.storage.from(BUCKET).getPublicUrl(path).data.publicUrl)}
-  let payload={name,price,category,image_url:urls[0],image_urls:urls};if(category==='SHOES'&&sizeAvailable)payload.shoe_sizes=shoe_sizes;if(brandAvailable)payload.brand=brand;if(colorsAvailable)payload.colors=colorsText(colors);
-  let ins=await db.from('products').insert(payload).select().single();
-  if(ins.error&&/colors/i.test(ins.error.message||'')){delete payload.colors;colorsAvailable=false;ins=await db.from('products').insert(payload).select().single()}
-  if(ins.error&&/shoe_sizes/i.test(ins.error.message||'')){delete payload.shoe_sizes;sizeAvailable=false;ins=await db.from('products').insert(payload).select().single()}
-  if(ins.error&&/image_urls/i.test(ins.error.message||'')){delete payload.image_urls;ins=await db.from('products').insert(payload).select().single()}
-  if(ins.error&&/brand/i.test(ins.error.message||'')){delete payload.brand;brandAvailable=false;ins=await db.from('products').insert(payload).select().single()}
-  if(ins.error)throw ins.error;
-  $('name').value='';$('price').value='';$('colors').value='';$('image').value='';$('preview').style.display='none';document.querySelectorAll('#shoeSizes input').forEach(x=>x.checked=false);msg('Product added successfully.',true);await loadProducts()
- }catch(e){msg(e.message||'Upload failed.')}finally{$('addBtn').disabled=false;$('addBtn').textContent='UPLOAD IMAGE + ADD PRODUCT'}
-}
-async function deleteProduct(id){if(!confirm('Delete this product?'))return;const r=await db.from('products').delete().eq('id',id);if(r.error)alert(r.error.message);else loadProducts()}
-async function editProduct(p){
- const name=prompt('Product name:',p.name||'');if(name===null)return;const price=prompt('Price (AED):',p.price??'');if(price===null)return;const category=prompt('Category:',p.category||'');if(category===null)return;
- const u={name:name.trim(),price:Number(price),category:category.trim()},c=category.trim().toUpperCase();
- if(c==='SHOES'&&sizeAvailable){const raw=prompt('Shoe numbers (comma separated):',p.shoe_sizes?.join(', ')||'38, 39, 40');if(raw===null)return;u.shoe_sizes=raw.split(',').map(x=>x.trim()).filter(Boolean)}
- if(brandAvailable&&c==='SHOES'){const b=prompt('Shoe brand:',p.brand||'NIKE');if(b!==null)u.brand=b.trim().toUpperCase()}
- if(colorsAvailable){const raw=prompt('Product colors (comma separated):',colorsText(p.colors));if(raw===null)return;u.colors=colorsText(raw)}
- const r=await db.from('products').update(u).eq('id',p.id);if(r.error)alert(r.error.message);else loadProducts()
+
+  $('products').innerHTML =
+  '<p>Loading...</p>';
+
+
+  try{
+
+    const response =
+    await fetch(
+
+      SUPABASE_URL +
+      '/rest/v1/products?' +
+      'select=id,name,price,category,brand,image_url,image_urls,shoe_sizes,colors' +
+      '&order=id.desc',
+
+      {
+        headers:
+        headers()
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    products =
+    await response.json();
+
+
+    renderProducts();
+
+
+  }catch(error){
+
+    $('products').innerHTML =
+    `
+    <div class="msg">
+      ${esc(error.message)}
+    </div>
+    `;
+
+  }
+
 }
 
-function itemHtml(x){return `<div class="item"><b>${esc(x.name||'Product')}</b> × ${Number(x.qty||1)}${x.color?' · Color: '+esc(x.color):''}${x.size?' · Size: '+esc(x.size):''}<br><span class="muted">AED ${Number(x.price||0).toFixed(0)} each</span></div>`}
-function statusOptions(status){return['NEW','CONFIRMED','SHIPPED','DELIVERED','CANCELLED'].map(s=>`<option ${s===status?'selected':''}>${s}</option>`).join('')}
-async function loadOrders(){
- $('orders').innerHTML='<div class="muted">Loading orders...</div>';
- const r=await db.from('orders').select('id,created_at,customer_name,phone,address,city,notes,payment_method,items,total,status').order('created_at',{ascending:false});
- if(r.error){$('orders').innerHTML='<div class="error">'+esc(r.error.message)+'<br><small>Make sure the orders table and RLS policies are created.</small></div>';return}
- $('orders').innerHTML=(r.data||[]).map(o=>{
-  let items=Array.isArray(o.items)?o.items:[];let date=new Date(o.created_at).toLocaleString();
-  return `<article class="order"><div class="orderhead"><div><b>Order #${esc(o.id)}</b><div class="muted">${esc(date)}</div></div><span class="badge">${esc(o.status||'NEW')}</span></div><div class="ordergrid" style="margin-top:12px"><div><b>Customer</b><br>${esc(o.customer_name)}</div><div><b>Phone</b><br>${esc(o.phone)}</div><div><b>Address</b><br>${esc(o.address)}</div><div><b>City</b><br>${esc(o.city||'')}</div><div><b>Payment</b><br>${esc(o.payment_method||'')}</div><div><b>Total</b><br>AED ${Number(o.total||0).toFixed(0)}</div></div><div class="orderitems"><b>Products</b>${items.map(itemHtml).join('')}</div>${o.notes?`<div class="muted"><b>Notes:</b> ${esc(o.notes)}</div>`:''}<div class="statusrow"><b>Status:</b><select onchange="updateOrderStatus('${String(o.id).replace(/'/g,"\\'")}',this.value)">${statusOptions(o.status||'NEW')}</select></div></article>`
- }).join('')||'<div class="muted">No orders yet.</div>';
+
+
+/* =========================================
+   GET PRODUCT IMAGES
+========================================= */
+
+function imgs(product){
+
+  if(
+    Array.isArray(
+      product.image_urls
+    ) &&
+    product.image_urls.length
+  ){
+
+    return product.image_urls;
+
+  }
+
+
+  if(
+    typeof product.image_urls ===
+    'string'
+  ){
+
+    try{
+
+      const array =
+      JSON.parse(
+        product.image_urls
+      );
+
+      if(
+        Array.isArray(array)
+      ){
+
+        return array;
+
+      }
+
+    }catch(error){}
+
+  }
+
+
+  return product.image_url
+  ? [product.image_url]
+  : [];
+
 }
-async function updateOrderStatus(id,status){const r=await db.from('orders').update({status}).eq('id',id);if(r.error){alert(r.error.message);await loadOrders()}else await loadOrders()}
-function openStore(){window.open(location.protocol==='file:'?'index.html#shop':location.origin+'/#shop','_blank')}
 
-$('addBtn').onclick=add;$('logoutBtn').onclick=async()=>{await db.auth.signOut();location.reload()};
-$('loginBtn').onclick=async()=>{const email=$('email').value.trim(),password=$('password').value;if(!db){$('loginMsg').textContent='Admin connection is not ready.';return}if(!email||!password){$('loginMsg').textContent='Enter your email and password.';return}$('loginBtn').disabled=true;$('loginBtn').textContent='SIGNING IN...';try{const r=await db.auth.signInWithPassword({email,password});if(r.error)throw r.error;if(!r.data.session)throw new Error('No login session was created.');$('login').classList.add('hidden');$('app').classList.remove('hidden');await loadProducts();await loadOrders()}catch(e){$('loginMsg').textContent=e.message||'Sign in failed.'}finally{$('loginBtn').disabled=false;$('loginBtn').textContent='SIGN IN'}};
 
-if(init()){db.auth.onAuthStateChange((event,session)=>{if(session){$('login').classList.add('hidden');$('app').classList.remove('hidden');loadProducts();loadOrders()}else if(event==='SIGNED_OUT'){$('login').classList.remove('hidden');$('app').classList.add('hidden')}});db.auth.getSession().then(async({data,error})=>{if(error){$('loginMsg').textContent=error.message;return}if(data.session){$('login').classList.add('hidden');$('app').classList.remove('hidden');await loadProducts();await loadOrders()}})}
+
+/* =========================================
+   RENDER PRODUCTS
+========================================= */
+
+function renderProducts(){
+
+  const query =
+  $('search')
+  .value
+  .toLowerCase()
+  .trim();
+
+
+  const list =
+  products.filter(
+    product =>
+
+    !query ||
+
+    [
+      product.name,
+      product.category,
+      product.brand
+    ]
+    .join(' ')
+    .toLowerCase()
+    .includes(query)
+
+  );
+
+
+  if(!list.length){
+
+    $('products').innerHTML =
+    '<p>No products found.</p>';
+
+    return;
+
+  }
+
+
+  $('products').innerHTML =
+  list.map(
+    product => {
+
+      const image =
+      imgs(product)[0] ||
+      '';
+
+
+      return `
+
+      <div class="product">
+
+        <img
+          src="${esc(image)}"
+          alt=""
+        >
+
+        <div>
+
+          <b>
+            ${esc(product.name)}
+          </b>
+
+          <div class="meta">
+
+            AED
+            ${Number(
+              product.price || 0
+            ).toFixed(0)}
+
+            ·
+
+            ${esc(
+              product.category || ''
+            )}
+
+            ${
+              product.brand
+              ? ' · ' +
+                esc(product.brand)
+              : ''
+            }
+
+          </div>
+
+        </div>
+
+
+        <div class="actions">
+
+          <button
+            class="ghost small"
+            onclick='editProduct(${JSON.stringify(String(product.id))})'
+          >
+            EDIT
+          </button>
+
+
+          <button
+            class="danger small"
+            onclick='deleteProduct(${JSON.stringify(String(product.id))})'
+          >
+            DELETE
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }
+  ).join('');
+
+}
+
+
+
+/* =========================================
+   EDIT PRODUCT
+========================================= */
+
+function editProduct(id){
+
+  const product =
+  products.find(
+    item =>
+    String(item.id) ===
+    String(id)
+  );
+
+
+  if(!product){
+    return;
+  }
+
+
+  editingId =
+  product.id;
+
+
+  existingImages =
+  imgs(product);
+
+
+  selectedFiles =
+  [];
+
+
+  $('formTitle').textContent =
+  'Edit Product';
+
+  $('saveBtn').textContent =
+  'UPDATE PRODUCT';
+
+  $('cancelBtn')
+  .classList
+  .remove('hidden');
+
+
+  $('name').value =
+  product.name || '';
+
+
+  $('price').value =
+  product.price ?? '';
+
+
+  $('category').value =
+  product.category ||
+  'SHOES';
+
+
+  $('brand').value =
+  product.brand || '';
+
+
+  if(
+    Array.isArray(
+      product.colors
+    )
+  ){
+
+    $('colors').value =
+    product.colors.join(', ');
+
+  }else{
+
+    $('colors').value =
+    product.colors || '';
+
+  }
+
+
+  let sizes =
+  product.shoe_sizes;
+
+
+  if(
+    typeof sizes ===
+    'string'
+  ){
+
+    try{
+
+      sizes =
+      JSON.parse(sizes);
+
+    }catch(error){
+
+      sizes =
+      parseList(sizes);
+
+    }
+
+  }
+
+
+  $('shoeSizes').value =
+  Array.isArray(sizes)
+  ? sizes.join(', ')
+  : '';
+
+
+  $('files').value =
+  '';
+
+
+  renderPhotos();
+
+  categoryChanged();
+
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+}
+
+
+
+/* =========================================
+   DELETE PRODUCT
+========================================= */
+
+async function deleteProduct(id){
+
+  const product =
+  products.find(
+    item =>
+    String(item.id) ===
+    String(id)
+  );
+
+
+  if(
+    !product ||
+    !confirm(
+      'Delete "' +
+      product.name +
+      '"?'
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const response =
+    await fetch(
+
+      SUPABASE_URL +
+      '/rest/v1/products?id=eq.' +
+      encodeURIComponent(id),
+
+      {
+        method:'DELETE',
+
+        headers:
+        headers()
+      }
+
+    );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+
+    }
+
+
+    await loadProducts();
+
+    message(
+      'Product deleted.'
+    );
+
+
+  }catch(error){
+
+    message(
+      error.message,
+      true
+    );
+
+  }
+
+}
+
+
+
+/* =========================================
+   START
+========================================= */
+
+categoryChanged();
+
+restore();
+
 </script>
+
 </body>
-</html>
+ </html>
