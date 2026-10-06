@@ -10,7 +10,7 @@
 <meta property="og:title" content="ALVÉN | Premium Fashion & Sneakers">
 <meta property="og:description" content="Shop ALVÉN fashion, sneakers and streetwear in AED.">
 <meta property="og:url" content="https://alvenstore.vercel.app/">
-<meta property="og:image" content="https://alvenstore.vercel.app/alven-logo.jpg">
+<meta property="og:image" content="https://alvenstore.vercel.app/alven-logo.png">
 <meta name="twitter:card" content="summary_large_image">
 <style>
 :root{--bg:#f5f3ee;--ink:#111;--muted:#777;--line:#ddd8cf}
@@ -35,7 +35,7 @@ a{text-decoration:none;color:inherit}.delivery-banner{width:100%;background:#111
 <body>
 <div class="delivery-banner">🚚 FREE DELIVERY ACROSS UAE 🇦🇪</div>
 <nav class="nav">
-<a class="logo" href="/"><img src="alven-logo.jpg" alt="ALVÉN logo"><span>ALVÉN</span></a>
+<a class="logo" href="/"><img src="alven-logo.png" alt="ALVÉN logo"><span>ALVÉN</span></a>
 <div class="links"><a href="/shop.html">Shop</a><a href="/products.html">Products</a><a href="/about.html">About</a><a href="/shipping.html">Shipping</a><a href="/contact.html">Contact</a></div>
 <div class="actions"><button onclick="focusSearch()">Search</button><button onclick="openCart()">Bag (<b id="count">0</b>)</button></div>
 </nav>
@@ -43,12 +43,12 @@ a{text-decoration:none;color:inherit}.delivery-banner{width:100%;background:#111
 <section class="section">
 <div class="searchbox" style="display:flex;gap:8px"><input id="searchInput" type="search" placeholder="SEARCH PRODUCTS..." autocomplete="off" oninput="setSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();runSearch()}" style="flex:1"><button class="filter" onclick="runSearch()">SEARCH</button><button class="filter" onclick="clearSearch()">CLEAR</button></div>
 <div class="head"><div><div class="kicker">EXPLORE</div><h2>SHOP</h2></div></div>
-<div class="textcats"><button onclick="pick('SHOES')">SHOES</button><button onclick="pick('HOODIE')">HOODIE</button><button onclick="pick('PANTS')">PANTS</button><button onclick="pick('T-SHIRT')">T-SHIRT</button></div>
+<div class="textcats"><button onclick="pick('SHOES')">SHOES</button><button onclick="pick('HOODIE')">HOODIE</button><button onclick="pick('PANTS')">PANTS</button><button onclick="pick('T-SHIRT')">T-SHIRT</button><button onclick="pick('STREETWEAR')">STREETWEAR</button></div>
 <div id="shoeBrands" class="shoeBrands"></div>
 </section>
 <section class="section" id="shop"><div class="head"><div><div class="kicker">THE COLLECTION</div><h2>Latest Pieces</h2></div><div class="filters" id="filters"></div></div><div class="grid" id="products"><div class="empty">Loading collection...</div></div></section>
 <section class="banner"><h2>BUILT FOR<br>YOUR EVERYDAY.</h2></section>
-<footer class="footer"><div><div class="logo"><img src="alven-logo.jpg" alt="ALVÉN logo"><span>ALVÉN</span></div><p>Modern fashion. Simple identity.</p></div><div><b>SHOP</b><p><a href="/shop.html">Shop</a><br><a href="/products.html">Products</a><br><a href="/shipping.html">Shipping</a></p></div><div><b>ABOUT</b><p><a href="/about.html">About ALVÉN</a><br><a href="/contact.html">Contact</a></p></div></footer>
+<footer class="footer"><div><div class="logo"><img src="alven-logo.png" alt="ALVÉN logo"><span>ALVÉN</span></div><p>Modern fashion. Simple identity.</p></div><div><b>SHOP</b><p><a href="/shop.html">Shop</a><br><a href="/products.html">Products</a><br><a href="/shipping.html">Shipping</a></p></div><div><b>ABOUT</b><p><a href="/about.html">About ALVÉN</a><br><a href="/contact.html">Contact</a></p></div></footer>
 
 <aside class="drawer" id="drawer">
 <div class="drawerhead"><h2>Your Bag</h2><button class="close" onclick="closeCart()">×</button></div>
@@ -69,16 +69,19 @@ a{text-decoration:none;color:inherit}.delivery-banner{width:100%;background:#111
 <div class="modalbox" style="display:block;max-width:620px;position:relative">
 <button class="modalclose" onclick="closeCheckout()">×</button>
 <div class="modalinfo">
-<div class="kicker">ALVÉN CHECKOUT</div><h2>Pay on Delivery</h2>
-<p style="color:#777">Enter your UAE delivery details. You will pay when your order is delivered.</p>
+<div class="kicker">ALVÉN CHECKOUT</div><h2>Complete Your Order</h2>
+<p style="color:#777">Choose your GCC country and payment method.</p>
 <div class="formgrid">
 <div><label>FULL NAME *</label><input id="customerName" autocomplete="name" placeholder="Your name"></div>
+<div><label>COUNTRY *</label><select id="customerCountry" onchange="updateCheckoutOptions()"><option value="AE">🇦🇪 UAE</option><option value="SA">🇸🇦 Saudi Arabia</option><option value="QA">🇶🇦 Qatar</option><option value="KW">🇰🇼 Kuwait</option><option value="OM">🇴🇲 Oman</option><option value="BH">🇧🇭 Bahrain</option></select></div>
 <div><label>PHONE *</label><input id="customerPhone" type="tel" autocomplete="tel" placeholder="+971 5X XXX XXXX"></div>
-<div class="full"><label>UAE DELIVERY ADDRESS *</label><textarea id="customerAddress" autocomplete="street-address" placeholder="Building, street, area"></textarea></div>
 <div><label>CITY *</label><input id="customerCity" placeholder="Dubai, Sharjah, Ajman..."></div>
-<div><label>ORDER NOTES</label><input id="customerNotes" placeholder="Optional"></div>
+<div class="full"><label>DELIVERY ADDRESS *</label><textarea id="customerAddress" autocomplete="street-address" placeholder="Building, street, area"></textarea></div>
+<div><label>PAYMENT METHOD *</label><select id="paymentMethod" onchange="updatePaymentNote()"><option value="PAY_ON_DELIVERY">💵 Cash on Delivery</option><option value="ONLINE_PAYMENT">💳 Online Payment</option></select></div>
+<div><label>SHIPPING</label><div id="shippingFee" style="padding:12px;border:1px solid #ddd;background:#f7f7f7">FREE — UAE</div></div>
+<div class="full"><label>ORDER NOTES</label><input id="customerNotes" placeholder="Optional"></div>
 </div>
-<div class="codnote"><b>PAYMENT: PAY ON DELIVERY</b><br>No online payment is required. Cash/card payment can be arranged at delivery according to your delivery service.</div>
+<div id="paymentNote" class="codnote"><b>PAYMENT: PAY ON DELIVERY</b><br>Available for UAE orders.</div>
 <p id="checkoutMsg" style="color:#b00020"></p>
 <button class="checkout" onclick="placeOrder()">PLACE ORDER</button>
 </div></div></div>
@@ -182,24 +185,48 @@ function removeCart(i){cart.splice(i,1);updateCart()}
 function openCart(){$('drawer').classList.add('open');updateCart()}
 function closeCart(){$('drawer').classList.remove('open')}
 
+function shippingPerPair(country){return country==='AE'?0:12}
+function cartQty(){return cart.reduce((s,x)=>s+Number(x.qty||1),0)}
+function updateCheckoutOptions(){
+  const country=$('customerCountry').value;
+  const fee=shippingPerPair(country)*cartQty();
+  $('shippingFee').textContent=country==='AE'?'FREE — UAE':'AED '+fee.toFixed(0)+' — GCC delivery';
+  const pm=$('paymentMethod');
+  if(country==='AE'){
+    pm.innerHTML='<option value="PAY_ON_DELIVERY">💵 Cash on Delivery</option><option value="ONLINE_PAYMENT">💳 Online Payment</option>';
+    $('customerPhone').placeholder='+971 5X XXX XXXX';
+  }else{
+    pm.innerHTML='<option value="ONLINE_PAYMENT">💳 Online Payment</option>';
+    $('customerPhone').placeholder='Enter your country phone number';
+  }
+  updatePaymentNote();
+}
+function updatePaymentNote(){
+  const country=$('customerCountry').value,pm=$('paymentMethod').value;
+  if(country==='AE'&&pm==='PAY_ON_DELIVERY')$('paymentNote').innerHTML='<b>PAYMENT: CASH ON DELIVERY</b><br>Pay when your order is delivered in the UAE.';
+  else $('paymentNote').innerHTML='<b>PAYMENT: ONLINE PAYMENT</b><br>Online payment must be completed before the order can be dispatched. Payment gateway connection is required to collect the payment.';
+}
 function openCheckout(){
   if(!cart.length){alert('Your bag is empty.');return}
-  $('checkoutMsg').textContent='';$('checkoutModal').classList.add('open');document.body.style.overflow='hidden'
+  $('checkoutMsg').textContent='';$('checkoutModal').classList.add('open');document.body.style.overflow='hidden';updateCheckoutOptions();
 }
 function closeCheckout(){$('checkoutModal').classList.remove('open');document.body.style.overflow=''}
 function cartTotal(){return cart.reduce((s,x)=>s+Number(x.price||0)*Number(x.qty||1),0)}
 async function placeOrder(){
   if(!cart.length){$('checkoutMsg').textContent='Your bag is empty.';return}
-  const name=$('customerName').value.trim(),phone=$('customerPhone').value.trim(),address=$('customerAddress').value.trim(),city=$('customerCity').value.trim(),notes=$('customerNotes').value.trim();
-  if(!name||!phone||!address||!city){$('checkoutMsg').textContent='Please fill in your name, phone, UAE address and city.';return}
+  const name=$('customerName').value.trim(),country=$('customerCountry').value,phone=$('customerPhone').value.trim(),address=$('customerAddress').value.trim(),city=$('customerCity').value.trim(),notes=$('customerNotes').value.trim(),payment=$('paymentMethod').value;
+  if(!name||!phone||!address||!city){$('checkoutMsg').textContent='Please fill in your name, phone, address and city.';return}
+  if(country!=='AE'&&payment==='PAY_ON_DELIVERY'){ $('checkoutMsg').textContent='Cash on Delivery is available only in the UAE.';return }
+  if(payment==='ONLINE_PAYMENT'){ $('checkoutMsg').textContent='Online payment is selected, but the payment gateway is not connected yet. Choose Cash on Delivery for UAE or connect a payment gateway before accepting online payments.';return }
   const btn=document.querySelector('#checkoutModal .checkout');btn.disabled=true;btn.textContent='PLACING ORDER...';$('checkoutMsg').textContent='';
+  const shipping=shippingPerPair(country)*cartQty();
   const items=cart.map(x=>({id:x.id,name:x.name,price:Number(x.price||0),qty:Number(x.qty||1),color:x.color||'',size:x.size||'',image_url:x.image_url||''}));
-  const payload={customer_name:name,phone,address,city,notes,payment_method:'PAY_ON_DELIVERY',items,total:cartTotal(),status:'NEW'};
+  const payload={customer_name:name,phone,address,city,notes,payment_method:payment,country,items,total:cartTotal()+shipping,status:'NEW'};
   try{
     const r=await fetch(SUPABASE_URL+'/rest/v1/orders',{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify(payload)});
     const data=await r.json();if(!r.ok)throw new Error(data.message||data.hint||'Order could not be placed.');
     const order=data[0]||data;
-    $('checkoutModal').querySelector('.modalinfo').innerHTML=`<div class="success"><div class="kicker">ORDER RECEIVED</div><h2>Thank you!</h2><p>Your ALVÉN order has been submitted successfully.</p><p><b>Order #${esc(order.id||'')}</b></p><p>Payment: <b>Pay on Delivery</b></p><button class="checkout" onclick="finishOrder()">DONE</button></div>`;
+    $('checkoutModal').querySelector('.modalinfo').innerHTML=`<div class="success"><div class="kicker">ORDER RECEIVED</div><h2>Thank you!</h2><p>Your ALVÉN order has been submitted successfully.</p><p><b>Order #${esc(order.id||'')}</b></p><p>Country: <b>${esc(country)}</b></p><p>Payment: <b>Cash on Delivery</b></p><p>Delivery: <b>${shipping===0?'FREE':'AED '+shipping.toFixed(0)}</b></p><button class="checkout" onclick="finishOrder()">DONE</button></div>`;
   }catch(e){$('checkoutMsg').textContent=e.message||'Order failed.'}finally{btn.disabled=false;btn.textContent='PLACE ORDER'}
 }
 function finishOrder(){cart=[];localStorage.removeItem('alven_cart');updateCart();closeCheckout();openCart();setTimeout(closeCart,1200)}
